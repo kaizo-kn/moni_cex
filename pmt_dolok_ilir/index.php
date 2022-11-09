@@ -7,12 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beranda - PMT Dolok Ilir</title>
     <link rel="icon" type="image/x-icon" href="assets/icon/Logo_PTPN4.png">
-    <!-- Offline -->
+    <!-- Online -->
     <link rel="stylesheet" href="assets/css/main-style.css">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css">
-    <script src="assets/bootstrap/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.bundle.js"></script>
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 
 </head>
 
@@ -138,8 +137,7 @@
     <section id="maps">
         <div class="row mt-lg-5 pt-lg-5 pb-lg-5 pt-sm-0 mt-sm-1">
             <div class="container d-flex justify-content-center mt-lg-5 pt-lg-5 pb-5 pt-sm-0 ">
-                <iframe style="border:1px solid rgb(112, 112, 112);border-radius: 5px;" width="100%" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.901765039673!2d99.15984856807069!3d3.1206798541886043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30317e69a3363351%3A0xe534e90602846ee2!2sPTPN%20IV%20Dolok%20Ilir!5e0!3m2!1sid!2sid!4v1666852086519!5m2!1sid!2sid"
-                    height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe style="border:1px solid rgb(112, 112, 112);border-radius: 5px;" width="100%" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.901765039673!2d99.15984856807069!3d3.1206798541886043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30317e69a3363351%3A0xe534e90602846ee2!2sPTPN%20IV%20Dolok%20Ilir!5e0!3m2!1sid!2sid!4v1666852086519!5m2!1sid!2sid" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </section>
