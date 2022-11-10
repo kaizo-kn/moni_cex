@@ -18,7 +18,9 @@ echo '<!DOCTYPE html>
     
 </head>
 <body>
-<input id="basepath" type="hidden" value="'.$current.'"
-'.include "menu.php";
-
+<section id="path">
+<input id="basepath" type="hidden" value="'.$current.'">
+</section>
+';
+include 'menu.php';
 ?>
