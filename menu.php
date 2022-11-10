@@ -1,7 +1,7 @@
 <?php
 
 echo '<section id="menu">
-<nav class="navbar navbar-expand-custom navbar-mainbg p-0">
+<nav id="navbar" class="navbar navbar-expand-custom navbar-mainbg p-0 ">
     <div class="navbar-brand navbar-logo">
         <div>
             <div class="d-flex justify-content-between">

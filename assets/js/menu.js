@@ -10,20 +10,20 @@ function test() {
     $(".hori-selector").css({
         "top": itemPosNewAnimTop.top + "px",
         "left": itemPosNewAnimLeft.left + "px",
-        "height": activeWidthNewAnimHeight + "px",
+
         "width": activeWidthNewAnimWidth + "px"
     });
     $("#navbarSupportedContent").on("click", "li", function(e) {
         $('#navbarSupportedContent ul li').removeClass("active");
         $(this).addClass('active');
-        var activeWidthNewAnimHeight = $(this).innerHeight();
+        var activeWidthNewAnimHeight = $(this).innerHeight() - 100;
         var activeWidthNewAnimWidth = $(this).innerWidth();
         var itemPosNewAnimTop = $(this).position();
         var itemPosNewAnimLeft = $(this).position();
         $(".hori-selector").css({
             "top": itemPosNewAnimTop.top + "px",
             "left": itemPosNewAnimLeft.left + "px",
-            "height": activeWidthNewAnimHeight + "px",
+
             "width": activeWidthNewAnimWidth + "px"
         });
     });
@@ -54,4 +54,16 @@ $(document).ready(function() {
             $this.parent().removeClass('active');
         }
     })
+});
+
+let navbar = document.getElementById("navbar");
+
+let navPos = navbar.getBoundingClientRect().top;
+window.addEventListener("scroll", e => {
+    let scrollPos = window.scrollY;
+    if (scrollPos > navPos) {
+        navbar.classList.add('sticky__');
+    } else {
+        navbar.classList.remove('sticky__');
+    }
 });
