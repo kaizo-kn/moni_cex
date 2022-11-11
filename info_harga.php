@@ -18,7 +18,7 @@ include 'head.php';
                         <li>Harga BELUM termasuk biaya pengiriman (transportasi)</li>
                         <li>Harga sudah termasuk PPN 11% dan upah</li>
                         <li>Harga dapat berubah sewaktu-waktu sesuai kondisi pasar</li>
-                        <li>Niaya belum termasuk tarif pekerja atau mandah di LUAR SUMATERA UTARA (luar wilayah)</li>
+                        <li>Biaya belum termasuk tarif pekerja atau mandah di LUAR SUMATERA UTARA (luar wilayah)</li>
                         <li>Pemesanan selain PTPN IV harus melalui persetujuan BoM (Board of Management)</li>
                     </ul>
                 </div>
