@@ -26,7 +26,7 @@ function check($array)
 }
 
 $host = "localhost";
-$database = "humasptpn_data-pmt";
+$database = "data-pmt";
         $username =$_POST['username'];
         $password =$_POST['password'];
         $tanggal_update =dateUpdate();

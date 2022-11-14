@@ -1,8 +1,8 @@
 <?php
 error_reporting(E_ALL);
 $host = "localhost";
-$database = "humasptpn_data-pmt";
-        $username = "humasptpn_adminPMTPN4";
+$database = "data-pmt";
+        $username = "adminPMTPN4";
         $password = "PMTPN4#@!admin";
         $connect = mysqli_connect($host, $username, $password, $database);
         $query = 'select* from stok_sparepart_PMT';
