@@ -36,7 +36,7 @@ include 'head.php';
             </div>
 
             <div class="collapse mt-3" id="shortExampleAnswer3collapse">
-                Surat Edaran (SE) Nomor : 04.05/SE/153/IX/2022 <br>
+               <a href="surat-edaran.php" target="_blank" rel="noopener noreferrer"> Surat Edaran (SE) Nomor : 04.05/SE/153/IX/2022</a> <br>
                 Perihal : Penetapan 6 Standarisasi dan Penyediaan Stok Komponen MesinInstalasi PKS di PMT Dolok Ilir
                 Tanggal 13 September 2022
             </div>
