@@ -4,7 +4,7 @@ include 'head.php'; ?>
 
 <section id="header">
     <div class="container">
-        <div class="header mb-sm-5" style="background: url('assets/images/header-pmt.jpg') center center no-repeat;">
+        <div class="header mb-sm-5" style="background: url('<?=base_url()?>/assets/images/header-pmt.jpg') center center no-repeat;">
             <div class="container d-flex align-content-center mt-5 pt-5 ">
                 <div class="text-light text-center">
                     <h4 class="font-weight-lighter">
@@ -195,10 +195,10 @@ include 'head.php'; ?>
             </div>
             <div class="modal-body__">
                 <div>
-                    <img src="assets/images/FRUIT ELEVATOR.jpg" alt="" srcset="">
+                    <img src="<?=base_url()?>/assets/images/FRUIT ELEVATOR.jpg" alt="" srcset="">
                 </div>
                 <div>
-                    <img src="assets/images/FRUIT ELEVATOR2.jpg" alt="" srcset="">
+                    <img src="<?=base_url()?>/assets/images/FRUIT ELEVATOR2.jpg" alt="" srcset="">
                 </div>
             </div>
             <div class="modal-footer__">
@@ -268,5 +268,5 @@ include 'head.php'; ?>
 
     </div>
 </section>
-<script src="assets/js/main.js"></script>
+<script src="<?=base_url()?>/assets/js/main.js"></script>
 <?php include 'footer.php' ?>

@@ -6,7 +6,7 @@
                     <h2 class="text-center text-light mt-3">PMT PTPN IV Dolok Ilir</h2>
                     <div class="d-flex justify-content-center mb-3">
                         <div class="rounded bg-light p-3 rounded-circle">
-                            <img src="assets/icon/Logo_PTPN4.png" class="img-fluid profile-image-pic" width="200px" alt="profile">
+                            <img src="<?=base_url()?>/assets/icon/Logo_PTPN4.png" class="img-fluid profile-image-pic" width="200px" alt="profile">
                         </div>
                     </div>
                     <form action="pmt-login.php" method="post">

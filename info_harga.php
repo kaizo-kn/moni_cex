@@ -234,5 +234,5 @@ include 'head.php';
         </div>
     </div>
 </div>
-<script src="assets/js/main.js"></script>
+<script src="<?=base_url()?>/assets/js/main.js"></script>
 <?php include 'footer.php' ?>

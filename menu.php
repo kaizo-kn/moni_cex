@@ -6,7 +6,7 @@ echo '<section id="menu">
         <div>
             <div class="d-flex justify-content-between">
             <a href="https://ptpn4.co.id">
-                <img src="assets/icon/Logo_PTPN4.png" alt="" srcset="" width="60px" height="60px" class="">
+                <img src="'.base_url().'/assets/icon/Logo_PTPN4.png" alt="" srcset="" width="60px" height="60px" class="">
                </a>
                 <a href="index.php" style="text-decoration:none">
                 <h1 style="color:white;" id="brand" class="ml-4 text-decoration-none text-light">PMT-Dolok Ilir</h1>

@@ -7,6 +7,6 @@
         </div>
     </section>
     </body>
-    <script src="assets/js/menu.js"></script>
+    <script src="'.base_url().'/assets/js/menu.js"></script>
     </html>
     ';?>

@@ -1,3 +1,5 @@
+<?php include 'base-url.php' ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +12,7 @@
 
 <body style="overflow: hidden;">
     <div style="margin:5%;margin-bottom:0px;display:flex;justify-content:center;">
-        <img width="50%" height="50%" src="assets/images/forbidden.webp" alt="forbidden" srcset="">
+        <img width="50%" height="50%" src="<?php echo base_url(); ?>/assets/images/forbidden.webp" alt="forbidden" srcset="">
         
     </div>
     <form  style="display:flex;justify-content:center;" action="index.php" method="post">
