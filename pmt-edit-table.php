@@ -276,6 +276,7 @@ setTimeout(() => {
     </div>
     ';
     echo '  <form id="logout" action="pmt-logout.php" method="post"></form>';
+    mysqli_close($connect);
 } else {
     header("Location: forbidden.php");
 }
@@ -285,7 +286,7 @@ setTimeout(() => {
         $('#navbarSupportedContent').html('');
         $('#db').addClass('row')
         $('#db').html(`<div class="row text-light fw-bolder m-3 w-100">
-        <span class="lead mr-2"><?php echo 'Halo, ' . $_SESSION['username'] . '|' ?> </span>
+        <span class="lead mr-2"><?php echo 'Halo, ' . $_SESSION['username'] . ' |' ?> </span>
         <button style="transform:translateY(-4px);color:red;" form="logout" type="submit" class="bg-transparent border-0">Keluar</button><div style="width:400px"></div><button form="stok-sparepart-pmt" style="float:left;" class="btn btn-info mr-3 " type="submit">Kirim</button>
     </div>`)
         var current = 'info_stok_sparepart.php'

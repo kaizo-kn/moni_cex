@@ -282,7 +282,9 @@ setTimeout(() => {
 
     </form>
 </div>
-' ?>
+' ;
+mysqli_close($connect);
+?>
     </section>
 </div>
 <script>

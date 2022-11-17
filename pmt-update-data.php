@@ -103,7 +103,7 @@ $query="";
           WHERE  `id` = '1'";
                 $connect = mysqli_connect($host, $username, $password, $database);
                 if(!mysqli_query($connect, $query)){
-                        $_SESSION['msg']='<div class="alert alert-danger w-100">'.mysqli_error(($connect)).'</div>';
+                        $_SESSION['msg']='<div class="alert alert-danger w-100">MySQL Error</div>';
                         header("Location: pmt-edit-table.php");
                 }else{
                 $_SESSION['msg']='<div class="alert alert-success w-100">Data Sukses Diperbaharui</div>';

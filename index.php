@@ -19,7 +19,7 @@ include 'head.php'; ?>
         <div class="container p-4 text-center text-dark mt-3" style="background-color: orange;">
             <h2>Tujuan 6 Standarisasi Mesin dan Instalasi di PKS
             </h2><br><br>
-            <p class="font-weight-bold">Program 6 Standarisasi ini bertujuan : kualitas bahan yang dipakai, kualitas pekerjaan dan kualitas pemasangan yang lebih terjamin sehingga umur teknis lebih tinggi; performance meningkat (kapasitas dan mutu olah tercapai); dan memudahkan
+            <p class="font-weight-bold lead">Program 6 Standarisasi ini bertujuan : kualitas bahan yang dipakai, kualitas pekerjaan dan kualitas pemasangan yang lebih terjamin sehingga umur teknis lebih tinggi; performance meningkat (kapasitas dan mutu olah tercapai); dan memudahkan
                 PMT Dolok Ilir dalam menyediakan suku cadang/ spare part.</p>
         </div>
         <div class="row d-flex justify-content-center pt-lg-0 mt-lg-0 pb-5 mb-5 pt-sm-5">
