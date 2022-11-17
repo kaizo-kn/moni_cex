@@ -29,6 +29,7 @@ function test() {
     });
 }
 $(document).ready(function() {
+
     setTimeout(function() { test(); });
 });
 $(window).on('resize', function() {
@@ -55,6 +56,8 @@ $(document).ready(function() {
         }
     })
 });
+
+
 
 let navbar = document.getElementById("navbar");
 
