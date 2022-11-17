@@ -31,7 +31,7 @@ include 'head.php';
     </div>
     <div class="row d-flex justify-content-center">
         <div class="col-lg-2 col-sm-6">
-            <div class="pricebox-wrapper__" onclick="$('#lori-h').toggle()"
+            <div class="pricebox-wrapper__" onclick="$('#lori-h').toggle();toggleScroll();"
                 style="background-image:url('https://www.ptpn4.co.id/wp-content/uploads/2022/10/lori-e1666766982504.png');">
                 <div class="pricebox__">
                     <img src="" alt="" srcset="">
@@ -39,11 +39,11 @@ include 'head.php';
                 </div>
 
             </div>
-            <div id="lori-h" onclick="document.getElementById('lori-h').style.display='none'" class="modal__">
+            <div id="lori-h" class="modal__">
                 <!-- Modal content -->
                 <div class="modal-content__">
                     <div class="modal-header__">
-                        <span onclick="document.getElementById('lori-h').style.display = 'none'"
+                        <span onclick="$('#lori-h').toggle();toggleScroll();"
                             class="close__">×</span>
                         <h2 style="text-align:center ;color:white;">Lori</h2>
                     </div>
@@ -60,17 +60,17 @@ include 'head.php';
             </div>
         </div>
         <div class="col-lg-2 col-sm-6">
-            <div onclick="$('#thrs-h').toggle()" class="pricebox-wrapper__"
+            <div onclick="$('#thrs-h').toggle();toggleScroll();" class="pricebox-wrapper__"
                 style="background-image:url('https://www.ptpn4.co.id/wp-content/uploads/2022/10/thresher.png')">
                 <div class="pricebox__">
                     <h4 class="pricebox-brand__">Thresher</h4>
                 </div>
             </div>
-            <div id="thrs-h" onclick="document.getElementById('thrs-h').style.display='none'" class="modal__">
+            <div id="thrs-h"  class="modal__">
                 <!-- Modal content -->
                 <div class="modal-content__">
                     <div class="modal-header__">
-                        <span onclick="document.getElementById('thrs-h').style.display = 'none'"
+                        <span onclick="$('#thrs-h').toggle();toggleScroll();"
                             class="close__">×</span>
                         <h2 style="text-align:center ;color:white;">Thresher</h2>
                     </div>
@@ -92,7 +92,7 @@ include 'head.php';
             </div>
         </div>
         <div class="col-lg-2 col-sm-6">
-            <div onclick="$('#cbc-h').toggle()" class="pricebox-wrapper__"
+            <div onclick="$('#cbc-h').toggle();toggleScroll();" class="pricebox-wrapper__"
                 style="background-image:url('https://www.ptpn4.co.id/wp-content/uploads/2022/10/cbc-e1666766820728.png');">
 
                 <div class="pricebox__"
@@ -100,11 +100,11 @@ include 'head.php';
                     <h3 class="pricebox-brand__">CBC</h3>
                 </div>
             </div>
-            <div id="cbc-h" onclick="$('.modal__').css('display','none')" class="modal__">
+            <div id="cbc-h" class="modal__">
                 <!-- Modal content -->
                 <div class="modal-content__">
                     <div class="modal-header__">
-                        <span onclick="document.getElementById('cbc-h').style.display = 'none'" class="close__">×</span>
+                        <span onclick="$('#cbc-h').toggle();toggleScroll();" class="close__">×</span>
                         <h2 style="text-align:center ;color:white;">Cake Breaker Conveyor</h2>
                     </div>
                     <div class="modal-body__">
@@ -125,18 +125,18 @@ include 'head.php';
             </div>
         </div>
         <div class="col-lg-2 col-sm-6">
-            <div onclick="$('#fre-h').toggle()" class="pricebox-wrapper__"
+            <div onclick="$('#fre-h').toggle();toggleScroll();" class="pricebox-wrapper__"
                 style="background-image:url('https://www.ptpn4.co.id/wp-content/uploads/2022/10/fruitelev.png');">
                 <div class="pricebox__">
                     <h4 class="pricebox-brand__">Timba Buah</h4>
                 </div>
 
             </div>
-            <div id="fre-h" onclick="document.getElementById('fre-h').style.display='none'" class="modal__">
+            <div id="fre-h" class="modal__">
                 <!-- Modal content -->
                 <div class="modal-content__">
                     <div class="modal-header__">
-                        <span onclick="document.getElementById('fre-h').style.display = 'none'" class="close__">×</span>
+                        <span onclick="$('#fre-h').toggle();toggleScroll();" class="close__">×</span>
                         <h2 style="text-align:center ;color:white;">Timba Buah</h2>
                     </div>
                     <div class="modal-body__">
@@ -157,7 +157,7 @@ include 'head.php';
             </div>
         </div>
         <div class="col-lg-2 col-sm-6">
-            <div onclick="$('#hdc-h').toggle()" class="pricebox-wrapper__"
+            <div onclick="$('#hdc-h').toggle();toggleScroll();" class="pricebox-wrapper__"
                 style="background-image:url('https://www.ptpn4.co.id/wp-content/uploads/2022/10/isometric.png');">
                 <div class="pricebox__">
                     <h4 class="pricebox-brand__">Hidro<br>Cyclone</h4>
@@ -165,11 +165,11 @@ include 'head.php';
                 </div>
             </div>
 
-            <div id="hdc-h" onclick="document.getElementById('hdc-h').style.display='none'" class="modal__">
+            <div id="hdc-h" class="modal__">
                 <!-- Modal content -->
                 <div class="modal-content__">
                     <div class="modal-header__">
-                        <span onclick="document.getElementById('hdc-h').style.display = 'none'" class="close__">×</span>
+                        <span onclick="$('#hdc-h').toggle();toggleScroll();" class="close__">×</span>
                         <h2 style="text-align:center ;color:white;">Hidrocyclone</h2>
                     </div>
                     <div class="modal-body__">
@@ -201,7 +201,7 @@ include 'head.php';
 
         </div>
         <div class="col-lg-2 col-sm-6">
-            <div onclick="$('#pld-h').toggle()" class="pricebox-wrapper__"
+            <div onclick="$('#pld-h').toggle();toggleScroll();" class="pricebox-wrapper__"
                 style="background-image:url('https://www.ptpn4.co.id/wp-content/uploads/2022/10/polishdrum.png');">
                 <div class="pricebox__">
                     <h5 class="pricebox-brand__">Polishing Drum</h5>
@@ -209,11 +209,11 @@ include 'head.php';
                 </div>
             </div>
 
-            <div id="pld-h" onclick="document.getElementById('pld-h').style.display='none'" class="modal__">
+            <div id="pld-h" class="modal__">
                 <!-- Modal content -->
                 <div class="modal-content__">
                     <div class="modal-header__">
-                        <span onclick="document.getElementById('pld-h').style.display = 'none'" class="close__">×</span>
+                        <span onclick="$('#pld-h').toggle();toggleScroll();" class="close__">×</span>
                         <h2 style="text-align:center ;color:white;">Polishing Drum</h2>
                     </div>
                     <div class="modal-body__">
@@ -234,5 +234,5 @@ include 'head.php';
         </div>
     </div>
 </div>
-
+<script src="assets/js/main.js"></script>
 <?php include 'footer.php' ?>

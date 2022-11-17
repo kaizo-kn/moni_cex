@@ -24,7 +24,7 @@ include 'head.php'; ?>
         </div>
         <div class="row d-flex justify-content-center pt-lg-0 mt-lg-0 pb-5 mb-5 pt-sm-5">
             <div class="col-lg-5 col-xl-5 col-sm-12 mt-lg-5">
-                <div class="box-wrapper__ mb-sm-5" onclick="$('#hdc').toggle()">
+                <div class="box-wrapper__ mb-sm-5" onclick="$('#hdc').toggle();toggleScroll();">
                     <div class="box__ box__-down cyan__">
                         <div style="display: flex;justify-content:center;height:250px;width:auto;margin-top:15px">
                             <img style="transform: scale(0.8);" src="https://www.ptpn4.co.id/wp-content/uploads/2022/10/isometric-e1667276965398.png" alt="">
@@ -41,7 +41,7 @@ include 'head.php'; ?>
                 </div>
             </div>
             <div class="col-lg-5 col-xl-5 col-sm-12 mt-lg-5">
-                <div class="box-wrapper__ mb-sm-5" onclick="$('#cbc').toggle()">
+                <div class="box-wrapper__ mb-sm-5" onclick="$('#cbc').toggle();toggleScroll();">
                     <div class="box__ box__-down cyan__">
                         <div style="display: flex;justify-content:center;height:250px;width:auto;margin-top:15px">
                             <img style="transform: scale(0.8);" src="https://www.ptpn4.co.id/wp-content/uploads/2022/10/cbc-e1666766820728.png" alt="">
@@ -55,7 +55,7 @@ include 'head.php'; ?>
                 </div>
             </div>
             <div class="col-lg-5 col-xl-5 col-sm-12 mt-lg-5">
-                <div class="box-wrapper__ mb-sm-5" onclick="$('#fle').toggle()">
+                <div class="box-wrapper__ mb-sm-5" onclick="$('#fle').toggle();toggleScroll();">
                     <div class="box__ box__-down cyan__">
                         <div style="display: flex;justify-content:center;height:250px;width:auto;margin-top:15px">
                             <img width="100px" height="200px" src="https://www.ptpn4.co.id/wp-content/uploads/2022/10/fruitelev-e1667277149606.png" alt="">
@@ -70,7 +70,7 @@ include 'head.php'; ?>
                 </div>
             </div>
             <div class="col-lg-5 col-xl-5 col-sm-12 mt-lg-5">
-                <div class="box-wrapper__ mb-sm-5" onclick="$('#lori').toggle()">
+                <div class="box-wrapper__ mb-sm-5" onclick="$('#lori').toggle();toggleScroll();">
                     <div class="box__ box__-down cyan__">
                         <div style="display: flex;justify-content:center;height:250px;width:auto;margin-top:15px">
                             <img style="transform: scale(0.8);" src="https://www.ptpn4.co.id/wp-content/uploads/2022/10/lori-e1666766982504.png" alt="">
@@ -85,7 +85,7 @@ include 'head.php'; ?>
                 </div>
             </div>
             <div class="col-lg-5 col-xl-5 col-sm-12 mt-lg-5">
-                <div class="box-wrapper__ mb-sm-5" onclick="$('#pld').toggle()">
+                <div class="box-wrapper__ mb-sm-5" onclick="$('#pld').toggle();toggleScroll();">
                     <div class="box__ box__-down cyan__">
                         <div style="display: flex;justify-content:center;height:250px;width:auto;margin-top:15px">
                             <img style="transform: scale(0.8);" src="https://www.ptpn4.co.id/wp-content/uploads/2022/10/polishdrum-e1667277181789.png" alt="">
@@ -100,7 +100,7 @@ include 'head.php'; ?>
                 </div>
             </div>
             <div class="col-lg-5 col-xl-5 col-sm-12 mt-lg-5">
-                <div class="box-wrapper__ mb-sm-5" onclick="$('#thrs').toggle()">
+                <div class="box-wrapper__ mb-sm-5" onclick="$('#thrs').toggle();toggleScroll();">
                     <div class="box__ box__-down cyan__">
                         <div style="display: flex;justify-content:center;height:250px;width:auto;margin-top:15px">
                             <img style="transform: scale(0.8);" width="auto" height="auto" src="https://www.ptpn4.co.id/wp-content/uploads/2022/10/thresher-e1667277214452.png" alt="">
@@ -129,10 +129,10 @@ include 'head.php'; ?>
 </section>
 
 <section id="modal__">
-    <div id="cbc" onclick="document.getElementById('cbc').style.display='none'" class="modal__">
+    <div id="cbc" class="modal__">
         <div class="modal-content__">
             <div class="modal-header__">
-                <span onclick="document.getElementById('cbc').style.display = 'none'" class="close__">×</span>
+                <span onclick="$('#cbc').toggle();toggleScroll();" class="close__">×</span>
                 <h2 style="text-align:center ;color:white;">Cake Breaker Conveyor</h2>
             </div>
             <div class="modal-body__">
@@ -151,7 +151,7 @@ include 'head.php'; ?>
     <div id="hdc" class="modal__">
         <div class="modal-content__">
             <div class="modal-header__">
-                <span onclick="document.getElementById('hdc').style.display = 'none'" class="close__">×</span>
+                <span onclick="$('#hdc').toggle();toggleScroll();" class="close__">×</span>
                 <h2 style="text-align:center ;color:white;">Hydrocyclone</h2>
             </div>
             <div class="modal-body__">
@@ -170,7 +170,7 @@ include 'head.php'; ?>
     <div id="cbc" class="modal__">
         <div class="modal-content__">
             <div class="modal-header__">
-                <span onclick="document.getElementById('cbc').style.display = 'none'" class="close__">×</span>
+                <span onclick="$('#cbc').toggle();toggleScroll();" class="close__">×</span>
                 <h2 style="text-align:center ;color:white;">Cake Breaker Conveyor</h2>
             </div>
             <div class="modal-body__">
@@ -190,15 +190,15 @@ include 'head.php'; ?>
     <div id="fle" class="modal__">
         <div class="modal-content__">
             <div class="modal-header__">
-                <span onclick="document.getElementById('fle').style.display = 'none'" class="close__">×</span>
+                <span onclick="$('#fle').toggle();toggleScroll();" class="close__">×</span>
                 <h2 style="text-align:center ;color:white;">Fruit Elevator</h2>
             </div>
             <div class="modal-body__">
                 <div>
-                    <img src="https://www.ptpn4.co.id/wp-content/uploads/2022/10/FRUIT-ELEVATOR.jpg" alt="" srcset="">
+                    <img src="assets/images/FRUIT ELEVATOR.jpg" alt="" srcset="">
                 </div>
                 <div>
-                    <img src="https://www.ptpn4.co.id/wp-content/uploads/2022/10/FRUIT-ELEVATOR-2.jpg" alt="" srcset="">
+                    <img src="assets/images/FRUIT ELEVATOR2.jpg" alt="" srcset="">
                 </div>
             </div>
             <div class="modal-footer__">
@@ -210,7 +210,7 @@ include 'head.php'; ?>
     <div id="lori" class="modal__">
         <div class="modal-content__">
             <div class="modal-header__">
-                <span onclick="document.getElementById('lori').style.display = 'none'" class="close__">×</span>
+                <span onclick="$('#lori').toggle();toggleScroll();" class="close__">×</span>
                 <h2 style="text-align:center ;color:white;">Fruit Cages/Lori Buah</h2>
             </div>
             <div class="modal-body__">
@@ -230,7 +230,7 @@ include 'head.php'; ?>
     <div id="pld" class="modal__">
         <div class="modal-content__">
             <div class="modal-header__">
-                <span onclick="document.getElementById('pld').style.display = 'none'" class="close__">×</span>
+                <span onclick="$('#pld').toggle();toggleScroll();" class="close__">×</span>
                 <h2 style="text-align:center ;color:white;">Polishing Drum</h2>
             </div>
             <div class="modal-body__">
@@ -250,7 +250,7 @@ include 'head.php'; ?>
     <div id="thrs" class="modal__">
         <div class="modal-content__">
             <div class="modal-header__">
-                <span onclick="document.getElementById('thrs').style.display = 'none'" class="close__">×</span>
+                <span onclick="$('#thrs').toggle();toggleScroll();" class="close__">×</span>
                 <h2 style="text-align:center ;color:white;">Thresher</h2>
             </div>
             <div class="modal-body__">
@@ -268,4 +268,5 @@ include 'head.php'; ?>
 
     </div>
 </section>
+<script src="assets/js/main.js"></script>
 <?php include 'footer.php' ?>
