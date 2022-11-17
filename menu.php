@@ -34,6 +34,7 @@ echo '<section id="menu">
             </li>
         </ul>
     </div>
+    <div id="db"></div>
 </nav>
 </section>';
 ?>

@@ -15,10 +15,17 @@ include 'head.php';
 
 <?php include 'footer.php' ?>
 <script>
-    $(document).ready(function() {
-        setTimeout(() => {
-         $('#faq.php').addClass('active')   
-        }, 100);
-    
+$(document).ready(function() {
+    var current = 'faq.php'
+    console.log(current)
+    $('#navbarSupportedContent ul li a').each(function() {
+        var $this = $(this);
+        // if the current path is like this link, make it active
+        if ($this.attr('href').indexOf(current) !== -1) {
+            $this.parent().addClass('active');
+        } else {
+            $this.parent().removeClass('active');
+        }
+    })
 });
 </script>

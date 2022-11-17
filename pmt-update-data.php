@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 use function PHPSTORM_META\type;
 
 function dateUpdate()
@@ -27,8 +27,8 @@ function check($array)
 
 $host = "localhost";
 $database = "data-pmt";
-        $username =$_POST['username'];
-        $password =$_POST['password'];
+        $username =$_SESSION['username'];
+        $password =$_SESSION['password'];
         $tanggal_update =dateUpdate();
         $lori_rebusan = $_POST['lori_rebusan'];
         $fruit_elevator = $_POST['fruit_elevator'];
@@ -103,14 +103,14 @@ $query="";
           WHERE  `id` = '1'";
                 $connect = mysqli_connect($host, $username, $password, $database);
                 if(!mysqli_query($connect, $query)){
-                  $return_arr['message'] = mysqli_error(($connect));
+                        $_SESSION['msg']='<div class="alert alert-danger w-100">'.mysqli_error(($connect)).'</div>';
+                        header("Location: pmt-edit-table.php");
                 }else{
-                $return_arr['message'] = 'Success';}
-          echo json_encode($return_arr);
+                $_SESSION['msg']='<div class="alert alert-success w-100">Data Sukses Diperbaharui</div>';
+                header("Location: pmt-edit-table.php");}
         } else {
-                $return_arr['message'] = "Input Contain non-Numerical Value!";
-          echo json_encode($return_arr);
+                $_SESSION['msg']='<div class="alert alert-danger w-100">Data Mengandung Nilai Non Numerik</div>';
+                header("Location: pmt-edit-table.php");
         }
 mysqli_close($connect);
-
 ?>
