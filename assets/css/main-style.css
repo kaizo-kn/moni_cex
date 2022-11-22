@@ -641,3 +641,7 @@ body.modal-active {
         transform: scale(0);
     }
 }
+
+.mainbgc {
+    background-color: #2abb8b;
+}

@@ -19,7 +19,7 @@ include 'head.php';
             </div>
             <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
                 <div class="card-body">
-                    Ada, pada menu <a style="text-decoration: none;" href="index.php"> Informasi Produk</a>
+                    Ada, pada menu <a style="text-decoration: none;" href="<?php echo base_url()?>/info_produk.php"> Informasi Produk</a>
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@ include 'head.php';
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo">
                 <div class="card-body">
-                    Ada, pada menu <a href="info_stok_sparepart.php">Informasi Stok Spare Part</a>
+                    Ada, pada menu <a href="<?php echo base_url()?>/info_stok_sparepart.php">Informasi Stok Spare Part</a>
                 </div>
             </div>
         </div>
@@ -47,7 +47,7 @@ include 'head.php';
             </div>
             <div id="collapse3" class="collapse" aria-labelledby="headingThree">
                 <div class="card-body">
-                    Ada, pada menu <a href="info_harga.php"> Informasi Harga</a>
+                    Ada, pada menu <a href="<?php echo base_url()?>/info_harga.php"> Informasi Harga</a>
                 </div>
             </div>
         </div>
@@ -61,7 +61,7 @@ include 'head.php';
             </div>
             <div id="collapse4" class="collapse" aria-labelledby="heading4">
                 <div class="card-body">
-                    <a href="surat-edaran.php" target="_blank" rel="noopener noreferrer"> Surat Edaran (SE) Nomor : 04.05/SE/153/IX/2022</a> <br>
+                    <a href="<?php echo base_url()?>/surat-edaran.php" target="_blank" rel="noopener noreferrer"> Surat Edaran (SE) Nomor : 04.05/SE/153/IX/2022</a> <br>
                     Perihal : Penetapan 6 Standarisasi dan Penyediaan Stok Komponen MesinInstalasi PKS di PMT Dolok Ilir
                     Tanggal 13 September 2022
                 </div>

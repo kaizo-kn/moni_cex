@@ -1,272 +1,200 @@
 <?php
-$page_title = 'Informasi Produk';
-include 'head.php'; ?>
+$page_title = 'Beranda';
+include 'head.php';
+?>
+<style>
+    body{
+        background-color: rgba(224, 219, 219, 0.8);  
+    }
+</style>
+<div class="row" style="background-image: url(<?php echo base_url()?>assets/images/LATAR_21.jpg);background-size:cover;height: 460px;margin-bottom: -200px;"></div>
 
-<section id="header">
     <div class="container">
-        <div class="header mb-sm-5" style="background: url('<?=base_url()?>/assets/images/header-pmt.jpg') center center no-repeat;">
-            <div class="container d-flex align-content-center mt-5 pt-5 ">
+        <div class="row">
+            <div class="text-light text-center" style=" padding:10px 0px 0px;transform:translateY(-20%)">
+                <h1 id="judul">PMT DOLOK ILIR</h1>
+                <h3 id="subjudul">Unit Perbengkelan PT Perkebunan Nusantara IV</h3>
+                <h5 style="text-align:center;color: #000;text-shadow: 1px 1px 3px #fff;">Saat ini, kami mampu memenuhi seluruh permintaan perbaikan, pembuatan maupun pemasangan instalasi pabrik baik di dalam maupun di luar PTPN IV.</h5>
+            </div>
+            <div class="column mcb-column one column_divider ">
+                <hr class="no_line">
+            </div>
+        </div>
+
+        <div class="row mb-0 pb-0">
+            <div class="col-lg-4 col-sm-1 m-0 p-0">
+                <div style="height:300px" class=" mainbgc d-flex justify-content-center align-items-center">
+                    <div class="d-block">
+                        <h1 class="text-light text-center font-weight-bold" id="judul">PROFIL <br> BISNIS</h1>
+                        <h4 class="text-dark text-center">Pabrik Mesin Tenera</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-sm-1 m-0 p-0">
+                <div style="min-height:300px;background-image: url(<?php echo base_url()?>assets/images/tenera_1.jpg);" class="d-flex justify-content-center align-items-center"></div>
+            </div>
+        </div>
+        <div class="row mt-0 pt-0">
+            <div class="col-lg-8 col-sm-1 m-0 p-3 pl-4 bg-dark">
+                <div style="height:300px" class=" d-flex justify-content-center align-items-center">
+                    <div class="d-block">
+                        <p style="color:#cccccc;font-size:smaller;">
+                            Pabrik Mesin Tenera (PMT) adalah satu unit usaha milik PT Perkebunan Nusantara IV yang bergerak pada bidang manufaktur peralatan dan komponen mesin-mesin Pabrik Kelapa Sawit (PKS). PMT berlokasi di Dolok Ilir Kecamatan Serbalawan Kabupaten Simalungun
+                            Provinsi Sumatera Utara. PMT memiliki beberapa bagian yang saling mendukung dalam melakukan perancangan/desain, proses produksi, sampai dengan pemasangan di lapangan. Bagian-bagian tersebut antara lain: Bagian Perancangan/Desain,
+                            Bagian PPC (Product Planning &amp; Control), Bagian Foundry (Pengecoran Logam), Bagian Permesinan, Bagian Konstruks, Bagian Assembling, Bagian Proyek.<br> SERTIFIKASI UNTUK PENGECORAN LOGAM (SNI)
+                            OLEH BALAI RISET DAN STANDARDISASI INDUSTRI MEDAN :<br> 1. Sertifikasi Besi Tuang Kelabu dan Baja Tuang Paduan<br> 2. Sertifikasi Baja Cor Tahan Panas<br> 3. Sertifikasi Baja Tuang Carbon Kekuatan Rendah dan Menengah<br> 4.
+                            Sertifikasi Mutu Baja Carbon Cor<br> 5. Sertifikasi Baja Cor Berbentuk Bulat</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-1 m-0 p-3 pl-4 bg-light">
+                <div style="min-height:300px;" class="d-flex justify-content-center align-items-center">
+                    <div class="text-center font-weight-bolder">
+                        <div class="image_frame image_item no_link scale-with-grid alignnone no_border">
+                            <div class="image_wrapper"><img class="scale-with-grid" src="https://www.ptpn4.co.id/wp-content/uploads/2017/01/value-icon-mini.png" alt="value-icon-mini" width="35" height="35"></div>
+                        </div>
+                        <br>
+                        <br>
+
+                        <p style="font-size:smaller">
+                            PMT sangat berpengalaman dalam bidang rancang bangun, pembuatan, serta perbaikan peralatan mesin-mesin PKS, khususnya PKS milik PT Perkebunan Nusantara IV. Saat ini PMT telah mengimplementasikan ISO 9001 : 2008 dan SMK3, serta beberapa produk-produk hasil
+                            produksi PMT telah mendapatkan sertifikasi Standard Nasional Indonesia (SNI).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-4">
+        <div class="row row-no-gap mb-0 pb-0">
+            <div class="col-lg-8 col-sm-1 m-0 p-0">
+                <div style="min-height:300px;background-image: url(<?php echo base_url()?>assets/images/tenera_2.jpg);" class=" d-flex justify-content-center align-items-center">
+
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-1 m-0 p-0 bg-dark">
+                <div style="min-height:300px;" class="d-flex justify-content-center align-items-center">
+                    <div class="text-light text-center" style=" padding:10px 0px 0px;transform:translateY(-20%)">
+                        <h1 id="judul">VISI DAN <br>MISI</h1>
+                        <h3 class="text-info">PMT Dolok Ilir</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="font-size:smaller" class="row mt-0 pt-0">
+            <div class="col-lg-8 col-sm-1 m-0 p-3 pl-4 mainbgc">
+                <div style="height:300px" class=" d-flex justify-content-center align-items-center">
+                    <div class="column_attr clearfix">
+                        <h5 style="color:#fff">VISI</h5>
+                        Melayani segala kebutuhan sektor industri Pabrik Kelapa Sawit dalam hal pembuatan mesin-mesin produksi, serta menyediakan jasa perbaikan sparepart dengan kualitas terbaik dan terpercaya<br><br>
+                        <h5 style="color:#fff">MISI</h5>
+                        1.Secara berkesinambungan menyediakan produk dan jasa yang berkualitas hingga mampu memberikan rasa puas dan kepercayaan pelanggan agar terjalin kerjasama yang baik<br> 2.Mengembangkan kualitas karyawan yang berkompeten dengan
+                        menciptakan lingkungan kerja yang baik untuk mendukung tercapainya visi perusahaan terutama kepuasan bagi pelanggan<br><br>
+                        <h5 style="color:#fff">BUDAYA PERUSAHAAN</h5>
+                        Kepuasan pelanggan adalah tujuan kami</div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-1 m-0 p-3 pl-4   bg-light">
+                <div style="min-height:300px;" class="d-flex justify-content-center align-items-center">
+                    <div class="text-center">
+                        <div class="image_frame image_item no_link scale-with-grid alignnone no_border">
+                            <div class="image_wrapper"><img class="scale-with-grid" src="https://www.ptpn4.co.id/wp-content/uploads/2017/01/doc-sign-mini.png" alt="value-icon-mini" width="35" height="35"></div>
+                        </div><br>
+
+                        <p style="font-size:small ;">PMT memiliki program strategi yg memberikan peluang untuk dapat terus melayani para pelanggan antara lain : <br> 1. Dibawah Bagian Teknik dan Pengolahan melayani penuh kehandalan Mesin Instalasi di 16 PKS dan 2 Pabrik Teh PTPN
+                            4 sehingga menciptakan Operasional Excellence yang tangguh dengan pelayanan : Desain Engineering, Permesinan, Konstruksi dan Pemasangan serta pelayanan Produksi Foundry <br> 2. Memiliki produk unggulan 6 mesin instalasi standar
+                            di PKS yang sudah dipergunakan di seluruh PKS PTPN4 sehingga memudahkan dalam penyediaan suku cadang yang standar dan seragam.<br> 3. Mencapai Cost Leadership sehingga memiliki daya saing dan berkesinambungan<br></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-0 pb-0 pt-4">
+            <div class="col-lg-4 col-sm-1 m-0 p-0">
+                <div style="height:300px" class=" mainbgc d-flex justify-content-center align-items-center">
+                    <div class="d-block">
+                        <h1 class="text-light text-center font-weight-bold" id="judul">SEJARAH</h1>
+                        <h5 class="text-dark text-center">Pengalaman kami terus berkembang sejak tahun 1928</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-sm-1 m-0 p-0">
+                <div style="min-height:300px;background-image: url(<?php echo base_url()?>assets/images/tenera_1.jpg);" class="d-flex justify-content-center align-items-center"></div>
+            </div>
+        </div>
+        <div class="row mt-0 pt-0">
+            <div class="col-lg-8 col-sm-1 m-0 p-3 pl-4 bg-dark">
+                <div style="height:300px;" class=" d-flex justify-content-center align-items-center">
+                    <div class="d-block">
+                        <p style="color:white;font-size:smaller;">Didirikan tahun 1928 sebagai unit bengkel yang melayani Pabrik Sisal milik HVA. Pada tahun 1957 pengambil alihan perkebunan milik HVA oleh Pemerintah Indonesia menyebabkan pengubahan nama unit bengkel menjadi Bengkel Induk Dolok
+                            Ilir atau disingkat BIDI yang kegiatannya adalah melayani pabrik-pabrik eks HVA. Sejalan dengan kebijakan pemerintah dibidang pengembangan sektor pertanian maka kegiatan Bengkel Induk Dolok Ilir diarahkan untuk menunjang dan
+                            mendukung pembangunan sektor pertanian khususnya perkebunan kelapa sawit. Dalam upaya untuk meningkatkan kemampuan di bidang manufaktur, rekayasa dan rancang bangun pembuatan dan pemasangan pabrik kelapa sawit maka pada tahun
+                            1982 – 1987 telah dijalin kerja sama teknik dan manajemen dengan Balai Pengembangan Industri Logam dan Mesin (BBLM) Bandung. Pada tahun 1983 nama bengkel Induk diubah menjadi Pabrik Mesin Tenera disingkat PMT. Penetapan Areal
+                            HGU Unit PMT masih berada dalam pengawasan atau menyatu dengan Unit Usaha Dolok Ilir
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-1 m-0 p-3 pl-4 bg-light">
+                <div style="min-height:300px;" class="d-flex justify-content-center align-items-center">
+                    <div class="text-center font-weight-bolder">
+                        <div class="image_frame image_item no_link scale-with-grid alignnone no_border">
+                            <div class="image_wrapper"><img class="scale-with-grid" src="https://www.ptpn4.co.id/wp-content/uploads/2017/01/value-icon-mini.png" alt="value-icon-mini" width="35" height="35"></div>
+                        </div>
+                        <br>
+                        <br>
+                        <p style="font-size:smaller">
+                            PMT sudah melayani banyak PKS di Sumatera dan Kalimantan, dengan pengalaman yang dimiliki akan mampu melayani potensi pasar di seluruh Indonesia.</div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-0 pb-0 mt-4">
+            <div class="col-lg-4 col-sm-1 mainbgc d-flex justify-content-center align-items-center">
+
                 <div class="text-light text-center">
-                    <h4 class="font-weight-lighter">
-                        Program 6 Standarisasi Mesin Instalasi PKS Dimulai pada Tahun 2022 Oleh Bagian Teknik dan Pengolahan PTPN 4
-                    </h4>
-                    <h1 class="font-weight-bold">
-                        6 Standarisasi dan Penyediaan Stok dan Komponen Mesin Instalasi PKS
-                    </h1>
+                    <h1 class="display-4 font-weight-bold">KATALOG <br>PRODUK</h1>
+                    <h3 class="text-dark">Produk PMT Dolok Ilir</h3>
                 </div>
-            </div>
-        </div>
-        <div class="container p-4 text-center text-dark mt-3" style="background-color: orange;">
-            <h2>Tujuan 6 Standarisasi Mesin dan Instalasi di PKS
-            </h2><br><br>
-            <p class="font-weight-bold lead">Program 6 Standarisasi ini bertujuan : kualitas bahan yang dipakai, kualitas pekerjaan dan kualitas pemasangan yang lebih terjamin sehingga umur teknis lebih tinggi; performance meningkat (kapasitas dan mutu olah tercapai); dan memudahkan
-                PMT Dolok Ilir dalam menyediakan suku cadang/ spare part.</p>
-        </div>
-        <div class="row d-flex justify-content-center pt-lg-0 mt-lg-0 pb-5 mb-5 pt-sm-5">
-            <div class="col-lg-5 col-xl-5 col-sm-12 mt-lg-5">
-                <div class="box-wrapper__ mb-sm-5" onclick="$('#hdc').toggle();toggleScroll();">
-                    <div class="box__ box__-down cyan__">
-                        <div style="display: flex;justify-content:center;height:250px;width:auto;margin-top:15px">
-                            <img style="transform: scale(0.8);" src="https://www.ptpn4.co.id/wp-content/uploads/2022/10/isometric-e1667276965398.png" alt="">
-                        </div>
-                        <b></b>
-                        <h2>Hydrocyclone</h2>
-                        <p>Hydrocyclone adalah alat pemisah inti dan cangkang dalam cracksheel dari LTDS (Light Tenera Dust Separator) menggunakan media air.
 
-                        </p>
-                        <br><br><br><br><br>
-                        <p class="text-center">Klik untuk melihat spesifikasi</p>
-
-                    </div>
-                </div>
             </div>
-            <div class="col-lg-5 col-xl-5 col-sm-12 mt-lg-5">
-                <div class="box-wrapper__ mb-sm-5" onclick="$('#cbc').toggle();toggleScroll();">
-                    <div class="box__ box__-down cyan__">
-                        <div style="display: flex;justify-content:center;height:250px;width:auto;margin-top:15px">
-                            <img style="transform: scale(0.8);" src="https://www.ptpn4.co.id/wp-content/uploads/2022/10/cbc-e1666766820728.png" alt="">
+            <div class="col-lg-8 col-sm-1 pr-0">
+                <div class="d-flex  flex-column align-items-center align-items-baseline">
+                    <div style="width: 100%;" class="row bg-dark align-self-center ">
+                        <div class="col-lg-3 bg-secondary p-2 d-flex align-items-center justify-content-center"><img width="120px" height="120px" src="https://www.ptpn4.co.id/wp-content/uploads/2017/01/ICON-FOUNDRY.png" alt="" srcset=""></div>
+                        <div class="col-lg-9 bg-secondary d-flex align-items-center text-left text-light  display-4 font-weight-bold">
+                            <p>FOUNDRY</p>
                         </div>
-                        <b></b>
-                        <h2>Cake Breaker Conveyor</h2>
-                        <p>Cake breaker conveyor (CBC) adalah alat penghantar dan pemecah ampas kempa (sekaligus mengeringkannya) dari pressan ke Depericarper. Hasil proses di CBC menjadikan biji dan fibre terurai (tidak menggumpal) dan lebih kering.
-                        </p>
-                        <p class="text-center">Klik untuk melihat spesifikasi</p>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-5 col-xl-5 col-sm-12 mt-lg-5">
-                <div class="box-wrapper__ mb-sm-5" onclick="$('#fle').toggle();toggleScroll();">
-                    <div class="box__ box__-down cyan__">
-                        <div style="display: flex;justify-content:center;height:250px;width:auto;margin-top:15px">
-                            <img width="100px" height="200px" src="https://www.ptpn4.co.id/wp-content/uploads/2022/10/fruitelev-e1667277149606.png" alt="">
+                    <div style="width: 100%;" class="row bg-dark align-self-center mt-3">
+                        <div class="col-lg-3 bg-secondary p-2 d-flex align-items-center  justify-content-center"><img width="120px" height="120px" src="https://www.ptpn4.co.id/wp-content/uploads/2017/01/ICON-6-STANDARISASI.png" alt="" srcset=""></div>
+                        <div class="col-lg-9 bg-secondary  d-flex align-items-center  text-left text-light font-weight-bold">
+                            <h3 class="text-capitalize">6 STANDARISASI DAN PENYEDIAAN STOK DAN KOMPONEN MESIN INSTALASI PKS
+                            </h3>
                         </div>
-                        <b></b>
-                        <h2>Fruit Elevator</h2>
-                        <p>Fruit elevator adalah alat angkut yang memindahkan berondolan rebus dari elevasi rendah ke elevasi tinggi. Bagian utama dari fruit elevator yaitu: body, bucket dan rantai. </p>
-                        <br>
-                        <br>
-                        <p class="text-center">Klik untuk melihat spesifikasi</p>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-5 col-xl-5 col-sm-12 mt-lg-5">
-                <div class="box-wrapper__ mb-sm-5" onclick="$('#lori').toggle();toggleScroll();">
-                    <div class="box__ box__-down cyan__">
-                        <div style="display: flex;justify-content:center;height:250px;width:auto;margin-top:15px">
-                            <img style="transform: scale(0.8);" src="https://www.ptpn4.co.id/wp-content/uploads/2022/10/lori-e1666766982504.png" alt="">
+                    <div style="width: 100%;" class="row bg-dark align-self-center mt-3">
+                        <div class="col-lg-3 bg-secondary p-2 d-flex align-items-center justify-content-center"><img width="120px" height="120px" src="https://www.ptpn4.co.id/wp-content/uploads/2017/01/ICON-LAIN-LAIN.png" alt="" srcset=""></div>
+                        <div class="col-lg-9 bg-secondary  d-flex align-items-center  text-left text-light  display-4 font-weight-bold">
+                            <p class="text-capitalize"> PRODUK LAIN</p>
                         </div>
-                        <b></b>
-                        <h2>Fruit Cages/ Lori Buah</h2>
-                        <p>Fruit Cage (Lori Buah) adalah komponen Pabrik Kelapa Sawit (PKS) yang berfungsi sebagai alat yang mengangkut Tandan Buah Segar (TBS) dari Loading Ramp yang nantinya dimasukkan kedalam Sterilizer untuk dilakukan proses perebusan
-                            (masak). </p>
-
-                        <p class="text-center">Klik untuk melihat spesifikasi</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-5 col-xl-5 col-sm-12 mt-lg-5">
-                <div class="box-wrapper__ mb-sm-5" onclick="$('#pld').toggle();toggleScroll();">
-                    <div class="box__ box__-down cyan__">
-                        <div style="display: flex;justify-content:center;height:250px;width:auto;margin-top:15px">
-                            <img style="transform: scale(0.8);" src="https://www.ptpn4.co.id/wp-content/uploads/2022/10/polishdrum-e1667277181789.png" alt="">
-                        </div>
-                        <h2>Polishing Drum</h2>
-                        <p>Polishing drum adalah tromol berputar yang berfungsi untuk memolish / membersihkan sisa-sisa serabut yang masih lengket pada permukaan biji
-
-                        </p>
-                        <br><br><br>
-                        <p class="text-center">Klik untuk melihat spesifikasi</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-5 col-xl-5 col-sm-12 mt-lg-5">
-                <div class="box-wrapper__ mb-sm-5" onclick="$('#thrs').toggle();toggleScroll();">
-                    <div class="box__ box__-down cyan__">
-                        <div style="display: flex;justify-content:center;height:250px;width:auto;margin-top:15px">
-                            <img style="transform: scale(0.8);" width="auto" height="auto" src="https://www.ptpn4.co.id/wp-content/uploads/2022/10/thresher-e1667277214452.png" alt="">
-                        </div>
-                        <b></b>
-                        <h2>Thresher</h2>
-                        <p>Tresher berfungsi untuk memisahkan brondolan dengan tandan kosong dengan cara membanting dalam drum yang berputar. Tresher terdiri dari sebuah drum yang dindingnya terbentuk dari kisi-kisi dengan jarak tertentu, dan dilengkapi
-                            dengan sirip untuk mengangkat janjangan dan membawanya ke ujung drum untuk dikeluarkan.
-                        </p>
-                        </p>
-
-                        <p class="text-center">Klik untuk melihat spesifikasi</p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
-</section>
-<section id="maps">
-    <div class="row mt-lg-5 pt-lg-5 pb-lg-5 pt-sm-0 mt-sm-1">
-        <div class="container d-flex justify-content-center mt-lg-5 pt-lg-5 pb-5 pt-sm-0 ">
-            <iframe style="border:1px solid rgb(112, 112, 112);border-radius: 5px;" width="100%" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.901765039673!2d99.15984856807069!3d3.1206798541886043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30317e69a3363351%3A0xe534e90602846ee2!2sPTPN%20IV%20Dolok%20Ilir!5e0!3m2!1sid!2sid!4v1666852086519!5m2!1sid!2sid" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-    </div>
-</section>
+        <div class="row p-3 mt-4 mainbgc ">
+            <div class="col-lg-8 col-sm-1 d-flex justify-content-start align-items-center">
+                <div class="text-light text-left">
+                    <h3 class=" font-weight-bold">HUBUNGI KAMI
+                    </h3>
+                    <p>
+                        Jika anda membutuhkan informasi lebih lengkap mengenai produk-produk PMT Dolok Ilir, <br> anda bisa menghubungi : <br> Telepon :(+62) 0622-64016 <br> Faksimili : (+62) 0622-64420 <br> Email : pmt_doi@ptpn4.co.id
+                    </p>
+                </div>
 
-<section id="modal__">
-    <div id="cbc" class="modal__">
-        <div class="modal-content__">
-            <div class="modal-header__">
-                <span onclick="$('#cbc').toggle();toggleScroll();" class="close__">×</span>
-                <h2 style="text-align:center ;color:white;">Cake Breaker Conveyor</h2>
             </div>
-            <div class="modal-body__">
-                <div>
-                    <img src="https://www.ptpn4.co.id/wp-content/uploads/2022/10/CBC.jpg" alt="" srcset="">
-                </div>
-                <div>
-                    <img src="https://www.ptpn4.co.id/wp-content/uploads/2022/10/CBC-2.jpg" alt="" srcset="">
-                </div>
-            </div>
-            <div class="modal-footer__">
-                <h3 style="text-align:center ;color:white;">PMT PTPN IV Dolok Ilir</h3>
+            <div class="col-lg-4 d-flex justify-content-end">
+                <img src="https://www.ptpn4.co.id/wp-content/uploads/2022/10/pmt-trans.png" alt="" srcset="" height="200px" width="auto">
             </div>
         </div>
     </div>
-    <div id="hdc" class="modal__">
-        <div class="modal-content__">
-            <div class="modal-header__">
-                <span onclick="$('#hdc').toggle();toggleScroll();" class="close__">×</span>
-                <h2 style="text-align:center ;color:white;">Hydrocyclone</h2>
-            </div>
-            <div class="modal-body__">
-                <div>
-                    <img src="https://www.ptpn4.co.id/wp-content/uploads/2017/01/HIDROCYCLONE-2-2.jpg" alt="" srcset="">
-                </div>
-                <div>
-                    <img src="https://www.ptpn4.co.id/wp-content/uploads/2022/11/HIDROCYCLONE-2-3.jpg" alt="" srcset="">
-                </div>
-            </div>
-            <div class="modal-footer__">
-                <h3 style="text-align:center ;color:white;">PMT PTPN IV Dolok Ilir</h3>
-            </div>
-        </div>
-    </div>
-    <div id="cbc" class="modal__">
-        <div class="modal-content__">
-            <div class="modal-header__">
-                <span onclick="$('#cbc').toggle();toggleScroll();" class="close__">×</span>
-                <h2 style="text-align:center ;color:white;">Cake Breaker Conveyor</h2>
-            </div>
-            <div class="modal-body__">
 
-                <img src="https://www.ptpn4.co.id/wp-content/uploads/2022/10/CBC.jpg" alt="" srcset="">
-
-
-                <img src="https://www.ptpn4.co.id/wp-content/uploads/2022/10/CBC-2.jpg" alt="" srcset="">
-
-            </div>
-            <div class="modal-footer__">
-                <h3 style="text-align:center ;color:white;">PMT PTPN IV Dolok Ilir</h3>
-            </div>
-        </div>
-
-    </div>
-    <div id="fle" class="modal__">
-        <div class="modal-content__">
-            <div class="modal-header__">
-                <span onclick="$('#fle').toggle();toggleScroll();" class="close__">×</span>
-                <h2 style="text-align:center ;color:white;">Fruit Elevator</h2>
-            </div>
-            <div class="modal-body__">
-                <div>
-                    <img src="<?=base_url()?>/assets/images/FRUIT ELEVATOR.jpg" alt="" srcset="">
-                </div>
-                <div>
-                    <img src="<?=base_url()?>/assets/images/FRUIT ELEVATOR2.jpg" alt="" srcset="">
-                </div>
-            </div>
-            <div class="modal-footer__">
-                <h3 style="text-align:center ;color:white;">PMT PTPN IV Dolok Ilir</h3>
-            </div>
-        </div>
-
-    </div>
-    <div id="lori" class="modal__">
-        <div class="modal-content__">
-            <div class="modal-header__">
-                <span onclick="$('#lori').toggle();toggleScroll();" class="close__">×</span>
-                <h2 style="text-align:center ;color:white;">Fruit Cages/Lori Buah</h2>
-            </div>
-            <div class="modal-body__">
-                <div>
-                    <img src="https://www.ptpn4.co.id/wp-content/uploads/2022/10/LORI.jpg" alt="" srcset="">
-                </div>
-                <div>
-                    <img src="https://www.ptpn4.co.id/wp-content/uploads/2022/10/LORI-2.jpg" alt="" srcset="">
-                </div>
-            </div>
-            <div class="modal-footer__">
-                <h3 style="text-align:center ;color:white;">PMT PTPN IV Dolok Ilir</h3>
-            </div>
-        </div>
-
-    </div>
-    <div id="pld" class="modal__">
-        <div class="modal-content__">
-            <div class="modal-header__">
-                <span onclick="$('#pld').toggle();toggleScroll();" class="close__">×</span>
-                <h2 style="text-align:center ;color:white;">Polishing Drum</h2>
-            </div>
-            <div class="modal-body__">
-                <div>
-                    <img src="https://www.ptpn4.co.id/wp-content/uploads/2022/10/POLISHING-DRUM.jpg" alt="" srcset="">
-                </div>
-                <div>
-                    <img src="https://www.ptpn4.co.id/wp-content/uploads/2022/10/POLISHING-DRUM-2-1.jpg" alt="" srcset="">
-                </div>
-            </div>
-            <div class="modal-footer__">
-                <h3 style="text-align:center ;color:white;">PMT PTPN IV Dolok Ilir</h3>
-            </div>
-        </div>
-
-    </div>
-    <div id="thrs" class="modal__">
-        <div class="modal-content__">
-            <div class="modal-header__">
-                <span onclick="$('#thrs').toggle();toggleScroll();" class="close__">×</span>
-                <h2 style="text-align:center ;color:white;">Thresher</h2>
-            </div>
-            <div class="modal-body__">
-                <div>
-                    <img src="https://www.ptpn4.co.id/wp-content/uploads/2022/10/THRESHER.jpg" alt="" srcset="">
-                </div>
-                <div>
-                    <img src="https://www.ptpn4.co.id/wp-content/uploads/2022/10/THRESHER-2.jpg" alt="" srcset="">
-                </div>
-            </div>
-            <div class="modal-footer__">
-                <h3 style="text-align:center ;color:white;">PMT PTPN IV Dolok Ilir</h3>
-            </div>
-        </div>
-
-    </div>
-</section>
-<script src="<?=base_url()?>/assets/js/main.js"></script>
+</div>
 <?php include 'footer.php' ?>
