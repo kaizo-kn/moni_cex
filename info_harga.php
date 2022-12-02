@@ -49,7 +49,7 @@ include 'head.php';
                     </div>
                     <div class="modal-body__">
                         <div>
-                            <img src="https://www.ptpn4.co.id/wp-content/uploads/2017/01/LORRY.png" alt="" srcset="">
+                            <img src="assets/images/LORI.png" alt="" srcset="">
                         </div>
                     </div>
                     <div class="modal-footer__">
