@@ -159,7 +159,7 @@ include 'head.php'; ?>
                     <img src="<?php echo base_url()?>assets/images/HIDROCYCLONE 1-2_1.jpg" alt="" srcset="">
                 </div>
                 <div>
-                    <img src="<?php echo base_url()?>assets/images/HIDROCYCLONE 1-2_1.jpg" alt="" srcset="">
+                    <img src="<?php echo base_url()?>assets/images/HIDROCYCLONE 1-2_2.jpg" alt="" srcset="">
                 </div>
             </div>
             <div class="modal-footer__">
