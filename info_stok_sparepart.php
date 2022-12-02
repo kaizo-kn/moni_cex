@@ -33,8 +33,8 @@ setTimeout(() => {
         <?php
         $host = "localhost";
         $database = "data-pmt";
-        $username =$_SESSION['username'];
-        $password =$_SESSION['password'];
+        $username =adminPMTPN4;
+        $password =PMTPN4#@!admin;
         $connect = mysqli_connect($host, $username, $password, $database);
         $query = 'select* from stok_sparepart_PMT';
         $result1 = mysqli_query($connect, $query);
