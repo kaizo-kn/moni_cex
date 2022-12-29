@@ -155,7 +155,7 @@ CREATE TABLE `user` (
   `id` int(8) NOT NULL,
   `nama` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
-  `password` varchar(60) NOT NULL,
+  `password` varchar(160) NOT NULL,
   `profile_pic` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
