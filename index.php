@@ -1,200 +1,315 @@
 <?php
-$page_title = 'Beranda';
-include 'head.php';
-?>
-<style>
-    body{
-        background-color: rgba(224, 219, 219, 0.8);  
-    }
-</style>
-<div class="row" style="background-image: url(<?php echo base_url()?>assets/images/LATAR_21.jpg);background-size:cover;height: 460px;margin-bottom: -200px;"></div>
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
 
-    <div class="container">
-        <div class="row">
-            <div class="text-light text-center" style=" padding:10px 0px 0px;transform:translateY(-20%)">
-                <h1 id="judul">PMT DOLOK ILIR</h1>
-                <h3 id="subjudul">Unit Perbengkelan PT Perkebunan Nusantara IV</h3>
-                <h5 style="text-align:center;color: #000;text-shadow: 1px 1px 3px #fff;">Saat ini, kami mampu memenuhi seluruh permintaan perbaikan, pembuatan maupun pemasangan instalasi pabrik baik di dalam maupun di luar PTPN IV.</h5>
-            </div>
-            <div class="column mcb-column one column_divider ">
-                <hr class="no_line">
-            </div>
-        </div>
+/*
+ *---------------------------------------------------------------
+ * APPLICATION ENVIRONMENT
+ *---------------------------------------------------------------
+ *
+ * You can load different configurations depending on your
+ * current environment. Setting the environment also influences
+ * things like logging and error reporting.
+ *
+ * This can be set to anything, but default usage is:
+ *
+ *     development
+ *     testing
+ *     production
+ *
+ * NOTE: If you change these, also change the error_reporting() code below
+ */
+	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
 
-        <div class="row mb-0 pb-0">
-            <div class="col-lg-4 col-sm-1 m-0 p-0">
-                <div style="height:300px" class=" mainbgc d-flex justify-content-center align-items-center">
-                    <div class="d-block">
-                        <h1 class="text-light text-center font-weight-bold" id="judul">PROFIL <br> BISNIS</h1>
-                        <h4 class="text-dark text-center">Pabrik Mesin Tenera</h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-8 col-sm-1 m-0 p-0">
-                <div style="min-height:300px;background-image: url(<?php echo base_url()?>assets/images/tenera_1.jpg);" class="d-flex justify-content-center align-items-center"></div>
-            </div>
-        </div>
-        <div class="row mt-0 pt-0">
-            <div class="col-lg-8 col-sm-1 m-0 p-3 pl-4 bg-dark">
-                <div style="height:300px" class=" d-flex justify-content-center align-items-center">
-                    <div class="d-block">
-                        <p style="color:#cccccc;font-size:smaller;">
-                            Pabrik Mesin Tenera (PMT) adalah satu unit usaha milik PT Perkebunan Nusantara IV yang bergerak pada bidang manufaktur peralatan dan komponen mesin-mesin Pabrik Kelapa Sawit (PKS). PMT berlokasi di Dolok Ilir Kecamatan Serbalawan Kabupaten Simalungun
-                            Provinsi Sumatera Utara. PMT memiliki beberapa bagian yang saling mendukung dalam melakukan perancangan/desain, proses produksi, sampai dengan pemasangan di lapangan. Bagian-bagian tersebut antara lain: Bagian Perancangan/Desain,
-                            Bagian PPC (Product Planning &amp; Control), Bagian Foundry (Pengecoran Logam), Bagian Permesinan, Bagian Konstruks, Bagian Assembling, Bagian Proyek.<br> SERTIFIKASI UNTUK PENGECORAN LOGAM (SNI)
-                            OLEH BALAI RISET DAN STANDARDISASI INDUSTRI MEDAN :<br> 1. Sertifikasi Besi Tuang Kelabu dan Baja Tuang Paduan<br> 2. Sertifikasi Baja Cor Tahan Panas<br> 3. Sertifikasi Baja Tuang Carbon Kekuatan Rendah dan Menengah<br> 4.
-                            Sertifikasi Mutu Baja Carbon Cor<br> 5. Sertifikasi Baja Cor Berbentuk Bulat</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-1 m-0 p-3 pl-4 bg-light">
-                <div style="min-height:300px;" class="d-flex justify-content-center align-items-center">
-                    <div class="text-center font-weight-bolder">
-                        <div class="image_frame image_item no_link scale-with-grid alignnone no_border">
-                            <div class="image_wrapper"><img class="scale-with-grid" src="https://www.ptpn4.co.id/wp-content/uploads/2017/01/value-icon-mini.png" alt="value-icon-mini" width="35" height="35"></div>
-                        </div>
-                        <br>
-                        <br>
+/*
+ *---------------------------------------------------------------
+ * ERROR REPORTING
+ *---------------------------------------------------------------
+ *
+ * Different environments will require different levels of error reporting.
+ * By default development will show errors but testing and live will hide them.
+ */
+switch (ENVIRONMENT)
+{
+	case 'development':
+		error_reporting(-1);
+		ini_set('display_errors', 1);
+	break;
 
-                        <p style="font-size:smaller">
-                            PMT sangat berpengalaman dalam bidang rancang bangun, pembuatan, serta perbaikan peralatan mesin-mesin PKS, khususnya PKS milik PT Perkebunan Nusantara IV. Saat ini PMT telah mengimplementasikan ISO 9001 : 2008 dan SMK3, serta beberapa produk-produk hasil
-                            produksi PMT telah mendapatkan sertifikasi Standard Nasional Indonesia (SNI).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container mt-4">
-        <div class="row row-no-gap mb-0 pb-0">
-            <div class="col-lg-8 col-sm-1 m-0 p-0">
-                <div style="min-height:300px;background-image: url(<?php echo base_url()?>assets/images/tenera_2.jpg);" class=" d-flex justify-content-center align-items-center">
+	case 'testing':
+	case 'production':
+		ini_set('display_errors', 0);
+		if (version_compare(PHP_VERSION, '5.3', '>='))
+		{
+			error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE & ~E_USER_DEPRECATED);
+		}
+		else
+		{
+			error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_USER_NOTICE);
+		}
+	break;
 
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-1 m-0 p-0 bg-dark">
-                <div style="min-height:300px;" class="d-flex justify-content-center align-items-center">
-                    <div class="text-light text-center" style=" padding:10px 0px 0px;transform:translateY(-20%)">
-                        <h1 id="judul">VISI DAN <br>MISI</h1>
-                        <h3 class="text-info">PMT Dolok Ilir</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div style="font-size:smaller" class="row mt-0 pt-0">
-            <div class="col-lg-8 col-sm-1 m-0 p-3 pl-4 mainbgc">
-                <div style="height:300px" class=" d-flex justify-content-center align-items-center">
-                    <div class="column_attr clearfix">
-                        <h5 style="color:#fff">VISI</h5>
-                        Melayani segala kebutuhan sektor industri Pabrik Kelapa Sawit dalam hal pembuatan mesin-mesin produksi, serta menyediakan jasa perbaikan sparepart dengan kualitas terbaik dan terpercaya<br><br>
-                        <h5 style="color:#fff">MISI</h5>
-                        1.Secara berkesinambungan menyediakan produk dan jasa yang berkualitas hingga mampu memberikan rasa puas dan kepercayaan pelanggan agar terjalin kerjasama yang baik<br> 2.Mengembangkan kualitas karyawan yang berkompeten dengan
-                        menciptakan lingkungan kerja yang baik untuk mendukung tercapainya visi perusahaan terutama kepuasan bagi pelanggan<br><br>
-                        <h5 style="color:#fff">BUDAYA PERUSAHAAN</h5>
-                        Kepuasan pelanggan adalah tujuan kami</div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-1 m-0 p-3 pl-4   bg-light">
-                <div style="min-height:300px;" class="d-flex justify-content-center align-items-center">
-                    <div class="text-center">
-                        <div class="image_frame image_item no_link scale-with-grid alignnone no_border">
-                            <div class="image_wrapper"><img class="scale-with-grid" src="https://www.ptpn4.co.id/wp-content/uploads/2017/01/doc-sign-mini.png" alt="value-icon-mini" width="35" height="35"></div>
-                        </div><br>
+	default:
+		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+		echo 'The application environment is not set correctly.';
+		exit(1); // EXIT_ERROR
+}
 
-                        <p style="font-size:small ;">PMT memiliki program strategi yg memberikan peluang untuk dapat terus melayani para pelanggan antara lain : <br> 1. Dibawah Bagian Teknik dan Pengolahan melayani penuh kehandalan Mesin Instalasi di 16 PKS dan 2 Pabrik Teh PTPN
-                            4 sehingga menciptakan Operasional Excellence yang tangguh dengan pelayanan : Desain Engineering, Permesinan, Konstruksi dan Pemasangan serta pelayanan Produksi Foundry <br> 2. Memiliki produk unggulan 6 mesin instalasi standar
-                            di PKS yang sudah dipergunakan di seluruh PKS PTPN4 sehingga memudahkan dalam penyediaan suku cadang yang standar dan seragam.<br> 3. Mencapai Cost Leadership sehingga memiliki daya saing dan berkesinambungan<br></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row mb-0 pb-0 pt-4">
-            <div class="col-lg-4 col-sm-1 m-0 p-0">
-                <div style="height:300px" class=" mainbgc d-flex justify-content-center align-items-center">
-                    <div class="d-block">
-                        <h1 class="text-light text-center font-weight-bold" id="judul">SEJARAH</h1>
-                        <h5 class="text-dark text-center">Pengalaman kami terus berkembang sejak tahun 1928</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-8 col-sm-1 m-0 p-0">
-                <div style="min-height:300px;background-image: url(<?php echo base_url()?>assets/images/tenera_1.jpg);" class="d-flex justify-content-center align-items-center"></div>
-            </div>
-        </div>
-        <div class="row mt-0 pt-0">
-            <div class="col-lg-8 col-sm-1 m-0 p-3 pl-4 bg-dark">
-                <div style="height:300px;" class=" d-flex justify-content-center align-items-center">
-                    <div class="d-block">
-                        <p style="color:white;font-size:smaller;">Didirikan tahun 1928 sebagai unit bengkel yang melayani Pabrik Sisal milik HVA. Pada tahun 1957 pengambil alihan perkebunan milik HVA oleh Pemerintah Indonesia menyebabkan pengubahan nama unit bengkel menjadi Bengkel Induk Dolok
-                            Ilir atau disingkat BIDI yang kegiatannya adalah melayani pabrik-pabrik eks HVA. Sejalan dengan kebijakan pemerintah dibidang pengembangan sektor pertanian maka kegiatan Bengkel Induk Dolok Ilir diarahkan untuk menunjang dan
-                            mendukung pembangunan sektor pertanian khususnya perkebunan kelapa sawit. Dalam upaya untuk meningkatkan kemampuan di bidang manufaktur, rekayasa dan rancang bangun pembuatan dan pemasangan pabrik kelapa sawit maka pada tahun
-                            1982 – 1987 telah dijalin kerja sama teknik dan manajemen dengan Balai Pengembangan Industri Logam dan Mesin (BBLM) Bandung. Pada tahun 1983 nama bengkel Induk diubah menjadi Pabrik Mesin Tenera disingkat PMT. Penetapan Areal
-                            HGU Unit PMT masih berada dalam pengawasan atau menyatu dengan Unit Usaha Dolok Ilir
+/*
+ *---------------------------------------------------------------
+ * SYSTEM DIRECTORY NAME
+ *---------------------------------------------------------------
+ *
+ * This variable must contain the name of your "system" directory.
+ * Set the path if it is not in the same directory as this file.
+ */
+	$system_path = 'system';
 
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-1 m-0 p-3 pl-4 bg-light">
-                <div style="min-height:300px;" class="d-flex justify-content-center align-items-center">
-                    <div class="text-center font-weight-bolder">
-                        <div class="image_frame image_item no_link scale-with-grid alignnone no_border">
-                            <div class="image_wrapper"><img class="scale-with-grid" src="https://www.ptpn4.co.id/wp-content/uploads/2017/01/value-icon-mini.png" alt="value-icon-mini" width="35" height="35"></div>
-                        </div>
-                        <br>
-                        <br>
-                        <p style="font-size:smaller">
-                            PMT sudah melayani banyak PKS di Sumatera dan Kalimantan, dengan pengalaman yang dimiliki akan mampu melayani potensi pasar di seluruh Indonesia.</div>
-                </div>
-            </div>
-        </div>
-        <div class="row mb-0 pb-0 mt-4">
-            <div class="col-lg-4 col-sm-1 mainbgc d-flex justify-content-center align-items-center">
+/*
+ *---------------------------------------------------------------
+ * APPLICATION DIRECTORY NAME
+ *---------------------------------------------------------------
+ *
+ * If you want this front controller to use a different "application"
+ * directory than the default one you can set its name here. The directory
+ * can also be renamed or relocated anywhere on your server. If you do,
+ * use an absolute (full) server path.
+ * For more info please see the user guide:
+ *
+ * https://codeigniter.com/userguide3/general/managing_apps.html
+ *
+ * NO TRAILING SLASH!
+ */
+	$application_folder = 'application';
 
-                <div class="text-light text-center">
-                    <h1 class="display-4 font-weight-bold">KATALOG <br>PRODUK</h1>
-                    <h3 class="text-dark">Produk PMT Dolok Ilir</h3>
-                </div>
+/*
+ *---------------------------------------------------------------
+ * VIEW DIRECTORY NAME
+ *---------------------------------------------------------------
+ *
+ * If you want to move the view directory out of the application
+ * directory, set the path to it here. The directory can be renamed
+ * and relocated anywhere on your server. If blank, it will default
+ * to the standard location inside your application directory.
+ * If you do move this, use an absolute (full) server path.
+ *
+ * NO TRAILING SLASH!
+ */
+	$view_folder = '';
 
-            </div>
-            <div class="col-lg-8 col-sm-1 pr-0">
-                <div class="d-flex  flex-column align-items-center align-items-baseline">
-                    <div style="width: 100%;" class="row bg-dark align-self-center ">
-                        <div class="col-lg-3 bg-secondary p-2 d-flex align-items-center justify-content-center"><img width="120px" height="120px" src="https://www.ptpn4.co.id/wp-content/uploads/2017/01/ICON-FOUNDRY.png" alt="" srcset=""></div>
-                        <div class="col-lg-9 bg-secondary d-flex align-items-center text-left text-light  display-4 font-weight-bold">
-                            <p>FOUNDRY</p>
-                        </div>
-                    </div>
-                    <div style="width: 100%;" class="row bg-dark align-self-center mt-3">
-                        <div class="col-lg-3 bg-secondary p-2 d-flex align-items-center  justify-content-center"><img width="120px" height="120px" src="https://www.ptpn4.co.id/wp-content/uploads/2017/01/ICON-6-STANDARISASI.png" alt="" srcset=""></div>
-                        <div class="col-lg-9 bg-secondary  d-flex align-items-center  text-left text-light font-weight-bold">
-                            <h3 class="text-capitalize">6 STANDARISASI DAN PENYEDIAAN STOK DAN KOMPONEN MESIN INSTALASI PKS
-                            </h3>
-                        </div>
-                    </div>
-                    <div style="width: 100%;" class="row bg-dark align-self-center mt-3">
-                        <div class="col-lg-3 bg-secondary p-2 d-flex align-items-center justify-content-center"><img width="120px" height="120px" src="https://www.ptpn4.co.id/wp-content/uploads/2017/01/ICON-LAIN-LAIN.png" alt="" srcset=""></div>
-                        <div class="col-lg-9 bg-secondary  d-flex align-items-center  text-left text-light  display-4 font-weight-bold">
-                            <p class="text-capitalize"> PRODUK LAIN</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row p-3 mt-4 mainbgc ">
-            <div class="col-lg-8 col-sm-1 d-flex justify-content-start align-items-center">
-                <div class="text-light text-left">
-                    <h3 class=" font-weight-bold">HUBUNGI KAMI
-                    </h3>
-                    <p>
-                        Jika anda membutuhkan informasi lebih lengkap mengenai produk-produk PMT Dolok Ilir, <br> anda bisa menghubungi : <br> Telepon :(+62) 0622-64016 <br> Faksimili : (+62) 0622-64420 <br> Email : pmt_doi@ptpn4.co.id
-                    </p>
-                </div>
 
-            </div>
-            <div class="col-lg-4 d-flex justify-content-end">
-                <img src="https://www.ptpn4.co.id/wp-content/uploads/2022/10/pmt-trans.png" alt="" srcset="" height="200px" width="auto">
-            </div>
-        </div>
-    </div>
+/*
+ * --------------------------------------------------------------------
+ * DEFAULT CONTROLLER
+ * --------------------------------------------------------------------
+ *
+ * Normally you will set your default controller in the routes.php file.
+ * You can, however, force a custom routing by hard-coding a
+ * specific controller class/function here. For most applications, you
+ * WILL NOT set your routing here, but it's an option for those
+ * special instances where you might want to override the standard
+ * routing in a specific front controller that shares a common CI installation.
+ *
+ * IMPORTANT: If you set the routing here, NO OTHER controller will be
+ * callable. In essence, this preference limits your application to ONE
+ * specific controller. Leave the function name blank if you need
+ * to call functions dynamically via the URI.
+ *
+ * Un-comment the $routing array below to use this feature
+ */
+	// The directory name, relative to the "controllers" directory.  Leave blank
+	// if your controller is not in a sub-directory within the "controllers" one
+	// $routing['directory'] = '';
 
-</div>
-<?php include 'footer.php' ?>
+	// The controller class file name.  Example:  mycontroller
+	// $routing['controller'] = '';
+
+	// The controller function you wish to be called.
+	// $routing['function']	= '';
+
+
+/*
+ * -------------------------------------------------------------------
+ *  CUSTOM CONFIG VALUES
+ * -------------------------------------------------------------------
+ *
+ * The $assign_to_config array below will be passed dynamically to the
+ * config class when initialized. This allows you to set custom config
+ * items or override any default config values found in the config.php file.
+ * This can be handy as it permits you to share one application between
+ * multiple front controller files, with each file containing different
+ * config values.
+ *
+ * Un-comment the $assign_to_config array below to use this feature
+ */
+	// $assign_to_config['name_of_config_item'] = 'value of config item';
+
+
+
+// --------------------------------------------------------------------
+// END OF USER CONFIGURABLE SETTINGS.  DO NOT EDIT BELOW THIS LINE
+// --------------------------------------------------------------------
+
+/*
+ * ---------------------------------------------------------------
+ *  Resolve the system path for increased reliability
+ * ---------------------------------------------------------------
+ */
+
+	// Set the current directory correctly for CLI requests
+	if (defined('STDIN'))
+	{
+		chdir(dirname(__FILE__));
+	}
+
+	if (($_temp = realpath($system_path)) !== FALSE)
+	{
+		$system_path = $_temp.DIRECTORY_SEPARATOR;
+	}
+	else
+	{
+		// Ensure there's a trailing slash
+		$system_path = strtr(
+			rtrim($system_path, '/\\'),
+			'/\\',
+			DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+		).DIRECTORY_SEPARATOR;
+	}
+
+	// Is the system path correct?
+	if ( ! is_dir($system_path))
+	{
+		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+		echo 'Your system folder path does not appear to be set correctly. Please open the following file and correct this: '.pathinfo(__FILE__, PATHINFO_BASENAME);
+		exit(3); // EXIT_CONFIG
+	}
+
+/*
+ * -------------------------------------------------------------------
+ *  Now that we know the path, set the main path constants
+ * -------------------------------------------------------------------
+ */
+	// The name of THIS file
+	define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
+
+	// Path to the system directory
+	define('BASEPATH', $system_path);
+
+	// Path to the front controller (this file) directory
+	define('FCPATH', dirname(__FILE__).DIRECTORY_SEPARATOR);
+
+	// Name of the "system" directory
+	define('SYSDIR', basename(BASEPATH));
+
+	// The path to the "application" directory
+	if (is_dir($application_folder))
+	{
+		if (($_temp = realpath($application_folder)) !== FALSE)
+		{
+			$application_folder = $_temp;
+		}
+		else
+		{
+			$application_folder = strtr(
+				rtrim($application_folder, '/\\'),
+				'/\\',
+				DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+			);
+		}
+	}
+	elseif (is_dir(BASEPATH.$application_folder.DIRECTORY_SEPARATOR))
+	{
+		$application_folder = BASEPATH.strtr(
+			trim($application_folder, '/\\'),
+			'/\\',
+			DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+		);
+	}
+	else
+	{
+		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+		echo 'Your application folder path does not appear to be set correctly. Please open the following file and correct this: '.SELF;
+		exit(3); // EXIT_CONFIG
+	}
+
+	define('APPPATH', $application_folder.DIRECTORY_SEPARATOR);
+
+	// The path to the "views" directory
+	if ( ! isset($view_folder[0]) && is_dir(APPPATH.'views'.DIRECTORY_SEPARATOR))
+	{
+		$view_folder = APPPATH.'views';
+	}
+	elseif (is_dir($view_folder))
+	{
+		if (($_temp = realpath($view_folder)) !== FALSE)
+		{
+			$view_folder = $_temp;
+		}
+		else
+		{
+			$view_folder = strtr(
+				rtrim($view_folder, '/\\'),
+				'/\\',
+				DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+			);
+		}
+	}
+	elseif (is_dir(APPPATH.$view_folder.DIRECTORY_SEPARATOR))
+	{
+		$view_folder = APPPATH.strtr(
+			trim($view_folder, '/\\'),
+			'/\\',
+			DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+		);
+	}
+	else
+	{
+		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+		echo 'Your view folder path does not appear to be set correctly. Please open the following file and correct this: '.SELF;
+		exit(3); // EXIT_CONFIG
+	}
+
+	define('VIEWPATH', $view_folder.DIRECTORY_SEPARATOR);
+
+/*
+ * --------------------------------------------------------------------
+ * LOAD THE BOOTSTRAP FILE
+ * --------------------------------------------------------------------
+ *
+ * And away we go...
+ */
+require_once BASEPATH.'core/CodeIgniter.php';
