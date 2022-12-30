@@ -19,7 +19,7 @@ class User extends CI_Controller
     }
 
     $data['page_title'] = "Log In";
-    $this->load->view('header.php', $data);
+    $this->load->view('main/header.php', $data);
     $this->load->view('user/login_header.php');
     $this->load->view('user/form_login.php');
     $this->load->view('main/footer.php');
@@ -44,10 +44,11 @@ class User extends CI_Controller
     if ($this->session->userdata('is_login') == FALSE) {
       redirect('/', 'refresh');
     } else {
+      $info_stok = $this->m_user->m_get_stok();
       $data['page_title'] = "Ubah Info Stok Sparepart";
       $this->load->view('main/header.php', $data);
       $this->load->view('user/admin_header.php');
-      $this->load->view('user/info_stok.php');
+      $this->load->view('user/info_stok.php',$info_stok);
       $this->load->view('main/footer.php');
     }
   }
@@ -60,7 +61,7 @@ class User extends CI_Controller
       redirect('/', 'refresh');
     } else {
       $title['page_title'] = "Ubah Informasi Harga";
-      $this->load->view('header.php', $title);
+      $this->load->view('main/header.php', $title);
       $this->load->view('user/admin_header.php');
       $this->load->view('user/info_harga.php', $data);
       $this->load->view('main/footer.php');
@@ -74,7 +75,7 @@ class User extends CI_Controller
       redirect('user/', 'refresh');
     } else {
       $title['page_title'] = "Profil User";
-      $this->load->view('header.php', $title);
+      $this->load->view('main/header.php', $title);
       $this->load->view('user/admin_header.php');
       $this->load->view('user/ubah_profil.php');
       $this->load->view('main/footer.php');
@@ -139,7 +140,7 @@ class User extends CI_Controller
     } else {
       $table = "stok_sparepart_PMT";
       $where = "1";
-      $tanggal_update = dateUpdate();
+      $tanggal_update = $this->dateUpdate();
       $data = array(
         'tanggal_update' => $tanggal_update,
         'lori_rebusan' => $this->input->post('lori_rebusan', TRUE),
@@ -183,6 +184,7 @@ class User extends CI_Controller
       redirect('/', 'refresh');
     } else {
       $catatan = $this->input->post('catatan');
+      $tanggal_update=$this->dateUpdate();
       if (!empty($_FILES['berkas']['name'])) {
         delete_files('media/upload/banner_harga/');
         $config['upload_path']          = 'media/upload/banner_harga';
@@ -196,7 +198,7 @@ class User extends CI_Controller
           $this->session->set_flashdata('message', $this->flash_error($this->upload->display_errors()));
         }        
       }else{
-        $this->m_user->m_update_catatan_harga($catatan);
+        $this->m_user->m_update_catatan_harga(array('catatan'=>$catatan,'tanggal_update'=>$tanggal_update));
         $this->session->set_flashdata('message', $this->flash_success('Harga Diperbaharui'));
       }
       $this->ubah_info_harga();
@@ -316,8 +318,7 @@ class User extends CI_Controller
     title: '" . $message . "'
   });";
   }
-}
-function dateUpdate()
+private function dateUpdate()
 {
   $locale = 'id_ID';
   $dateObj = new DateTime;
@@ -329,7 +330,7 @@ function dateUpdate()
   $cDate = $formatter->format($dateObj);
   return substr($cDate, 0, -6) . " pukul " . substr($cDate, -5) . " WIB";
 }
-
+}
 /* End of file User.php */
 /* Location: ./application/controllers/User.php */
 

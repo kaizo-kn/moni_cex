@@ -13,76 +13,76 @@
         </h5>
         <div class="container mt-2" data-aos="fade-up">
           <div class="row ">
-            <div onclick="" class="col-xl-2 col-lg-2 col-md-6 col-sm-6 mt-4 zoom-hover  nb-shadow">
+            <div onclick="" class="col-xl-4 col-lg-4 col-md-6 col-sm-6 mt-4 zoom-hover  nb-shadow">
               <a href="<?php echo site_url('user/ubah_info_stok') ?>">
                 <div style="height:100%" class="member d-flex flex-column align-items-center bg-light p-0 overflow-hidden " data-aos="zoom-in" data-aos-delay="100">
                   <div style="height:25vh" class="p-3 d-flex align-items-center text-start">
-                    <i style="font-size: 3rem;" class="bi bi-archive-fill fw-bold main-text-color mt-3"></i>
+                    <i style="font-size: 4rem;" class="bi bi-archive-fill fw-bold main-text-color mt-3"></i>
                   </div>
                    <div style="height:100%" class="bg-secondary w-100 mt-4 p-3 d-flex align-items-center ">
-                    <h5 class="fs-6 fw-bold text-start text-light">Ubah Informasi Stok Sparepart</h5>
+                    <h5 class="fs-5 fw-bold text-start text-light">Ubah Informasi Stok Sparepart</h5>
                   </div>
                 </div>
               </a>
             </div>
-            <div onclick="" class="zoom-hover nb-shadow col-xl-2 col-lg-2 col-md-6 col-sm-6 mt-4">
+            <div onclick="" class="zoom-hover nb-shadow col-xl-4 col-lg-4 col-md-6 col-sm-6 mt-4">
               <a href="<?php echo site_url('user/ubah_info_harga') ?>">
                 <div style="height:100%" class="member d-flex flex-column align-items-center bg-light p-0 overflow-hidden" data-aos="zoom-in" data-aos-delay="100">
                   <div style="height:25vh" class="p-3 d-flex align-items-center text-start">
-                    <i style="font-size: 3rem;" class="bi bi-tag-fill fw-bold main-text-color mt-3"></i>
+                    <i style="font-size: 4rem;" class="bi bi-tag-fill fw-bold main-text-color mt-3"></i>
                   </div>
                    <div style="height:100%" class="bg-secondary w-100 mt-4 p-3 d-flex align-items-center ">
-                    <h5 class="fs-6 fw-bold text-start text-light">Ubah Informasi Harga</h5>
+                    <h5 class="fs-5 fw-bold text-start text-light">Ubah Informasi Harga</h5>
                   </div>
                 </div>
               </a>
             </div>
-            <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 mt-4 zoom-hover nb-shadow ">
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 mt-4 zoom-hover nb-shadow ">
               <a href="<?php echo site_url('user/user_profile') ?>">
                 <div style="height:100%" class="member d-flex flex-column align-items-center bg-light p-0 overflow-hidden" data-aos="zoom-in" data-aos-delay="100">
                   <div style="height:25vh" class="p-3 d-flex align-items-center text-start">
-                    <i style="font-size: 3rem;" class="bi bi-person-circle fw-bold main-text-color mt-3"></i>
+                    <i style="font-size: 4rem;" class="bi bi-person-circle fw-bold main-text-color mt-3"></i>
                   </div>
                    <div style="height:100%" class="bg-secondary w-100 mt-4 p-3 d-flex align-items-center ">
-                    <h5 class="fs-6 fw-bold text-start text-light">Ubah Profil</h5>
+                    <h5 class="fs-5 fw-bold text-start text-light">Ubah Profil</h5>
                   </div>
                 </div>
               </a>
             </div>
-            <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 mt-4 zoom-hover nb-shadow ">
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 mt-4 zoom-hover nb-shadow ">
               <a href="<?php echo site_url('home/komplain') ?>">
                 <div style="height:100%" class="member d-flex flex-column align-items-center bg-light p-0 overflow-hidden" data-aos="zoom-in" data-aos-delay="100">
                   <div style="height:25vh" class="p-3 d-flex align-items-center text-start">
-                    <i style="font-size: 3rem;" class="bi bi-card-checklist fw-bold main-text-color mt-3"></i>
+                    <i style="font-size: 4rem;" class="bi bi-card-checklist fw-bold main-text-color mt-3"></i>
                   </div>
                    <div style="height:100%" class="bg-secondary w-100 mt-4 p-3 d-flex align-items-center ">
-                    <h5 class="fs-6 fw-bold text-start text-light">Manajemen Komplain</h5>
+                    <h5 class="fs-5 fw-bold text-start text-light">Manajemen Review</h5>
                   </div>
                 </div>
               </a>
             </div>
 
-            <div onclick="" class="col-xl-2 col-lg-2 col-md-6 col-sm-6 mt-4 zoom-hover nb-shadow">
+            <div onclick="" class="col-xl-4 col-lg-4 col-md-6 col-sm-6 mt-4 zoom-hover nb-shadow">
               <a href="<?php echo site_url('home/') ?>">
                 <div style="height:100%" class="member d-flex flex-column align-items-center bg-light p-0 overflow-hidden" data-aos="zoom-in" data-aos-delay="100">
                   <div style="height:25vh" class="p-3 d-flex align-items-center text-start">
-                    <i style="font-size: 3rem;" class="bi bi-house fw-bold main-text-color mt-3 zoom-hover nb-shadow"></i>
+                    <i style="font-size: 4rem;" class="bi bi-house fw-bold main-text-color mt-3 zoom-hover nb-shadow"></i>
                   </div> 
                   <div style="height:100%" class="bg-secondary w-100 mt-4 p-3 d-flex align-items-center ">
-                    <h5 class="fs-6 fw-bold text-start text-light">Halaman Utama</h5>
+                    <h5 class="fs-5 fw-bold text-start text-light">Halaman Utama</h5>
                   </div>
                 </div>
               </a>
             </div>
             
-            <div onclick="" class="col-xl-2 col-lg-2 col-md-6 col-sm-6 mt-4 zoom-hover nb-shadow">
+            <div onclick="" class="col-xl-4 col-lg-4 col-md-6 col-sm-6 mt-4 zoom-hover nb-shadow">
               <a href="<?php echo site_url('user/logout') ?>">
                 <div style="height:100%" class="member d-flex flex-column align-items-center bg-light p-0 overflow-hidden" data-aos="zoom-in" data-aos-delay="100">
                   <div style="height:25vh" class="p-3 d-flex align-items-center text-start">
-                    <i style="font-size: 3rem;" class="bi bi-power fw-bold text-danger mt-3 zoom-hover nb-shadow"></i>
+                    <i style="font-size: 4rem;" class="bi bi-power fw-bold text-danger mt-3 zoom-hover nb-shadow"></i>
                   </div> 
                   <div style="height:100%" class="bg-secondary w-100 mt-4 p-3 d-flex align-items-center ">
-                    <h5 class="fs-6 fw-bold text-start text-light">Log Out</h5>
+                    <h5 class="fs-5 fw-bold text-start text-light">Log Out</h5>
                   </div>
                 </div>
               </a>

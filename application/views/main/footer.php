@@ -29,7 +29,7 @@
                             <ul>
                                 <li><i class="bx bx-chevron-right"></i> <a href="<?= base_url('index.php/home/info_stok') ?>">Informasi Stok Sparepart</a></li>
                                 <li><i class="bx bx-chevron-right"></i> <a href="<?= base_url('index.php/home/faq') ?>">Pertanyaan Umum</a></li>
-                                <li><i class="bx bx-chevron-right"></i> <a href="<?= base_url('index.php/home/komplain') ?>">Komplain</a></li>
+                                <li><i class="bx bx-chevron-right"></i> <a href="<?= base_url('index.php/home/komplain') ?>">Review Produk</a></li>
                                 <li><i class="bx bx-chevron-right"></i> <a href="<?= base_url('index.php/user/') ?>">Halaman Admin</a></li>
                             </ul>
                         </div>

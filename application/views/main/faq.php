@@ -64,7 +64,7 @@
                             Surat Edaran (SE) Nomor : 04.05/SE/153/IX/2022
                             <a href="<?= base_url('media/upload/surat/') ?>SE-Penetapan-6-Standarisasi-PMT_page-0001.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link text-start ps-0" title="Surat Edaran 1">Surat Edaran 1
                             </a>
-                            <a href="<?= base_url('media/upload/surat/') ?>SE-Penetapan-6-Standarisasi-PMT_page-0001.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link text-start ps-0" title="Surat Edaran 2">Surat Edaran 2
+                            <a href="<?= base_url('media/upload/surat/') ?>SE-Penetapan-6-Standarisasi-PMT_page-0002.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link text-start ps-0" title="Surat Edaran 2">Surat Edaran 2
                             </a>
                             <p>
                                 Perihal : Penetapan 6 Standarisasi dan Penyediaan Stok Komponen Mesin Instalasi PKS di

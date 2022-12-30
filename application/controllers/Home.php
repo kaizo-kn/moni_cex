@@ -19,7 +19,7 @@ class Home extends CI_Controller
       $this->load->view('main/beranda.php');
       $this->load->view('main/footer.php');
       if ($this->session->userdata('is_login') == true) {
-         $this->session->userdata('sitenow') == '';
+         $this->session->set_userdata(array('sitenow'=>''));
       }
    }
    public function info_produk()
@@ -29,7 +29,7 @@ class Home extends CI_Controller
       $this->load->view('main/info_produk.php');
       $this->load->view('main/footer.php');
       if ($this->session->userdata('is_login') == true) {
-         $this->session->userdata('sitenow') == 'info_produk';
+         $this->session->set_userdata(array('sitenow'=>'home/info_produk'));
       }
    }
    public function info_harga()
@@ -40,7 +40,7 @@ class Home extends CI_Controller
       $this->load->view('main/info_harga.php',$data);
       $this->load->view('main/footer.php');
       if ($this->session->userdata('is_login') == true) {
-         $this->session->userdata('sitenow') == 'info_harga';
+         $this->session->set_userdata(array('sitenow'=>'home/info_harga'));
       }
    }
    public function info_stok()
@@ -51,7 +51,7 @@ class Home extends CI_Controller
       $this->load->view('main/info_stok.php', $info_stok);
       $this->load->view('main/footer.php');
       if ($this->session->userdata('is_login') == true) {
-         $this->session->userdata('sitenow') == 'info_stok';
+         $this->session->set_userdata(array('sitenow'=>'home/info_stok'));
       }
    }
    public function faq()
@@ -61,18 +61,18 @@ class Home extends CI_Controller
       $this->load->view('main/faq.php');
       $this->load->view('main/footer.php');
       if ($this->session->userdata('is_login') == true) {
-         $this->session->userdata('sitenow') == 'faq';
+         $this->session->set_userdata(array('sitenow'=>'home/faq'));
       }
    }
 
    public function komplain()
    {
-      $this->load->view('main/header.php', array('page_title' => 'Halaman Ulasan'));
+      $this->load->view('main/header.php', array('page_title' => 'Halaman Review Produk'));
       $this->load->view('main/menu.php', array('m6' => 'nav-menu-active'));
       $this->load->view('main/komplain.php');
       $this->load->view('main/footer.php');
       if ($this->session->userdata('is_login') == true) {
-         $this->session->userdata('sitenow') == 'komplain';
+         $this->session->set_userdata(array('sitenow'=>'home/komplain'));
       }
    }
 
@@ -104,25 +104,23 @@ class Home extends CI_Controller
 
 
 
-   //Buat Komplain
+   //Buat Review
    public function c_add_complaint()
    {
       $path = "";
       $message = "";
-      $title = $this->input->post('judul');
-      $name = $this->input->post('nama');
-      $email = $this->input->post('email');
-      $complaint = $this->input->post('komplain');
+      $title =$this->filter_input($this->input->post('judul'));
+      $name = $this->filter_input($this->input->post('nama'));
+      $complaint = $this->filter_input($this->input->post('komplain'));
       $timestamp = $this->getTimestamp();
       if (!empty($_FILES['files']['name']) && count(array_filter($_FILES['files']['name'])) > 0) {
          $date = date("Y-m-d_H-i-s");
          $sname = substr(str_replace(" ", "", $name), 0, 5);
-         echo $sname;
          $microtime = str_replace('.', '-', microtime(true));
          $folder = $sname . "_" . $microtime;
          $path = FCPATH . 'media/upload/complaint/' . $folder;
          if (!is_dir($path)) {
-            mkdir($path, 0777, TRUE);
+            mkdir($path, 0755, TRUE);
          }
          $filesCount = count($_FILES['files']['name']);
          for ($i = 0; $i < $filesCount && $i < 4; $i++) {
@@ -155,15 +153,15 @@ class Home extends CI_Controller
          }
          $this->session->set_flashdata('message', $this->flash_info($message));
       } else {
-         $this->session->set_flashdata('message', $this->flash_success("Komplain Berhasil Dikirim"));
+         $this->session->set_flashdata('message', $this->flash_success("Review Berhasil Dikirim"));
       }
-      $data = array('nama' => $name, 'email' => $email, 'tanggal_komplain' => $timestamp, 'judul_komplain' => $title, 'isi_komplain' => $complaint, 'gambar' => $folder);
+      $data = array('nama' => $name, 'tanggal_komplain' => $timestamp, 'judul_komplain' => $title, 'isi_komplain' => $complaint, 'gambar' => $folder);
       $this->m_home->m_add_complaint($data);
       redirect('home/komplain');
       $this->session->set_flashdata('message', '');
    }
 
-   //Balas Komplain
+   //Balas Review
    public function c_balas_komplain()
    {
       if ($this->session->userdata('is_login') == FALSE) {
@@ -173,10 +171,8 @@ class Home extends CI_Controller
          $path = "";
          $message = "";
          $id_komplain = $this->input->post('id-komplain');
-         $balasan = $this->input->post('balasan-komplain');
+         $balasan = $this->filter_input($this->input->post('balasan-komplain'));
          $timestamp = $this->getTimestamp();
-
-         var_dump($_FILES['files']['name']);
          if (!empty($_FILES['files']['name']) && count(array_filter($_FILES['files']['name'])) > 0) {
             $date = date("Y-m-d_H-i-s");
             $data = $this->db->query('SELECT `nama`,`gambar` FROM `komplain` WHERE `id`=' . $id_komplain . '')->result_array()[0];
@@ -195,7 +191,7 @@ class Home extends CI_Controller
             }
             $path = FCPATH . 'media/upload/answer/' . $folder;
             if (!is_dir($path)) {
-               mkdir($path, 0777, TRUE);
+               mkdir($path, 0755, TRUE);
             }
             $filesCount = count($_FILES['files']['name']);
             for ($i = 0; $i < $filesCount && $i < 4; $i++) {
@@ -242,7 +238,7 @@ class Home extends CI_Controller
       }
    }
 
-   //Ubah Komplain
+   //Ubah Review
    public function c_sembunyikan_komplain()
    {
       if ($this->session->userdata('is_login') == FALSE) {
@@ -250,7 +246,7 @@ class Home extends CI_Controller
       } else {
          $this->db->where('id', $this->input->post('id_komplain'));
          $this->db->update('komplain', array('is_hidden' => '1'));
-         $this->session->set_flashdata('message', $this->flash_success('Komplain Disembunyian'));
+         $this->session->set_flashdata('message', $this->flash_success('Review Disembunyian'));
          redirect('home/komplain');
          $this->session->set_flashdata('message', '');
       }
@@ -272,7 +268,6 @@ class Home extends CI_Controller
       }
       $this->db->reset_query();
       $this->db->where('id', $id);
-      echo $this->db->last_query();
       $this->db->delete('komplain');
 
       $this->db->reset_query();
@@ -289,7 +284,7 @@ class Home extends CI_Controller
       $this->db->reset_query();
       $this->db->where('id_balasan', $id);
       $this->db->delete('balasan_komplain');
-      $this->session->set_flashdata('message', $this->flash_success('Komplain Berhasil Dihapus'));
+      $this->session->set_flashdata('message', $this->flash_success('Review Berhasil Dihapus'));
       redirect('home/komplain');
       $this->session->set_flashdata('message', '');
    }
@@ -301,7 +296,7 @@ class Home extends CI_Controller
       } else {
          $this->db->where('id', $this->input->post('id_komplain'));
          $this->db->update('komplain', array('is_hidden' => '0'));
-         $this->session->set_flashdata('message', $this->flash_success('Komplain Ditampilkan'));
+         $this->session->set_flashdata('message', $this->flash_success('Review Ditampilkan'));
          redirect('home/komplain');
          $this->session->set_flashdata('message', '');
       }
@@ -320,6 +315,19 @@ class Home extends CI_Controller
          $this->load->view('main/footer.php');
       }
    }
+
+   //Addon Function
+  private function filter_input($input) {
+      $search = array(
+        '@<script[^>]*?>.*?</script>@si',   // Menghapus script tag
+        '@<[/!]*?[^<>]*?>@si',            // Menghapus tag HTML
+        '@<style[^>]*?>.*?</style>@siU',    // Menghapus style tag
+      );
+      $output = preg_replace($search, '', $input);
+      return $output;
+    }
+    
+
    private function getTimestamp()
    {
       $locale = 'id_ID';

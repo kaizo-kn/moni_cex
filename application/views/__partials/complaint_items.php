@@ -1,14 +1,21 @@
-<div class="row mb-3 justify-content-center align-items-middle alert-info pt-2 pb-2 rounded">
+<div class="row mb-3 justify-content-center align-items-middle <?php if ($id_balasan == null && $this->session->userdata('is_login') == true) {
+                                                                    echo 'alert-warning';
+                                                                } else if (( $this->session->userdata('is_login') == true) && $is_hidden == "1") {
+                                                                    echo 'alert-secondary';
+                                                                }else{
+                                                                    echo 'alert-info';   
+                                                                } ?> pt-2 pb-2 rounded">
     <div class="col-sm-12 col-md-5 col-lg-6 col-xl-6">
         <div class="card h-100">
             <div class="card-body">
-                <h5 class="card-title"><?= $judul_komplain ?></h5>
-                <em class="text-secondary">Diajukan Oleh: <?= $nama ?></em><br>
-                <em class="text-secondary"><small><?= $email ?></small></em><br>
+                <h5 style="margin-bottom:-15px;" class="card-title">Judul: <p>
+                <?= $judul_komplain ?>
+                </p></h5>
+                <em class="text-secondary">Dibuat Oleh: <?= $nama ?></em><br>
                 <em class="text-secondary"><small><?= $tanggal_komplain ?></small></em>
-                <h5 class="card-title mt-2">Komplain: </h5>
+                <h5 class="card-title mt-2">Review Produk: </h5>
                 <p style="white-space:pre-line;transform:translateY(-30px);margin-bottom:-20px;" class="card-text rounded">
-                    <?= ltrim($isi_komplain,"
+                    <?= ltrim($isi_komplain, "
                     ") ?>
                 </p>
                 <h5 class="mt-0">Foto:</h5>
@@ -51,7 +58,7 @@
                         echo '
                         <form style="width:inherit" class="form-inline float-end" action="c_sembunyikan_komplain" method="post">
                         <input type="hidden" name="id_komplain" value="' . $id . '">
-                        <input type="submit" class="btn btn-warning" value="Sembunyikan">
+                        <input type="submit" class="btn mainbgc text-light" value="Sembunyikan">
                         </form>';
                     }
                     echo '</div>';
@@ -63,12 +70,12 @@
     <div class="col-sm-12 col-md-5 col-lg-6 col-xl-6 ">
         <div class="card h-100">
             <div class="card-body">
-                <h5 class="card-title">Jawaban Komplain</h5><?php if ($id_balasan != null && $this->session->userdata('is_login') == true) {
+                <h5 class="card-title">Balasan Review Produk: </h5><?php if ($id_balasan != null && $this->session->userdata('is_login') == true) {
                                                                 echo '<em class="text-secondary float-end"><small>' . $tanggal_balasan . '</small></em>';
                                                             } ?>
                 <?php if ($id_balasan != null && $this->session->userdata('is_login') == false) {
-                    echo '<em class="text-secondary">Dijawab pada:<small> ' . $tanggal_balasan . '</small> </em>
-                <p style="white-space:pre-line;" class="card-text">' . $balasan . '</p>
+                    echo '<p style="white-space:pre-line;" class="card-text mb-1">' . $balasan . '</p>
+                    <em class="text-secondary">Dijawab pada:<small> ' . $tanggal_balasan . '</small> </em>
                 <h5 class="mt-3">Foto:</h5>';
                     if (isset($gambar_balasan)) {
                         if ($gambar_balasan != "") {

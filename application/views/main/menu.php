@@ -1,6 +1,6 @@
 <body>
     <div style="overflow:hidden" id="preloader">
-        <h2 style="margin-top:34vh" class="title text-light fw-bold text-center">PMT PTPNIV</h2>
+        <h2 style="margin-top:34vh" class="title text-light fw-bold text-center">PMT PTPN IV</h2>
     </div>
   
     <!-- Offcanvas -->
@@ -60,7 +60,7 @@
                                                                                                             } ?>">
                 <div id="menu-komplain"  id="menu-komplain" class="d-flex align-items-center p-1 ">
                     <div style="vertical-align: middle;" class="d-table-cell">
-                        <span class="bi bi-list-check fw-bold fs-2"></span><span class="ps-3 fw-bold mb-3">Ulasan </span>
+                        <span class="bi bi-list-check fw-bold fs-2"></span><span class="ps-3 fw-bold mb-3">Review Produk </span>
                     </div>
                 </div>
             </a><a href="<?= base_url('index.php/user/') ?>" class="<?php if (isset($m7)) {
@@ -68,8 +68,7 @@
                                                                     }  ?>">
                 <div id="menu-admin" id="menu-login" class="d-flex align-items-center p-1 ">
                     <div style="vertical-align: middle;" class="d-table-cell">
-                        <span class="bi bi-person-fill fw-bold fs-2"></span><span class="ps-3 fw-bold mb-3">Halaman
-                            Admin</span>
+                        <span class="bi bi-person-fill fw-bold fs-2"></span><span class="ps-3 fw-bold mb-3">Halaman Admin</span>
                     </div>
                 </div>
             </a>
@@ -84,7 +83,7 @@
 
 
             <div class="text-center text-light d-inline d-xl-none d-md-inline d-lg-none d-sm-inline ms-xl-5 ms-lg-3">
-                <span data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop" class="fs-3 text-dark"><i style="font-weight: bold;" class="bi bi-list text-light"></i></span>
+                <span data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop" class="fs-3 text-dark"><i style="font-weight: bold;" class="bi bi-list text-light pt-3 pb-5"></i></span>
                 <span class="ms-1 ps-4 pe-2 fs-2 fw-bold text-center">PMT Dolok Ilir </span>
             </div>
             <nav id="navbar" class="navbar">
@@ -108,14 +107,14 @@
                     </li>
                     <li><a href="<?= base_url('index.php/home/komplain') ?>" id="nav-komp" class="nav-link <?php if (isset($m6)) {
                                                                                                                 echo $m6;
-                                                                                                            } ?>">Ulasan</a></li>
+                                                                                                            } ?>">Review Produk</a></li>
                     <?php if ($this->session->userdata('is_login') == false) {
                         echo "<li><a href=" . site_url('user') . ">Login</a></li>";
                     } ?>
                 </ul>
             </nav>
             <!-- .navbar -->
-            <div class="mt-2">
+            <div class="">
                 <?php if ($this->session->userdata('is_login') == TRUE) {
                     $this->load->view('profile.php');
                 } ?>

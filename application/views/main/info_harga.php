@@ -3,8 +3,10 @@
     <div class="container mt-5" data-aos="fade-up">
         <div class="section-title">
             <h2>Informasi Harga Tiap Mesin Instalasi</h2>
-            <p>Berikut ini adalah daftar harga tiap-tiap mesin instalasi.</p>
+            <h5>Berikut ini adalah daftar harga tiap-tiap mesin instalasi.</h5>
+            
         </div>
+        
         <div class="row d-flex justify-content-center">
             <div class="col">
                 <?php 
@@ -15,6 +17,7 @@
                 ?>
             </div>
             <div>
+            <em class="mt-2 mb-2 float-end text-secondary  fs-5">Terakhir Diperbaharui:  <?=$tanggal_update?></em>
                 <h4 class="subtitle mt-4 mt-sm-5">
                     CATATAN:
                 </h4>

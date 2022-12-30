@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class M_user extends CI_Model
 {
-
+/*
 
         public function m_register()
         {
@@ -43,6 +43,12 @@ class M_user extends CI_Model
                 return $this->db->insert('user', $data);
         }
 
+        */
+        public function m_get_stok()
+    {
+        $this->db->where('id', 1);
+        return $this->db->get('stok_sparepart_pmt')->result_array()[0];
+    }
         public function m_cek_mail()
         {
 
@@ -86,7 +92,7 @@ class M_user extends CI_Model
                 }
         }
         function m_update_catatan_harga($data){
-                $this->db->update('catatan_info_harga',array('catatan'=>$data));
+                $this->db->update('catatan_info_harga',$data);
         }
 }
 

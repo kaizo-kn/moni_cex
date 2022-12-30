@@ -7,8 +7,8 @@
         <div class="accordion" id="accordionExample">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne" ar>
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Ajukan Komplain Baru
+                    <button class="accordion-button pb-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <p class="fs-5 mt-0">Buat Review Baru</p>
                     </button>
                 </h2>
                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
@@ -17,28 +17,25 @@
                             <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 ">
                                 <div class="mb-3">
                                     <label for="judul" class="form-label">Judul</label>
-                                    <input type="text" class="form-control" name="judul" placeholder="Judul Komplain Anda..." required>
+                                    <input type="text" class="form-control" name="judul" placeholder="Judul Review..." required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="nama" class="form-label">Nama</label>
                                     <input type="text" class="form-control" name="nama" placeholder="Masukkan Nama Anda..." required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">Alamat Email</label>
-                                    <input type="email" class="form-control" name="email" placeholder="Masukkan Alamat Email Anda..." required>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                                <div class="mb-3">
-                                    <label for="komplain" class="form-label">Komplain</label>
-                                    <textarea style="min-height:125px;white-space: pre-wrap; " class="form-control" name="komplain" rows="3"></textarea>
                                 </div>
                                 <div class="mb-2">
                                     <label for="formFileMultiple" class="form-label">Tambahkan Gambar</label>
                                     <input name='files[]' class="form-control" type="file" id="formFileMultiple" multiple accept="image">
                                 </div>
                             </div>
-                            <div class="alert"><button class="btn mainbgc text-light float-end" type="submit">Kirim</button></div>
+
+                            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                <div class="mb-3">
+                                    <label for="komplain" class="form-label">Isi Review</label>
+                                    <textarea style="min-height:125px;white-space: pre-wrap; " class="form-control" name="komplain" rows="3"></textarea>
+                                </div>
+                                <div class="alert"><button class="btn mainbgc text-light float-end" type="submit">Kirim</button></div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -76,8 +73,3 @@
     </div>
 </section>
 </main>
-<script>
-    $(function() {
-        $("#nav-komp").addClass("nav-menu-active");
-    })
-</script>

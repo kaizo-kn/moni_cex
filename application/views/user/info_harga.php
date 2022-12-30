@@ -4,8 +4,9 @@
             <div>
                 <div class="section-title">
                     <h2>Informasi Harga Tiap Mesin Instalasi</h2>
-                    <p class="btm-border fromRight">Berikut ini adalah daftar harga tiap-tiap mesin instalasi.</p>
+                    <p class="mt-2 mb-2 text-center text-secondary">Terakhir Diperbaharui : <?=$tanggal_update?></p>
                 </div>
+                
                 <div class="row d-flex justify-content-center">
                     <div class="col sm-12 col-md-10 col-lg-8 col-xl-8 nb-shadow h-75">
                         <?php echo form_open_multipart('user/upload_info_harga'); ?>
