@@ -310,7 +310,7 @@ const admin_page = `<!-- Info Stok Sparepart -->
         </section>`;
 
 function displayPage(html, menuID) {
-    if ($('.site_url').val() == 'komplain') {
+    if ($('.site_url').val() == 'review') {
         console.log(html, menuID)
         window.location.href = $('.base_url').val() + 'index.php/home/#'
     }

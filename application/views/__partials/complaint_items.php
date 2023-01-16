@@ -103,9 +103,9 @@
                         $gambar_balasan = null;
                     }
                     echo '<form class="h-100" action="c_balas_komplain" method="post" id="form-balasan" enctype="multipart/form-data">
-                    <input type="hidden" name="id-komplain" value="' . $id . '">
+                    <input type="hidden" name="id-review" value="' . $id . '">
                     <div class="mb-2">
-                    <textarea style="min-height:100px;white-space: pre-line; "; class="text-secondary form-control " name="balasan-komplain" id="" placeholder="Tulis Balasan...">' . $balasan . '</textarea>
+                    <textarea style="min-height:100px;white-space: pre-line; "; class="text-secondary form-control " name="balasan-review" id="" placeholder="Tulis Balasan...">' . $balasan . '</textarea>
                     <label for="formFileMultiple" class="form-label mt-3">Tambahkan Gambar</label>';
 
                     if (isset($gambar_balasan)) {

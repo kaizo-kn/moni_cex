@@ -183,7 +183,7 @@
                     <h3 class=" font-weight-bold">HUBUNGI KAMI
                     </h3>
                     <p>
-                        Jika anda membutuhkan informasi lebih lengkap mengenai produk-produk PMT Dolok Ilir, <br> anda bisa menghubungi : <br> Telepon :(+62) 0622-64016 <br> Faksimili : (+62) 0622-64420 <br> Email : pmt_doi@ptpn4.co.id
+                        Jika anda membutuhkan informasi lebih lengkap mengenai produk-produk PMT Dolok Ilir, <br> anda bisa menghubungi : <br> Telepon : (+62) 0622-64016 <br> Faksimili : (+62) 0622-64420 <br> Email : pmt_doi@ptpn4.co.id
                     </p>
                 </div>
             </div>
