@@ -319,53 +319,53 @@ class Home extends CI_Controller
    //Addon Function
   private function filter_input($input) {
       $search = array(
-        '@<script[^>]*?>.*?</script>@si',   // Menghapus script tag
-        '@<[/!]*?[^<>]*?>@si',            // Menghapus tag HTML
-        '@<style[^>]*?>.*?</style>@siU',    // Menghapus style tag
-      );
-      $output = preg_replace($search, '', $input);
-      return $output;
-    }
-    
+        '@<script[^>]*?>.*?</script>@si', // Menghapus script tag
+'@<[ /!]*?[^<>]*?>@si', // Menghapus tag HTML
+    '@<style[^>]*?>.*?</style>@siU', // Menghapus style tag
+        );
+        $output = preg_replace($search, '', $input);
+        return $output;
+        }
 
-   private function getTimestamp()
-   {
-      $locale = 'id_ID';
-      $dateObj = new DateTime;
-      $formatter = new IntlDateFormatter(
-         $locale,
-         IntlDateFormatter::FULL,
-         IntlDateFormatter::SHORT
-      );
-      $formatter->format($dateObj);
-      $cDate = $formatter->format($dateObj);
-      return substr($cDate, 0, -6) . " pukul " . substr($cDate, -5) . " WIB";
-   }
-   private function flash_success($message)
-   {
-      return "
-  toastMixin.fire({
-    icon: 'success',
-    animation: true,
-    title: '" . $message . "'
-  });";
-   }
-   private function flash_info($message)
-   {
-      return "
-  toastMixin.fire({
-    icon: 'info',
-    animation: true,
-    title: '" . $message . "'
-  });";
-   }
-   private function flash_error($message)
-   {
-      return "
-  toastMixin.fire({
-    icon: 'error',
-    animation: true,
-    title: '" . $message . "'
-  });";
-   }
-}
+
+        private function getTimestamp()
+        {
+        $locale = 'id_ID';
+        $dateObj = new DateTime;
+        $formatter = new IntlDateFormatter(
+        $locale,
+        IntlDateFormatter::FULL,
+        IntlDateFormatter::SHORT
+        );
+        $formatter->format($dateObj);
+        $cDate = $formatter->format($dateObj);
+        return substr($cDate, 0, -6) . " pukul " . substr($cDate, -5) . " WIB";
+        }
+        private function flash_success($message)
+        {
+        return "
+        toastMixin.fire({
+        icon: 'success',
+        animation: true,
+        title: '" . $message . "'
+        });";
+        }
+        private function flash_info($message)
+        {
+        return "
+        toastMixin.fire({
+        icon: 'info',
+        animation: true,
+        title: '" . $message . "'
+        });";
+        }
+        private function flash_error($message)
+        {
+        return "
+        toastMixin.fire({
+        icon: 'error',
+        animation: true,
+        title: '" . $message . "'
+        });";
+        }
+        }

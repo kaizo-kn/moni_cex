@@ -24,7 +24,7 @@
                <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Kata Sandi" required><br>
              </div>
            </div>
-           <button type="submit" class="btn btn-primary mt-4 float-end ">Log In</button>
+           <button type="submit" class="btn mainbgc mt-4 float-end text-light fw-bold zoom-hover nb-shadow">Log In</button>
          </div>  
          <?php echo form_close(); ?>
        </div>
