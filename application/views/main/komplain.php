@@ -31,8 +31,8 @@
 
                             <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
                                 <div class="mb-3">
-                                    <label for="komplain" class="form-label">Isi Review</label>
-                                    <textarea style="min-height:125px;white-space: pre-wrap; " class="form-control" name="komplain" rows="3"></textarea>
+                                    <label for="review" class="form-label">Isi Review</label>
+                                    <textarea style="min-height:125px;white-space: pre-wrap; " class="form-control" name="review" rows="3"></textarea>
                                 </div>
                                 <div class="alert"><button class="btn mainbgc text-light float-end" type="submit">Kirim</button></div>
                             </div>
@@ -44,8 +44,8 @@
 
         <div class="mt-4 section-bg mb-3  container">
             <?php
-            $komplain = $this->m_home->m_get_complaint();
-            foreach ($komplain as $key => $value) {
+            $review = $this->m_home->m_get_complaint();
+            foreach ($review as $key => $value) {
                 if ($this->session->userdata('is_login') == false) {
                     if ($value['is_hidden'] == "0") {
                         if (isset($value['id_balasan'])) {

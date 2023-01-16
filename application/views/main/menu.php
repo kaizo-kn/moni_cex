@@ -56,9 +56,9 @@
                         <span class=" bi bi-question-circle-fill fw-bold fs-2"></span><span class="ps-3 fw-bold mb-3">Pertanyaan Umum</span>
                     </div>
                 </div>
-            </a><a href="<?= base_url('index.php/home/komplain') ?>"  class="<?php if (isset($m6)) {echo $m6;
+            </a><a href="<?= base_url('index.php/home/review') ?>"  class="<?php if (isset($m6)) {echo $m6;
                                                                                                             } ?>">
-                <div id="menu-komplain"  id="menu-komplain" class="d-flex align-items-center p-1 ">
+                <div id="menu-review"  id="menu-review" class="d-flex align-items-center p-1 ">
                     <div style="vertical-align: middle;" class="d-table-cell">
                         <span class="bi bi-list-check fw-bold fs-2"></span><span class="ps-3 fw-bold mb-3">Review Produk </span>
                     </div>
@@ -105,7 +105,7 @@
                                                                                                             echo $m5;
                                                                                                         } ?>">FAQ</a>
                     </li>
-                    <li><a href="<?= base_url('index.php/home/komplain') ?>" id="nav-komp" class="nav-link <?php if (isset($m6)) {
+                    <li><a href="<?= base_url('index.php/home/review') ?>" id="nav-komp" class="nav-link <?php if (isset($m6)) {
                                                                                                                 echo $m6;
                                                                                                             } ?>">Review Produk</a></li>
                     <?php if ($this->session->userdata('is_login') == false) {

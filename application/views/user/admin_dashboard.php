@@ -50,7 +50,7 @@
               </a>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 mt-4 zoom-hover nb-shadow ">
-              <a href="<?php echo site_url('home/komplain') ?>">
+              <a href="<?php echo site_url('home/review') ?>">
                 <div style="height:100%" class="member d-flex flex-column align-items-center bg-light p-0 overflow-hidden" data-aos="zoom-in" data-aos-delay="100">
                   <div style="height:25vh" class="p-3 d-flex align-items-center text-start">
                     <i style="font-size: 4rem;" class="bi bi-card-checklist fw-bold main-text-color mt-3"></i>

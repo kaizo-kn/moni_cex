@@ -8,7 +8,7 @@
         <li><a href="<?php echo site_url('user/admin_dashboard') ?>">Dashboard</a></li>
         <li><a href="<?php echo site_url('user/ubah_info_stok') ?>">Ubah Info Stok Sparepart</a></li>
         <li><a href="<?php echo site_url('user/ubah_info_harga') ?>">Ubah Info Harga</a></li>
-        <li><a href="<?php echo site_url('home/komplain') ?>">Manajemen Review</a></li>
+        <li><a href="<?php echo site_url('home/review') ?>">Manajemen Review</a></li>
         <li><a href="<?php echo site_url('user/user_profile') ?>">Ubah Profil</a></li>
         <li><a href="<?php echo site_url('home/') ?>">Halaman Utama</a></li>
         <li><a href="<?php echo site_url('user/logout') ?>">Keluar</a></li>

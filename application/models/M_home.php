@@ -5,7 +5,7 @@ class M_home extends CI_Model
 {
     public function m_add_complaint($data)
     {
-        $this->db->insert('komplain', $data);
+        $this->db->insert('review', $data);
         return $this->db->last_query();
     }
     public function m_balas_komplain($data)
@@ -16,20 +16,20 @@ class M_home extends CI_Model
             echo $this->db->last_query();
             echo "<br>";
             $this->db->where('id', $data['id_balasan']);
-            $this->db->update('komplain', array('id_balasan' => $data['id_balasan']));
+            $this->db->update('review', array('id_balasan' => $data['id_balasan']));
         } else {
             $this->db->where('id_balasan', $data['id_balasan']);
             $this->db->update('balasan_komplain', $data);
             echo $this->db->last_query();
             echo "<br>";
             $this->db->reset_query();
-            $this->db->query('UPDATE `komplain` SET `id_balasan` = ' . $data["id_balasan"] . ' WHERE `id` =' . $data["id_balasan"] . '');
+            $this->db->query('UPDATE `reviewSET `id_balasan` = ' . $data["id_balasan"] . ' WHERE `id` =' . $data["id_balasan"] . '');
         }
     }
 
     public function m_get_complaint()
     {
-        return $this->db->get('komplain')->result_array();
+        return $this->db->get('review')->result_array();
     }
     public function m_get_balasan($id)
     {

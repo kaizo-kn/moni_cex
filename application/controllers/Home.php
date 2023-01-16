@@ -65,14 +65,14 @@ class Home extends CI_Controller
       }
    }
 
-   public function komplain()
+   public function review()
    {
       $this->load->view('main/header.php', array('page_title' => 'Halaman Review Produk'));
       $this->load->view('main/menu.php', array('m6' => 'nav-menu-active'));
-      $this->load->view('main/komplain.php');
+      $this->load->view('main/review.php');
       $this->load->view('main/footer.php');
       if ($this->session->userdata('is_login') == true) {
-         $this->session->set_userdata(array('sitenow'=>'home/komplain'));
+         $this->session->set_userdata(array('sitenow'=>'home/review'));
       }
    }
 
@@ -111,7 +111,7 @@ class Home extends CI_Controller
       $message = "";
       $title =$this->filter_input($this->input->post('judul'));
       $name = $this->filter_input($this->input->post('nama'));
-      $complaint = $this->filter_input($this->input->post('komplain'));
+      $complaint = $this->filter_input($this->input->post('review'));
       $timestamp = $this->getTimestamp();
       if (!empty($_FILES['files']['name']) && count(array_filter($_FILES['files']['name'])) > 0) {
          $date = date("Y-m-d_H-i-s");
@@ -157,7 +157,7 @@ class Home extends CI_Controller
       }
       $data = array('nama' => $name, 'tanggal_komplain' => $timestamp, 'judul_komplain' => $title, 'isi_komplain' => $complaint, 'gambar' => $folder);
       $this->m_home->m_add_complaint($data);
-      redirect('home/komplain');
+      redirect('home/review');
       $this->session->set_flashdata('message', '');
    }
 
@@ -170,12 +170,12 @@ class Home extends CI_Controller
          $folder = null;
          $path = "";
          $message = "";
-         $id_komplain = $this->input->post('id-komplain');
-         $balasan = $this->filter_input($this->input->post('balasan-komplain'));
+         $id_komplain = $this->input->post('id-review');
+         $balasan = $this->filter_input($this->input->post('balasan-review'));
          $timestamp = $this->getTimestamp();
          if (!empty($_FILES['files']['name']) && count(array_filter($_FILES['files']['name'])) > 0) {
             $date = date("Y-m-d_H-i-s");
-            $data = $this->db->query('SELECT `nama`,`gambar` FROM `komplain` WHERE `id`=' . $id_komplain . '')->result_array()[0];
+            $data = $this->db->query('SELECT `nama`,`gambar` FROM `review` WHERE `id`=' . $id_komplain . '')->result_array()[0];
             $data1 = $this->db->query('SELECT `gambar_balasan` FROM `balasan_komplain` WHERE `id_balasan`=' . $id_komplain . '')->result_array()[0];
             $folder = $data['gambar'];
             $folder1 = $data1['gambar_balasan'];
@@ -233,7 +233,7 @@ class Home extends CI_Controller
             $data = array('id_balasan' => $id_komplain, 'tanggal_balasan' => $timestamp, 'balasan' => $balasan);
          }
          $this->m_home->m_balas_komplain($data);
-         redirect('home/komplain');
+         redirect('home/review');
          $this->session->set_flashdata('message', '');
       }
    }
@@ -245,9 +245,9 @@ class Home extends CI_Controller
          redirect('/', 'refresh');
       } else {
          $this->db->where('id', $this->input->post('id_komplain'));
-         $this->db->update('komplain', array('is_hidden' => '1'));
+         $this->db->update('review', array('is_hidden' => '1'));
          $this->session->set_flashdata('message', $this->flash_success('Review Disembunyian'));
-         redirect('home/komplain');
+         redirect('home/review');
          $this->session->set_flashdata('message', '');
       }
    }
@@ -257,7 +257,7 @@ class Home extends CI_Controller
       $id = $this->input->post('id_komplain');
       $this->db->select('gambar');
       $this->db->where('id', $id);
-      $folder = $this->db->get_where('komplain')->result_array();
+      $folder = $this->db->get_where('review')->result_array();
 
       if (null != $folder) {
          $folder = $folder[0]['gambar'];
@@ -268,7 +268,7 @@ class Home extends CI_Controller
       }
       $this->db->reset_query();
       $this->db->where('id', $id);
-      $this->db->delete('komplain');
+      $this->db->delete('review');
 
       $this->db->reset_query();
       $this->db->select('gambar_balasan');
@@ -285,7 +285,7 @@ class Home extends CI_Controller
       $this->db->where('id_balasan', $id);
       $this->db->delete('balasan_komplain');
       $this->session->set_flashdata('message', $this->flash_success('Review Berhasil Dihapus'));
-      redirect('home/komplain');
+      redirect('home/review');
       $this->session->set_flashdata('message', '');
    }
 
@@ -295,9 +295,9 @@ class Home extends CI_Controller
          redirect('/', 'refresh');
       } else {
          $this->db->where('id', $this->input->post('id_komplain'));
-         $this->db->update('komplain', array('is_hidden' => '0'));
+         $this->db->update('review', array('is_hidden' => '0'));
          $this->session->set_flashdata('message', $this->flash_success('Review Ditampilkan'));
-         redirect('home/komplain');
+         redirect('home/review');
          $this->session->set_flashdata('message', '');
       }
    }

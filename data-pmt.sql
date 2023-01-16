@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `balasan_komplain`
+-- Table structure for table `balasan_review`
 --
 
-CREATE TABLE `balasan_komplain` (
+CREATE TABLE `balasan_review` (
   `id_balasan` int(255) NOT NULL,
   `tanggal_balasan` varchar(40) NOT NULL,
   `balasan` text NOT NULL,
@@ -35,11 +35,11 @@ CREATE TABLE `balasan_komplain` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `balasan_komplain`
+-- Dumping data for table `balasan_review`
 --
 
-INSERT INTO `balasan_komplain` (`id_balasan`, `tanggal_balasan`, `balasan`, `gambar_balasan`) VALUES
-(54, 'Kamis, 29 Desember 2022 pukul 04.27 WIB', 'Mohon maaf atas kesalahannya. Saat ini komplain anda sedang diteruskan ke tim terkait. \r\nTerimakasih.', 'Prayo_1672114522-1737'),
+INSERT INTO `balasan_review` (`id_balasan`, `tanggal_balasan`, `balasan`, `gambar_balasan`) VALUES
+(54, 'Kamis, 29 Desember 2022 pukul 04.27 WIB', 'Mohon maaf atas kesalahannya. Saat ini review anda sedang diteruskan ke tim terkait. \r\nTerimakasih.', 'Prayo_1672114522-1737'),
 (55, 'Selasa, 27 Desember 2022 pukul 05.21 WIB', 'Terimakasih sudah menunggu. Mohon maaf, saat ini bagian ekspedisi sedang mengalami masalah teknis. \r\n-Admin Y-', NULL),
 (56, 'Rabu, 28 Desember 2022 pukul 12.04 WIB', '', 'balasan_1672225031-1639');
 
@@ -83,25 +83,25 @@ INSERT INTO `info_harga` (`id`, `banner_harga`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `komplain`
+-- Table structure for table `review`
 --
 
-CREATE TABLE `komplain` (
+CREATE TABLE `review` (
   `id` int(255) NOT NULL,
   `nama` varchar(40) NOT NULL,
-  `tanggal_komplain` varchar(50) NOT NULL,
-  `judul_komplain` varchar(60) NOT NULL,
-  `isi_komplain` text NOT NULL,
+  `tanggal_review` varchar(50) NOT NULL,
+  `judul_review` varchar(60) NOT NULL,
+  `isi_review` text NOT NULL,
   `gambar` varchar(100) DEFAULT NULL,
   `id_balasan` int(255) DEFAULT NULL,
   `is_hidden` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `komplain`
+-- Dumping data for table `review`
 --
 
-INSERT INTO `komplain` (`id`, `nama`, `tanggal_komplain`, `judul_komplain`, `isi_komplain`, `gambar`, `id_balasan`, `is_hidden`) VALUES
+INSERT INTO `review` (`id`, `nama`, `tanggal_review`, `judul_review`, `isi_review`, `gambar`, `id_balasan`, `is_hidden`) VALUES
 (54, 'Prayogi Wiranata', 'Selasa, 27 Desember 2022 pukul 05.15 WIB', 'Barang Tidak Sesuai', 'Barang yang saya terima tidak sesuai dengan yang saya pesan. Nomor pesanan saya adalah PSP-3221/INV0062381/PMT.\r\nMohon ditindaklanjuti. Terima kasih.', 'Prayo_1672114522-1737', 54, 0),
 (55, 'Agus Wijaya', 'Selasa, 27 Desember 2022 pukul 05.18 WIB', 'Barang Belum Sampai', 'Barang yang saya pesan belum sampai. Sudah 1 minggu menunggu.', 'AgusW_1672114692-1128', 55, 1),
 (56, 'William Stallings', 'Selasa, 27 Desember 2022 pukul 05.46 WIB', 'Barang Kurang ', 'Barang yang saya terima jumlahnya berbeda dengan yang saya pesan.', NULL, 56, 0);
@@ -184,9 +184,9 @@ ALTER TABLE `info_harga`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `komplain`
+-- Indexes for table `review`
 --
-ALTER TABLE `komplain`
+ALTER TABLE `review`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -212,9 +212,9 @@ ALTER TABLE `catatan_info_harga`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `komplain`
+-- AUTO_INCREMENT for table `review`
 --
-ALTER TABLE `komplain`
+ALTER TABLE `review`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
