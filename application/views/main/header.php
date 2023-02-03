@@ -24,6 +24,7 @@
     <link href="<?= base_url() ?>assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
     <link href="<?= base_url() ?>assets/vendor/remixicon/remixicon.css" rel="stylesheet">
     <link href="<?= base_url() ?>assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="<?= base_url() ?>assets/vendor/datatables/css/datatables_1.13.1.min.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
     <link href="<?= base_url() ?>assets/css/style.css" rel="stylesheet">
@@ -31,4 +32,6 @@
     <!-- JS -->
     <script src="<?= base_url() ?>assets/js/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
     <script src="<?= base_url() ?>assets/js/sweetalert2.all.js" crossorigin="anonymous"></script>
+    <script src="<?= base_url() ?>assets/vendor/datatables/js/datatables_1.13.1.min.js" crossorigin="anonymous"></script>
+    
 </head>

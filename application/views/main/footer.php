@@ -61,6 +61,9 @@
     $(function() {
         <?= $this->session->flashdata('message') ?>
     })
+    $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
 </script>
 
 </html>

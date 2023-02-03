@@ -1940,6 +1940,12 @@ section {
     font-size: 12px;
 }
 
+.dropdown .dropdown.act-hover>ul {
+    opacity: 1;
+    top: 100%;
+    visibility: visible;
+}
+
 .dropdown .dropdown ul a:hover,
 .dropdown .dropdown ul .active:hover,
 .dropdown .dropdown ul li:hover>a {

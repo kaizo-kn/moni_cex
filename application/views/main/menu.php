@@ -79,7 +79,7 @@
     <!-- ======= Header ======= -->
     <header style="position: sticky;" id="header" class="header-scrolled ">
         <div style="min-height:3rem;" class="container-fluid pe-2 d-inline-flex justify-content-between">
-            <h1 class="logo d-none d-lg-block d-xl-block d-md-none align-items-center "><img src="<?= base_url() ?>assets/img/icons/Logo_PTPN4.png" alt="" sizes="160x160" srcset="" class="me-2"><a class="text-center mt-2 logo-title align-items-center me-5 btm-border fromCenter" href="index.html">PMT Dolok Ilir</a></h1>
+            <h1 class="logo d-none d-lg-block d-xl-block d-md-none align-items-center "><img src="<?= base_url() ?>assets/img/icons/Logo_PTPN4.png" alt="" sizes="160x160" srcset="" class="me-2"><a class="text-center mt-2 logo-title align-items-center me-5 btm-border fromCenter" href="<?=base_url('index.php/home')?>">PMT Dolok Ilir</a></h1>
 
 
             <div class="text-center text-light d-inline d-xl-none d-md-inline d-lg-none d-sm-inline ms-xl-5 ms-lg-3">
@@ -101,13 +101,14 @@
                     <li><a href="<?= base_url('index.php/home/info_stok') ?>" id="nav-info-stok" class="nav-link <?php if (isset($m4)) {
                                                                                                                         echo $m4;
                                                                                                                     } ?>">Informasi Stok Sparepart</a></li>
-                    <li><a href="<?= base_url('index.php/home/faq') ?>" id="nav-faq" class="nav-link <?php if (isset($m5)) {
-                                                                                                            echo $m5;
-                                                                                                        } ?>">FAQ</a>
-                    </li>
+                    
                     <li><a href="<?= base_url('index.php/home/review') ?>" id="nav-komp" class="nav-link <?php if (isset($m6)) {
                                                                                                                 echo $m6;
                                                                                                             } ?>">Review Produk</a></li>
+                                                                                                            <li><a href="<?= base_url('index.php/home/faq') ?>" id="nav-faq" class="nav-link <?php if (isset($m5)) {
+                                                                                                            echo $m5;
+                                                                                                        } ?>">FAQ</a>
+                    </li>
                     <?php if ($this->session->userdata('is_login') == false) {
                         echo "<li><a href=" . site_url('user') . ">Login</a></li>";
                     } ?>

@@ -10,10 +10,7 @@
         <div class="row d-flex justify-content-center">
             <div class="col">
                 <?php 
-                $foldername_array = directory_map(FCPATH.'media/upload/banner_harga');
-                foreach ($foldername_array as $key => $value) {
-                    echo '<img id="banner" width="100%" height="auto" src="'.base_url().'media/upload/banner_harga/'.$value.'" alt="" srcset="">';
-                }
+                    echo '<img id="banner" width="100%" height="auto" src="'.base_url().'media/upload/banner_harga/'.$banner_harga.'" alt="" srcset="">';
                 ?>
             </div>
             <div>
@@ -73,7 +70,7 @@
                     </div>
                 </div>
             </div>
-            <div onclick="buildModal('Hidrocyclone','<?= base_url('media/upload/info_harga/') ?>hidroc1.png','<?= base_url('media/upload/info_harga/') ?>hidroc2.png','<?= base_url('media/upload/info_harga/') ?>hidroc3.png')" class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mt-4">
+            <div onclick="buildModal('Hidrocyclone','<?= base_url('media/upload/info_harga/') ?>hidroc1.png','<?= base_url('media/upload/info_harga/') ?>hidroc2.png')" class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mt-4">
                 <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
                     <div class="pic"><img src="<?= base_url('media/upload/icons/') ?>hidrocyclone.png" class="img-fluid" alt=""></div>
                     <div class="member-info">

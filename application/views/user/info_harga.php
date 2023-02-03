@@ -13,10 +13,9 @@
                         <div class="member no-hover align-items-center bg-light p-0 overflow-hidden" data-aos="zoom-in" data-aos-delay="100">
                             <div class="p-0 d-flex align-items-center text-center  rounded">
                                 <?php
-                                $foldername_array = directory_map(FCPATH . 'media/upload/banner_harga');
-                                foreach ($foldername_array as $key => $value) {
-                                    echo '<img class="rounded" width="100%" height="auto" src="' . base_url() . 'media/upload/banner_harga/' . $value . '" alt="" srcset="">';
-                                }
+                               
+                                    echo '<img class="rounded" width="100%" height="auto" src="' . base_url() . 'media/upload/banner_harga/' . $banner_harga . '" alt="" srcset="">';
+                                
                                 ?>
                             </div>
                             <div class=" mt-3 ms-2 me-2">
@@ -29,7 +28,7 @@
                                     <h4 class="fs-5 fw-bold text-left text-light">Ubah Gambar</h4>
                                     <div class=" ps-0 d-flex flex-row w-100">
                                         <div class="ms-0 ps-0 pb-2">
-                                            <input class="form-control" type="file" name="berkas" />
+                                            <input class="form-control" type="file" name="berkas" accept=".jpeg,.jpg,.png">
                                         </div>
                                         <div class="ms-4">
                                             <button class="btn btn-primary  float-end" type="submit" value="upload">Update</button>

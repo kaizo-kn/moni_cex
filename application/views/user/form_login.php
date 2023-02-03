@@ -11,9 +11,9 @@
            <div class="mb-3">
              <div class="input-group">
                <div class="input-group-prepend">
-                 <span style="border-top-right-radius: 0px;border-bottom-right-radius: 0px;" class="input-group-text" id="basic-addon1"><i class="bi bi-at fw-bold "></i></span>
+                 <span style="border-top-right-radius: 0px;border-bottom-right-radius: 0px;" class="input-group-text" id="basic-addon1"><i class="bi bi-person fw-bold "></i></span>
                </div>
-               <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email" required style="border-top-right-radius: 5px;border-bottom-right-radius:5px;"><br>
+               <input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="usernameHelp" placeholder="Nama Pengguna" required style="border-top-right-radius: 5px;border-bottom-right-radius:5px;" value="<?=$this->session->flashdata('username')?>"><br>
              </div>
            </div>
            <div class="mb-3">
