@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
 
-    <title><?=$page_title?> - PMT Dolok Ilir</title>
+    <title><?=$page_title?> - Moni Cex</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 

@@ -25,18 +25,18 @@ class User extends CI_Controller
 
   public function index()
   {
-
-    if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('singkatan') == 'admin') {
-      redirect('user/admin_dashboard', 'refresh');
-    } else if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('singkatan') != 'admin') {
-      redirect('user/user_dashboard', 'refresh');
-    } else {
-      $data['page_title'] = "Log In";
-      $this->load->view('main/header.php', $data);
-      $this->load->view('user/login_header.php');
-      $this->load->view('user/form_login.php');
-      $this->load->view('main/footer.php');
-    }
+    var_dump($this->session->userdata());
+    // if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('singkatan') == 'admin') {
+    //   redirect('user/admin_dashboard', 'refresh');
+    // } else if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('singkatan') != 'admin') {
+    //   redirect('user/user_dashboard', 'refresh');
+    // } else {
+    //   $data['page_title'] = "Log In";
+    //   $this->load->view('main/header.php', $data);
+    //   $this->load->view('user/login_header.php');
+    //   $this->load->view('user/form_login.php');
+    //   $this->load->view('main/footer.php');
+    // }
   }
 
   public function admin_dashboard()

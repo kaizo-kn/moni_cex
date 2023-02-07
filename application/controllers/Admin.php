@@ -15,15 +15,13 @@ class Admin extends CI_Controller
 
    public function index()
    {
- 
-     if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('singkatan') == 'admin') {
-       redirect('admin/admin_dashboard', 'refresh');
+     if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
+      $this->load->view('__partials/header.php', array('page_title' => 'Dashboard'));
+      $this->load->view('__partials/menu.php', array('m2' => 'nav-menu-active'));
+      $this->load->view('admin/dashboard.php');
+      $this->load->view('__partials/footer.php');
      } else {
-       $data['page_title'] = "Masuk";
-       $this->load->view('__partials/header.php', $data);
-       $this->load->view('__partials/login_header.php');
-       $this->load->view('__partials/form_login.php');
-       $this->load->view('__partials/footer.php');
+      redirect('login', 'refresh');
      }
    }
    public function info_produk()
