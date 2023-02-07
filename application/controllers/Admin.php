@@ -2,26 +2,29 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class Home extends CI_Controller
+class Admin extends CI_Controller
 {
 
    public function __construct()
    {
       parent::__construct();
       $this->load->helper(array('url', 'directory'));
-      $this->load->model('m_home');
+      $this->load->model('m_admin');
    }
 
 
    public function index()
    {
-      $this->load->view('main/header.php', array('page_title' => 'Beranda'));
-      $this->load->view('main/menu.php', array('m1' => 'nav-menu-active'));
-      $this->load->view('main/beranda.php');
-      $this->load->view('main/footer.php');
-      if ($this->session->userdata('is_login') == true) {
-         $this->session->set_userdata(array('sitenow' => ''));
-      }
+ 
+     if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('singkatan') == 'admin') {
+       redirect('admin/admin_dashboard', 'refresh');
+     } else {
+       $data['page_title'] = "Masuk";
+       $this->load->view('__partials/header.php', $data);
+       $this->load->view('__partials/login_header.php');
+       $this->load->view('__partials/form_login.php');
+       $this->load->view('__partials/footer.php');
+     }
    }
    public function info_produk()
    {
