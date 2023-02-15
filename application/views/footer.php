@@ -2,7 +2,7 @@
 <footer style="bottom: 0px!important;" id="footer" class="rounded-bottom w-100 justify-content-center">
   <div class="container footer-bottom clearfix d-flex justify-content-center">
     <div class="copyright">
-      &copy; Copyright <strong><span>PMT Dolok Ilir</span></strong>. All Rights Reserved
+     <strong><span>MONI - CEX PTPN IV  &copy; <?=date('Y');?></span></strong>. All Rights Reserved
     </div>
   </div>
 </footer>

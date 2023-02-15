@@ -27,7 +27,7 @@
                             Input Uraian Pekerjaan
                         </td>
                         <td>
-                            <textarea name="uraian_pekerjaan" rows="5" cols="5" class="form-control w-100" placeholder="Uraian Pekerjaan..."></textarea>
+                            <textarea name="uraian_pekerjaan" rows="5" cols="5" class="form-control w-100" placeholder="Uraian Pekerjaan..." required></textarea>
                         </td>
                     </tr>
                 </tbody>

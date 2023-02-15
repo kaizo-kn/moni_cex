@@ -27,7 +27,7 @@
                             Pilih Uraian Pekerjaan
                         </td>
                         <td class="control-group">
-                            <select onchange="$('#u_p').text($(this).children('option').filter(':selected').text());setCorrection($(this).val())" name="id_pekerjaan" id="list_pekerjaan" required>
+                            <select onchange="$(`#list_pekerjaan-selectized`).prop('required',false);$('#u_p').text($(this).children('option').filter(':selected').text());setCorrection($(this).val())" name="id_pekerjaan" id="list_pekerjaan" required>
                                 <option disabled selected value="">Pilih Uraian Pekerjaan</option>
                             </select>
                         </td>
@@ -80,14 +80,14 @@
 </section>
 <script>
     function setCorrection(id_val) {
-        
-        if(id_val!=""){
-           id_progress=JSON.parse("[" + id_val + "]")[1];
-        $('#type_progress').selectize()[0].selectize.destroy();
-        $(`#type_progress`).val(id_progress).change()
+
+        if (id_val != "") {
+            id_progress = JSON.parse("[" + id_val + "]")[1];
+            $('#type_progress').selectize()[0].selectize.destroy();
+            $(`#type_progress`).val(id_progress).change()
         }
-       
-       
+
+
     }
 
 
@@ -116,14 +116,13 @@
                 id_pks: id_pks,
             },
             success: function(data) {
-                console.log(data)
                 wait = false
                 $('#list_pekerjaan').selectize()[0].selectize.destroy();
                 let my_options = []
                 for (let index = 0; index < data.length; index++) {
                     const element = data[index];
                     my_options[index] = {
-                        'id': element['id_pekerjaan']+","+element['id_progress'],
+                        'id': element['id_pekerjaan'] + "," + element['id_progress'],
                         'uraian_pekerjaan': element['uraian_pekerjaan']
                     }
                 }
@@ -135,6 +134,7 @@
                     options: my_options,
                     create: false
                 });
+                $(`#list_pekerjaan-selectized`).prop('required', true)
                 $('html').css('overflow', 'overlay');
                 $('#loader').css('display', 'none');
                 $('#loader>div').removeClass('lds-ellipsis')
