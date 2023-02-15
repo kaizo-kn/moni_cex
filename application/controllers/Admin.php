@@ -32,6 +32,8 @@ class Admin extends CI_Controller
    public function lap_invest()
    {
       if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
+         $data_pekerjaan=array('data_pekerjaan'=>$this->m_admin->m_progress_lap_invest());
+         var_dump($data_pekerjaan);
          $data = array('progress_0' => 3, 'progress_40' => 3, 'progress_60' => 3, 'progress_99' => 3, 'progress_100' => 3, 'progress_pks' => 3, 'progress_tekpol' => 3, 'progress_hps' => 3, 'progress_pengadaan' => 3, 'keluar_sppbj' => 3);
          $total = 0;
          foreach ($data as $key => $value) {
@@ -39,7 +41,7 @@ class Admin extends CI_Controller
          }
          $this->load->view('__partials/header.php', array('page_title' => 'Progress Lap. Investasi'));
          $this->load->view('__partials/menu.php', array('m2' => 'nav-menu-active'));
-         $this->load->view('admin/lap_invest', array_merge($data, array('total_pekerjaan' => $total)));
+         $this->load->view('admin/lap_invest', array_merge($data_pekerjaan,$data, array('total_pekerjaan' => $total)));
          $this->load->view('__partials/footer.php');
       } else {
          redirect('login', 'refresh');
@@ -78,8 +80,8 @@ class Admin extends CI_Controller
    {
       if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
          $id_pekerjaan = $this->input->post('id_pekerjaan');
-         $id_pekerjaan = explode(",",$id_pekerjaan);
-         $id_pekerjaan =$id_pekerjaan[0];
+         $id_pekerjaan = explode(",", $id_pekerjaan);
+         $id_pekerjaan = $id_pekerjaan[0];
          $id_pks = $this->input->post('id_pks');
          $uraian_pekerjaan = $this->filter_input($this->input->post('uraian_pekerjaan'));
          $id_progress = $this->input->post('id_progress');
@@ -90,6 +92,67 @@ class Admin extends CI_Controller
             $this->session->set_flashdata('message', $this->flash_success('Error'));
          }
          redirect('admin/update_progress', 'refresh');
+      } else {
+         redirect('login', 'refresh');
+      }
+   }
+   public function upload_dokumen_pekerjaan()
+   {
+      if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
+         $id_pekerjaan = $this->input->post('id_pekerjaan');
+         $id_pekerjaan = explode(",", $id_pekerjaan);
+         $id_pekerjaan = $id_pekerjaan[0];
+         $id_pks = $this->input->post('id_pks');
+         $singkatan = $this->m_admin->get_singkatan_pks($id_pks);
+         $folder = date('d-m-Y_H-i-s');
+         $path = FCPATH . "media/upload/dokumen/$singkatan/$folder/";
+         $config['upload_path'] = "$path";
+         $config['allowed_types'] = 'pdf';
+         $config['max_size'] = 5000;
+         $config['overwrite'] = true;
+         $message = "";
+
+         if (!is_dir($path)) {
+            mkdir($path, 0755, TRUE);
+         }
+         if (isset($_FILES["rab"]["name"])) {
+            $config['file_name'] = "rab.pdf";
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+            if ($this->upload->do_upload('rab')) {
+               $message = "RAB Ok" . "<br>";
+            } else {
+               $message = "RAB: " . $this->upload->display_errors() . "<br>";
+            }
+         }
+         if (isset($_FILES["st_rkst_kak"]["name"])) {
+            $config['file_name'] = "st_rkst_kak.pdf";
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+            if ($this->upload->do_upload('st_rkst_kak')) {
+               $message .= "ST/RKST/KAK Ok" . "<br>";
+            } else {
+               $message .= "ST/RKST/KAK: " . $this->upload->display_errors() . "<br>";
+            }
+         }
+         if (isset($_FILES["kontrak"]["name"])) {
+            $config['file_name'] = "kontrak.pdf";
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+            if ($this->upload->do_upload('kontrak')) {
+               $message .= "Kontrak Ok <br>";
+            } else {
+               $message .= "Kontrak: " . $this->upload->display_errors() . "<br>";
+            }
+         }
+         $data = compact('id_pekerjaan', 'folder');
+         if ($this->m_admin->m_upload_dokumen_pekerjaan($data) == 1) {
+            $message .= "Data Ok";
+         } else {
+            $message .= "Data Error";
+         }
+         $this->session->set_flashdata('message', $this->flash_info($message));
+         redirect('admin/upload_dokumen', 'refresh');
       } else {
          redirect('login', 'refresh');
       }
@@ -244,6 +307,16 @@ class Admin extends CI_Controller
    {
       if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
          $data = $this->m_admin->m_ajax_get_list_pekerjaan($this->input->post('id_pks'));
+         echo $data;
+      } else {
+         redirect('login', 'refresh');
+      }
+   }
+   //ajax get list pekerjaan
+   public function ajax_get_list_doc_pekerjaan()
+   {
+      if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
+         $data = $this->m_admin->m_ajax_get_list_doc_pekerjaan($this->input->post('id_pks'));
          echo $data;
       } else {
          redirect('login', 'refresh');

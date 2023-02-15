@@ -29,6 +29,11 @@ class M_admin extends CI_Model
                         ->result_array();
                 return compact("data_pks", "data_progress", "data_pekerjaan");
         }
+        public function m_progress_lap_invest()
+        {
+
+               return $this->db->query("SELECT nama_progress,progress.id_progress,uraian_pekerjaan,persentase_progress,nama_progress,folder,singkatan FROM uraian_pekerjaan JOIN daftar_nama_pks ON uraian_pekerjaan.id_pks = daftar_nama_pks.id_pks LEFT JOIN dokumen ON uraian_pekerjaan.id_pekerjaan = dokumen.id_pekerjaan LEFT JOIN progress ON progress.id_progress = uraian_pekerjaan.id_progress;")->result_array();
+        }
 
         public function m_tambah_pekerjaan($data)
         {
@@ -36,6 +41,15 @@ class M_admin extends CI_Model
         }
 
 
+        public function get_singkatan_pks($id_pks)
+        {
+                return $this->db
+                        ->select('singkatan')
+                        ->where('id_pks', $id_pks)
+                        ->from('daftar_nama_pks')
+                        ->get()
+                        ->result_array()[0]['singkatan'];
+        }
 
         //ajax get list pekerjaan
         public function m_ajax_get_list_pekerjaan($id_pks)
@@ -46,11 +60,25 @@ class M_admin extends CI_Model
                         ->get()
                         ->result_array());
         }
+        public function m_ajax_get_list_doc_pekerjaan($id_pks)
+        {
+                $data = $this->db->query("SELECT id_pekerjaan,id_progress,id_pks,id_user,uraian_pekerjaan
+                FROM   uraian_pekerjaan
+                WHERE id_pks = $id_pks AND NOT EXISTS (SELECT id_pekerjaan 
+                                   FROM   dokumen 
+                                   WHERE  uraian_pekerjaan.id_pekerjaan = dokumen.id_pekerjaan)")
+                        ->result_array();
+                return json_encode($data);
+        }
 
         public function m_update_progress($data)
         {
-                $this->db->where('id_pekerjaan',$data['id_pekerjaan']);
-                return $this->db->update('uraian_pekerjaan',$data);
+                $this->db->where('id_pekerjaan', $data['id_pekerjaan']);
+                return $this->db->update('uraian_pekerjaan', $data);
+        }
+        public function m_upload_dokumen_pekerjaan($data)
+        {
+                return $this->db->insert('dokumen', $data);
         }
 
 

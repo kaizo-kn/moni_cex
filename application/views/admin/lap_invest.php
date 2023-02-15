@@ -1,11 +1,11 @@
 <section id="lap_invest" class="pt-4 section-bg">
-    <div class="container-fluid ">
+    <div class="container-fluid me-5">
         <div class="section-title mt-5 ">
             <h2>progress lap. investasi</h2>
         </div>
 
-        <div style="width: 100%;" >
-            <table style="table-layout: fixed;width:100%" id="tabel_lap_invest" class="table table-hover table-bordered w-100">
+        <div style="width: 100%;">
+            <table style="table-layout: fixed;width:100%" id="tabel_lap_invest" class="table table-hover table-bordered w-100 me-4">
                 <div class="row justify-content-end">
 
 
@@ -43,40 +43,39 @@
                 <tbody>
                     <?php
                     $pks = $this->db->query("select singkatan from daftar_nama_pks where id_pks>0")->result_array();
-                    $a_prg = array('PKS', 'TEKPOL', 'HPS', 'PENGADAAN', 'SPPBJ');
                     $type_color = '';
-                    for ($i = 0; $i < 5; $i++) {
+                    for ($i = 0; $i < count($data_pekerjaan); $i++) {
+                        extract($data_pekerjaan[$i]);
                         $num = $i + 1;
-                        $pkss = $pks[$i]['singkatan'];
-                        $prg = array_rand($a_prg, 1);
-                        switch ($prg) {
-                            case 0:
+
+                        switch ($id_progress) {
+                            case 1:
                                 $type_color = "text-dark";
                                 break;
-                            case 1:
+                            case 2:
                                 $type_color = "text-danger";
                                 break;
-                            case 2:
+                            case 3:
                                 $type_color = "text-orange";
                                 break;
-                            case 3:
+                            case 4:
                                 $type_color = "text-warning";
                                 break;
-                            case 4:
+                            case 5:
                                 $type_color = "text-main";
                                 break;
                         }
-                        $prgs = $a_prg[$prg];
+
                         echo "<tr>
                     <td>$num</td>
-                    <td class='$type_color'>pekerjaan di pekerjaan di pekerjaan di pekerjaan di pekerjaan di pekerjaan di pekerjaan di pekerjaan di pekerjaan di </td>
-                    <td class='$type_color'>$pkss</td>
-                    <td class='d-none'>$prgs</td>
+                    <td class='$type_color'>$uraian_pekerjaan</td>
+                    <td class='$type_color'>$singkatan</td>
+                    <td class='d-none'>$nama_progress</td>
                     <td >
                         <div class='row justify-content-evenly '>
-                            
+                        <a href='media/upload/surat/SE-Penetapan-6-Standarisasi-PMT_page-0002.jpg' download>
                                 <button class='col-3 btn mainbgc text-light p-1 m-1'>RAB</button>
-                            
+                                </a>
                                 <button class='col-3 btn mainbgc text-light p-1 m-1'>RKST</button>
                             
                                 <button class='col-3 btn mainbgc text-light p-1 m-1'><small>Kontrak</small></button>

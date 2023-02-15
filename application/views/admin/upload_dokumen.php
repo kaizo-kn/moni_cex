@@ -4,7 +4,7 @@
         <div class="section-title">
             <h2> Upload Dokumen</h2>
         </div>
-        <form action="<?= base_url('index.php/') ?>admin/tambah_pekerjaan" method="post" enctype="multipart/form-data">
+        <form action="<?= base_url('index.php/') ?>admin/upload_dokumen_pekerjaan" method="post" enctype="multipart/form-data">
             <table class="table table-bordered table-hover rounded">
                 <tbody>
                     <tr>
@@ -42,8 +42,8 @@
                             RAB<span class="text-danger">*</span>
                         </td>
                         <td>
-                            <input class="form-control" type="file" name="surat_1" id="" placeholder="Surat 1" accept=".pdf" required>
-                            <?php echo form_error('surat_1', '<p class="text-danger">', '</p>'); ?>
+                            <input class="form-control" type="file" name="rab" id="" accept=".pdf" required>
+                            <?php echo form_error('rab', '<p class="text-danger">', '</p>'); ?>
                         </td>
                     </tr>
                     <tr>
@@ -51,8 +51,8 @@
                             Spesifikasi Teknis/RKST/KAK<span class="text-danger">*</span>
                         </td>
                         <td>
-                            <input class="form-control" type="file" name="surat_1" id="" placeholder="Surat 1" accept=".pdf" required>
-                            <?php echo form_error('surat_1', '<p class="text-danger">', '</p>'); ?>
+                            <input class="form-control" type="file" name="st_rkst_kak" id="" accept=".pdf" required>
+                            <?php echo form_error('st_rkst_kak', '<p class="text-danger">', '</p>'); ?>
                         </td>
                     </tr>
                     <tr>
@@ -60,8 +60,8 @@
                             Kontrak<span class="text-danger">*</span>
                         </td>
                         <td>
-                            <input class="form-control" type="file" name="surat_1" id="" placeholder="Surat 1" accept=".pdf" required>
-                            <?php echo form_error('surat_1', '<p class="text-danger">', '</p>'); ?>
+                            <input class="form-control" type="file" name="kontrak" id="" accept=".pdf" required>
+                            <?php echo form_error('kontrak', '<p class="text-danger">', '</p>'); ?>
                         </td>
                     </tr>
                 </tbody>
@@ -93,7 +93,7 @@
         }, 100);
         let basepath = $('#basepath').val()
         $.ajax({
-            url: basepath + "index.php/admin/ajax_get_list_pekerjaan",
+            url: basepath + "index.php/admin/ajax_get_list_doc_pekerjaan",
             type: "POST",
             dataType: 'json',
             data: {
