@@ -5,7 +5,7 @@ class M_user extends CI_Model
 {
         public function m_register($data)
         {
-                return $this->db->insert('user_pmt', $data);
+                return $this->db->insert('user', $data);
         }
 
 
@@ -66,8 +66,8 @@ class M_user extends CI_Model
         {
                 $username = $this->input->post('username');
 
-                return $this->db->query("SELECT user_pmt.*,daftar_nama_pks.singkatan,daftar_nama_pks.id_pks,daftar_nama_pks.nama_pks FROM user_pmt
-                INNER JOIN daftar_nama_pks ON user_pmt.id_pks = daftar_nama_pks.id_pks WHERE user_pmt.username='$username';");
+                return $this->db->query("SELECT user.*,daftar_nama_pks.singkatan,daftar_nama_pks.id_pks,daftar_nama_pks.nama_pks FROM user
+                INNER JOIN daftar_nama_pks ON user.id_pks = daftar_nama_pks.id_pks WHERE user.username='$username';");
         }
 
 
@@ -144,7 +144,7 @@ class M_user extends CI_Model
                 FROM `pesanan` as p1
                 join produk_pmt as p2 on p1.id_produk = p2.id_produk
                 JOIN daftar_nama_pks as d on d.id_pks = p1.id_pks
-                join user_pmt as u on u.id_user=p1.id_user ORDER BY p1.tanggal_pemesanan DESC')->result_array();
+                join user as u on u.id_user=p1.id_user ORDER BY p1.tanggal_pemesanan DESC')->result_array();
         }
         //Daftar Pesanan User
         public function m_daftar_pesanan($id_pks)
@@ -153,7 +153,7 @@ class M_user extends CI_Model
                 FROM `pesanan` as p1
                 join produk_pmt as p2 on p1.id_produk = p2.id_produk
                 JOIN daftar_nama_pks as d on d.id_pks = p1.id_pks
-                join user_pmt as u on u.id_user=p1.id_user WHERE p1.id_pks = '$id_pks' ORDER BY p1.tanggal_pemesanan DESC")->result_array();
+                join user as u on u.id_user=p1.id_user WHERE p1.id_pks = '$id_pks' ORDER BY p1.tanggal_pemesanan DESC")->result_array();
         }
 
         //Ubah Pesanan
@@ -202,12 +202,12 @@ class M_user extends CI_Model
         //Set Last Online
         public function m_set_user_last_active($id_user, $time)
         {
-                return $this->db->query("UPDATE `user_pmt` SET `last_active`='$time' WHERE `id_user` = $id_user");
+                return $this->db->query("UPDATE `user` SET `last_active`='$time' WHERE `id_user` = $id_user");
         }
         //Get Last Online
         public function m_get_user_last_active($id_user)
         {
-                return $this->db->query("SELECT `last_active` FROM `user_pmt` WHERE `id_user` = $id_user")->result_array()[0]['last_active'];
+                return $this->db->query("SELECT `last_active` FROM `user` WHERE `id_user` = $id_user")->result_array()[0]['last_active'];
         }
         public function m_get_balasan($id_balasan)
         {
@@ -246,14 +246,14 @@ class M_user extends CI_Model
         //List User
         public function m_list_user()
         {
-                return $this->db->select('id_user,user_pmt.id_pks,nama,username,nama_pks,distrik,last_active')->from('user_pmt')->join('daftar_nama_pks', 'daftar_nama_pks.id_pks=user_pmt.id_pks')->order_by('nama_pks', 'asc')->where('user_pmt.id_pks >', 0)->get()->result_array();
+                return $this->db->select('id_user,user.id_pks,nama,username,nama_pks,distrik,last_active')->from('user')->join('daftar_nama_pks', 'daftar_nama_pks.id_pks=user.id_pks')->order_by('nama_pks', 'asc')->where('user.id_pks >', 0)->get()->result_array();
         }
 
         //Reset User Password
         public function m_reset_user($id_user)
         {
                 $this->db->where('id_user', $id_user);
-                $this->db->update('user_pmt', array('password' => '$2y$05$OrKBL6uohN9IPdAbhfLT8eoHS/4yjQ47Vc6sCQUBEz8tJ6BpJouMm'));
+                $this->db->update('user', array('password' => '$2y$05$OrKBL6uohN9IPdAbhfLT8eoHS/4yjQ47Vc6sCQUBEz8tJ6BpJouMm'));
         }
 
         //Rmdir

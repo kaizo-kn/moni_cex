@@ -14,15 +14,16 @@ class User extends CI_Controller
   // {
   //   $r = $this->db->query("select * from daftar_nama_pks where id_pks > 0")->result_array();
   //   for ($i = 0; $i < count($r); $i++) {
+  //     $ii=$i+1;
   //     $id_pks = $r[$i]['id_pks'];
   //     $nama = $r[$i]['nama_pks'];
   //     $username = $r[$i]['singkatan'];
   //     $pass = '$2y$05$fCcvSizE5k/L9RtM1yzGieAZoSitbSj3VCYURayRLimj3FCblxlfe';
-  //     echo "INSERT INTO `user_pmt`(`id_user`, `id_pks`, `username`, `nama`, `password`, `email`, `foto_profil`, `date_created`, `last_active`) VALUES ('','$id_pks','pks_$username','PKS $nama','$pass','','','','');";
+  //     echo "INSERT INTO `user`(`id_user`, `id_pks`, `username`, `nama`, `password`, `foto_profil`, `date_created`, `last_active`) VALUES ($ii,$id_pks,'pks_$username','PKS $nama','$pass','default.png','','');";
 
-  //     //$this->db->insert('user_pmt')->get_compiled();
+  //     //$this->db->insert('user')->get_compiled();
   //   }
-
+  // }
   public function index()
   {
     var_dump($this->session->userdata());
@@ -165,9 +166,9 @@ class User extends CI_Controller
     if ($this->session->userdata('is_login') == FALSE || $this->session->userdata('id_pks') != "0") {
       redirect('user/', 'refresh');
     } else {
-      if($this->m_user->m_tampilkan_review($this->input->post('id_review'))=='1'){
+      if ($this->m_user->m_tampilkan_review($this->input->post('id_review')) == '1') {
         $this->session->set_flashdata('message', $this->flash_success('Review Ditampilkan'));
-      }else{
+      } else {
         $this->session->set_flashdata('message', $this->flash_error('Error'));
       }
       redirect('user/manajemen_review');
@@ -193,7 +194,7 @@ class User extends CI_Controller
         if (!isset($gambar_balasan) || empty($gambar_balasan) || $gambar_balasan == "") {
           $folder = $nama . "_" . $date;
           $gambar_balasan = $folder;
-        }else{
+        } else {
           $folder = $gambar_balasan;
         }
         $path = FCPATH . 'media/upload/answer/' . $folder;
@@ -473,7 +474,7 @@ class User extends CI_Controller
     } else {
       $catatan = $this->input->post('catatan');
       $tanggal_update = $this->dateUpdate();
-      $filename='banner_harga';
+      $filename = 'banner_harga';
       if (!empty($_FILES['berkas']['name'])) {
         delete_files('media/upload/banner_harga/');
         $config['upload_path'] = 'media/upload/banner_harga';
@@ -486,11 +487,10 @@ class User extends CI_Controller
         if (!$this->upload->do_upload('berkas')) {
           $this->session->set_flashdata('message', $this->flash_error($this->upload->display_errors()));
         }
-        $filename=$filename.'.'.pathinfo($_FILES["berkas"]["name"], PATHINFO_EXTENSION);
-        $this->m_user->m_update_catatan_harga(array('catatan' => $catatan, 'tanggal_update' => $tanggal_update,'banner_harga'=>$filename));
+        $filename = $filename . '.' . pathinfo($_FILES["berkas"]["name"], PATHINFO_EXTENSION);
+        $this->m_user->m_update_catatan_harga(array('catatan' => $catatan, 'tanggal_update' => $tanggal_update, 'banner_harga' => $filename));
       } else {
         $this->m_user->m_update_catatan_harga(array('catatan' => $catatan, 'tanggal_update' => $tanggal_update));
-        
       }
       $this->session->set_flashdata('message', $this->flash_success('Harga Diperbaharui'));
       redirect('user/ubah_info_harga', 'refresh');
@@ -531,13 +531,13 @@ class User extends CI_Controller
               //throw $th;
             }
           }
-          $this->m_user->m_update_profile('user_pmt', $username, $data);
+          $this->m_user->m_update_profile('user', $username, $data);
         } else {
           $this->session->set_flashdata('message', $this->flash_error($this->upload->display_errors()));
         }
       } else if ($this->form_validation->run() == TRUE && $is_exist_img == false) {
         $data['password'] = get_hash($password);
-        $this->m_user->m_update_profile('user_pmt', $username, $data);
+        $this->m_user->m_update_profile('user', $username, $data);
       } else if ($this->form_validation->run() == false && $is_exist_img == true) {
         $filename = $this->session->userdata('singkatan');
         $config['upload_path'] = 'assets/img/profile_picture/';
@@ -555,12 +555,12 @@ class User extends CI_Controller
               //throw $th;
             }
           }
-          $this->m_user->m_update_profile('user_pmt', $username, $data);
+          $this->m_user->m_update_profile('user', $username, $data);
         } else {
           $this->session->set_flashdata('message', $this->flash_error($this->upload->display_errors()));
         }
       } else {
-        $this->m_user->m_update_profile('user_pmt', $username, $data);
+        $this->m_user->m_update_profile('user', $username, $data);
       }
       $this->session->set_flashdata('message', $this->flash_success('Profil Berhasil Diperbaharui'));
       $db = $this->m_user->m_cek_username()->row();
@@ -749,7 +749,7 @@ class User extends CI_Controller
     if ($this->session->userdata('id_pks') == '0') {
 
       $this->form_validation->set_rules('nama', 'Nama', 'trim|required|min_length[3]|max_length[22]');
-      $this->form_validation->set_rules('username', 'Nama Pengguna', 'trim|required|min_length[3]|max_length[45]|is_unique[user_pmt.username]');
+      $this->form_validation->set_rules('username', 'Nama Pengguna', 'trim|required|min_length[3]|max_length[45]|is_unique[user.username]');
       $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[5]|max_length[12]');
 
       if ($this->form_validation->run() == TRUE) {

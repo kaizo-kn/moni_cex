@@ -1,7 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-
+/**
+ * @property Messages_model $messagesModel
+ */
 class Login extends CI_Controller
 {
 
@@ -37,7 +39,7 @@ class Login extends CI_Controller
     //         $pass = '$2y$05$fCcvSizE5k/L9RtM1yzGieAZoSitbSj3VCYURayRLimj3FCblxlfe';
     //         echo "INSERT INTO `user`(`id_user`, `id_pks`, `username`, `nama`, `password`, `email`, `foto_profil`, `date_created`, `last_active`) VALUES ($i,$id_pks,'pks_$username','PKS $nama','$pass','','','',0);";
 
-    //         //$this->db->insert('user_pmt')->get_compiled();
+    //         //$this->db->insert('user')->get_compiled();
     //     }
     // }
 
