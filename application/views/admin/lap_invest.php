@@ -19,8 +19,8 @@
                     <th style="min-width:30rem">Uraian Pekerjaan</th>
                     <th style="width:1em">PKS</th>
                     <th style="width:1em;display:none;">Progress</th>
-                    <th style='width:13em'>Dokumen</th>
-                    <th style="max-width:30em">
+                    <th style='width:14em'>Dokumen</th>
+                    <th style="max-width:30em;margin-right:1rem">
                         <div onscroll="$('.tbs').scrollLeft($(this).scrollLeft())" class="table-responsive b-scroll" style="width:100%">
                             <table class="text-light tbw">
                                 <tbody>
@@ -42,7 +42,7 @@
 
                 <tbody>
                     <?php
-                    $pks = $this->db->query("select singkatan from daftar_nama_pks where id_pks>0")->result_array();
+                    $basepath = base_url();
                     $type_color = '';
                     for ($i = 0; $i < count($data_pekerjaan); $i++) {
                         extract($data_pekerjaan[$i]);
@@ -72,38 +72,52 @@
                     <td class='$type_color'>$singkatan</td>
                     <td class='d-none'>$nama_progress</td>
                     <td >
-                        <div class='row justify-content-evenly '>
-                        <a href='media/upload/surat/SE-Penetapan-6-Standarisasi-PMT_page-0002.jpg' download>
-                                <button class='col-3 btn mainbgc text-light p-1 m-1'>RAB</button>
-                                </a>
-                                <button class='col-3 btn mainbgc text-light p-1 m-1'>RKST</button>
-                            
-                                <button class='col-3 btn mainbgc text-light p-1 m-1'><small>Kontrak</small></button>
-                        </div>
+                        <div class='row justify-content-evenly '>";
+                        if ($folder != "" && $folder != null) {
+                            echo "<a class='col-3 btn mainbgc text-light p-1 m-1' href='$basepath/media/upload/dokumen/$singkatan/$folder/rab_$singkatan-$folder.pdf' download>
+                            <button class='border-0 mainbgc text-light'>RAB</button>
+                        </a>
+                        <a class='col-3 btn mainbgc text-light p-1 m-1' href='$basepath/media/upload/dokumen/$singkatan/$folder/st_rkst_kak_$singkatan-$folder.pdf' download>
+                            <button class='border-0 mainbgc text-light'>RKST</button>
+                        </a>
+                        <a class='col-3 btn mainbgc text-light  p-1 m-1' href='$basepath/media/upload/dokumen/$singkatan/$folder/kontrak_$singkatan-$folder.pdf' download>
+                        <small>Kontrak</small>
+                        </a>";
+                        } else {
+                            echo "<button style='pointer-events: none;' class='col-3 btn btn-secondary text-light p-1 m-1'>RAB</button>";
+                            echo "<button style='pointer-events: none;' class='col-3 btn btn-secondary text-light p-1 m-1'>RKST</button>";
+                            echo "<button style='pointer-events: none;' class='col-3 btn btn-secondary text-light p-1 m-1'><small>Kontrak</small></button>";
+                        }
+                        echo "</div>
                     </td>
                         <td  >
                        
                         <div style='width:100%;overflow-x:hidden' class='tbs'>
-                            <table class='tbw' class='table table-bordered'>
-                        
-                        ";
-
-
-
-
+                            <table class='tbw' class='table table-bordered'>";
                         echo " 
                                 <tbody>
                                 
                                 ";
-
+                                $week=1;
                         foreach ($month_array as $key => $value) {
-                            $base = base_url('media/upload/surat/SE-Penetapan-6-Standarisasi-PMT_page-0002.jpg');
-                            $m = $key + 1;
-
+                            
+                            $m = $key + 1; 
                             for ($iz = 1; $iz < 5; $iz++) {
-                                $rnd = random_int(1, 100);
-                                echo "<td style='white-space:nowrap;text-align:center' class='w$iz-m$m curpo'><div style='width:60px; margin-left:2px'><a href='$base' data-gallery='portfolioGallery' class='portfolio-lightbox preview-link text-start ps-0' title='Surat Edaran 2'>$rnd%
-                                </a></div></td>";
+                                if(isset($persentase_progress[$week])){
+                                    extract($persentase=$persentase_progress[$week]);
+                                    if(isset($bukti)){
+                                        $foto_bukti = base_url("media/upload/foto_bukti_progress/$singkatan/$bukti");
+                                        echo "<td style='white-space:nowrap;text-align:center' class='w$iz-m$m curpo'><div style='width:60px; margin-left:2px'><a href='$foto_bukti' data-gallery='portfolioGallery' class='portfolio-lightbox preview-link text-start ps-0' title='$singkatan $week'>$persentase%
+                                        </a></div></td>";
+                                    }else{
+                                        echo "<td style='white-space:nowrap;text-align:center;cursor:default' class='w$iz-m$m text-secondary'><div style='width:60px; margin-left:2px'>$persentase%</div></td>";
+                                    }
+                                   
+                                }else{
+                                    echo "<td style='white-space:nowrap;text-align:center' class='w$iz-m$m'><div style='width:60px; margin-left:2px'> </div></td>";
+                                }
+                                
+                                $week++;
                             }
                         }
 
@@ -203,6 +217,7 @@
     $(document).ready(function() {
 
         setTimeout(() => {
+            $('#tabel_lap_invest_filter').addClass("me-3");
             $('#tabel_lap_invest_filter').append(filtertype);
             $('#tabel_lap_invest_filter').append(filtertime);
         }, 100);

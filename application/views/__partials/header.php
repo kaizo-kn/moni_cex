@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="width: 100%;overflow:overlay">
+<html lang="en" style="width: 100%;">
 
 <head>
     <meta charset="utf-8">

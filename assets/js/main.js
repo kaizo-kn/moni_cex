@@ -209,73 +209,8 @@ function setRangeSliderValue(rangeval) {
     $(".modal-content-img").css("width", "" + rangeval + "%");
 }
 
-//Image Modal
-function buildModal() {
-    let title = arguments[0];
-    let content = "";
-    if (arguments.length > 1) {
-        for (p = 1; p < arguments.length; p++) {
-            content +=
-                `<img class="modal-content-img" src="` +
-                arguments[p] +
-                `" alt="` +
-                arguments[p] +
-                `" srcset="" style="height:100%;width: 100%;">
-            `;
-        }
-    }
-
-    let modal =
-        `<!-- Modal -->
-        <div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-          <!--desktop zoom bar-->  
-          <div style="position: fixed;z-index:90;right:0px;transform:translateX(120px)scale(.9)rotate(270deg);width:max-content;height:max-content;bottom:40vh" class="range-slider d-none d-sm-none d-md-none d-lg-block d-xl-block">
-            
-            <i style="margin-left:30px;transform: rotate(90deg);" onclick="setRangeSliderValue(100)" class="btn text-dark rounded-circle bi bi-bootstrap-reboot  fs-2 fw-bold "></i>
-                <i onclick="sliderValue('minus',20)" style="margin-left:10px;transform: rotate(90deg);" class="btn  bi bi-zoom-out fw-bold fs-2 pe-1"></i><input onchange="setRangeSliderValue($('#rs-range-line').val())" oninput="setRangeSliderValue($('#rs-range-line').val())" style="width: 200px;" id="rs-range-line" class="rs-range"
-            type="range" value="100" min="50" max="400">
-        <i onclick="sliderValue('plus',20)" style="margin-left:10px;transform: rotate(90deg);" class="btn  bi bi-zoom-in fw-bold fs-2 pe-1 pt-4"></i>
-        <i style="transform: rotate(90deg);" class="btn text-dark rounded-circle bi bi-x-circle fs-2 fw-bold" data-bs-dismiss="modal" aria-label="Close"></i>
-        </div>
-              <!--mobile zoom bar-->
-              <div style="position: fixed;z-index:90;margin-right:auto;margin-left:auto;transform: scale(.85);width:max-content;height:max-content;bottom:3vh" class="range-slider  d-sm-inline-block d-md-inline-block d-lg-none d-xl-none">
-                <i class=" btn text-dark rounded-circle bi bi-x-circle fs-2 fw-bold" data-bs-dismiss="modal" aria-label="Close"></i>
-                <i onclick="sliderValue('minus',20)" style="margin-left:10px;" class="btn  bi bi-zoom-out fw-bold fs-2 pe-1"></i><input onchange="setRangeSliderValue($('#rs-range-line1').val())" oninput="setRangeSliderValue($('#rs-range-line1').val())" style="width: 35vw;" id="rs-range-line1" class="rs-range"
-            type="range" value="100" min="50" max="400">
-        <i onclick="sliderValue('plus',20)" style="margin-left:10px;" class="btn  bi bi-zoom-in fw-bold fs-2 pe-1"></i><i onclick="setRangeSliderValue(100)" class="btn text-dark rounded-circle bi bi-bootstrap-reboot  fs-2 fw-bold ms-4 "></i>
-        </div>
-            <div style="max-width: 95vw;" class="modal-dialog modal-dialog-centered border-dark border-1">
-                <div style="border: solid 2px;" class="modal-content">
-                    <div class="modal-header mainbgc">
-                        <h3 class="modal-title subtitle text-light text-center" id="staticBackdropLabel">` +
-        title +
-        `</h3><i class=" float-end btn text-dark rounded-circle bi bi-x-circle fs-2 fw-bold" data-bs-dismiss="modal" aria-label="Close"></i>
-                    </div>
-                    <div class="modal-body overflow-scroll ">
-                      <div class="modal-img-1"  style="height:100%;width: 100%;">
-                      ` +
-        content +
-        `
-                      </div>
-                    </div>
-                    <div class="modal-footer mainbgc justify-content-center">
-                        <h3 class="modal-title subtitle text-light text-center" id="staticBackdropLabel">PMT Dolok Ilir</h3>
-                    </div>
-                </div>
-            </div>
-        </div>`;
-    setTimeout(() => {
-        $("#modalContent").html(modal);
-    }, 100);
-    setTimeout(() => {
-        $("#staticBackdrop").modal("show");
-        modal = "";
-        content += " ";
-    }, 150);
-}
-
 //Order Modal
-function buildOrderModal(content) {
+function buildModal(content) {
     let modal = `<!-- Modal -->
         <div class="modal fade " id="staticBackdrop"  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div style="max-width: 95vw;" class="modal-dialog modal-dialog-centered ">

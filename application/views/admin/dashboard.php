@@ -1,33 +1,32 @@
 <section id="dashboard" class="team pt-4" style="background-color:#e2e2e2;">
+    <?php extract($jumlah_per_progress) ?>
     <div class="container-fluid">
         <div class="h-100">
             <div class="section-title mt-5 ">
                 <h2>Dashboard</h2>
             </div>
             <div class="row justify-content-center">
-                <div onclick="" class="col-3 bg-light curpo rounded mt-4 zoom-hover  w-25 pb-4 ps-3">
-                    <a href="<?php echo site_url('user/ubah_info_stok') ?>">
-                        <div class="member bg-light nb-shadow">
-                            <div class="row justify-content-start mb-2">
-                                <div class="col-4">
-                                    <img style="transform: translate(-15%,-15%);" width="100px" height="auto" src="<?=base_url('assets/img/icons/')?>progress.png" alt="" srcset="">
-                                </div>
-                                <div class="col-8">
-                                    <p class="text-main fw-bolder text-start fs-5">
-                                        JUMLAH PAKET PEKERJAAN
-                                    </p>
-                                </div>
+                <div onclick="showModal('null')" class="col-3 bg-light curpo rounded mt-4 zoom-hover  w-25 pb-4 ps-3">
+                    <div class="member bg-light nb-shadow">
+                        <div class="row justify-content-start mb-2">
+                            <div class="col-4">
+                                <img style="transform: translate(-15%,-15%);" width="100px" height="auto" src="<?= base_url('assets/img/icons/') ?>progress.png" alt="" srcset="">
+                            </div>
+                            <div class="col-8">
+                                <p class="text-main fw-bolder text-start fs-5">
+                                    JUMLAH PAKET PEKERJAAN
+                                </p>
                             </div>
                         </div>
-                        <div class="d-inline text-main mt-3 ">
-                            <strong class="fs-2 fw-bolder me-1 ms-3">
-                                <?=$total_pekerjaan?>
-                            </strong>
-                            <strong class="fs-5">
-                                PAKET
-                            </strong>
-                        </div>
-                    </a>
+                    </div>
+                    <div class="d-inline text-main mt-3 ">
+                        <strong class="fs-2 fw-bolder me-1 ms-3">
+                            <?= $total_pekerjaan ?>
+                        </strong>
+                        <strong class="fs-5">
+                            PAKET
+                        </strong>
+                    </div>
                 </div>
             </div>
         </div>
@@ -35,11 +34,11 @@
             <div class="col-12">
                 <h1 class="fw-bold text-main text-center">PROGRESS PENGADAAN PEKERJAAN INVESTASI</h1>
             </div>
-            <div onclick="" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="showModal('pks')" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
-                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?=base_url('assets/img/icons/')?>pks.png" alt="" srcset="">
+                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?= base_url('assets/img/icons/') ?>pks.png" alt="" srcset="">
                         </div>
                         <div class="col-8">
                             <p class="text-main fw-bolder text-start">
@@ -50,19 +49,19 @@
                 </div>
                 <div class="d-inline text-main mt-3">
                     <strong class="fs-2 fw-bolder me-1">
-                        <?=$progress_pks?>
+                        <?= $progress_pks ?>
                     </strong>
                     <strong class="fs-5">
                         PAKET
                     </strong>
                 </div>
             </div>
-            <div onclick="" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="showModal('tekpol')" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
-                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?=base_url('assets/img/icons/')?>tekpol.png" alt="" srcset="">
-                        
+                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?= base_url('assets/img/icons/') ?>tekpol.png" alt="" srcset="">
+
                         </div>
                         <div class="col-8">
                             <p class="text-main fw-bolder text-start">
@@ -73,19 +72,19 @@
                 </div>
                 <div class="d-inline text-main mt-3">
                     <strong class="fs-2 fw-bolder me-1">
-                        <?=$progress_tekpol?>
+                        <?= $progress_tekpol ?>
                     </strong>
                     <strong class="fs-5">
                         PAKET
                     </strong>
                 </div>
             </div>
-            <div onclick="" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="showModal('hps')" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
-                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?=base_url('assets/img/icons/')?>hps.png" alt="" srcset="">
-                        
+                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?= base_url('assets/img/icons/') ?>hps.png" alt="" srcset="">
+
                         </div>
                         <div class="col-8">
                             <p class="text-main fw-bolder text-start">
@@ -96,19 +95,19 @@
                 </div>
                 <div class="d-inline text-main mt-3">
                     <strong class="fs-2 fw-bolder me-1">
-                        <?=$progress_hps?>
+                        <?= $progress_hps ?>
                     </strong>
                     <strong class="fs-5">
                         PAKET
                     </strong>
                 </div>
             </div>
-            <div onclick="" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="showModal('pengadaan')" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
-                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?=base_url('assets/img/icons/')?>pengadaan.png" alt="" srcset="">
-                        
+                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?= base_url('assets/img/icons/') ?>pengadaan.png" alt="" srcset="">
+
                         </div>
                         <div class="col-8">
                             <p class="text-main fw-bolder text-start">
@@ -119,19 +118,19 @@
                 </div>
                 <div class="d-inline text-main mt-3">
                     <strong class="fs-2 fw-bolder me-1">
-                       <?=$progress_pengadaan?>
+                        <?= $progress_pengadaan ?>
                     </strong>
                     <strong class="fs-5">
                         PAKET
                     </strong>
                 </div>
             </div>
-            <div onclick="" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="showModal('sppbj')" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
-                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?=base_url('assets/img/icons/')?>sppbj.png" alt="" srcset="">
-                        
+                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?= base_url('assets/img/icons/') ?>sppbj.png" alt="" srcset="">
+
                         </div>
                         <div class="col-8">
                             <p class="text-main fw-bolder text-start">
@@ -142,7 +141,7 @@
                 </div>
                 <div class="d-inline text-main mt-3">
                     <strong class="fs-2 fw-bolder me-1">
-                        <?=$keluar_sppbj?>
+                        <?= $progress_sppbj ?>
                     </strong>
                     <strong class="fs-5">
                         PAKET
@@ -158,8 +157,8 @@
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
-                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?=base_url('assets/img/icons/')?>progress.png" alt="" srcset="">
-                        
+                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?= base_url('assets/img/icons/') ?>progress.png" alt="" srcset="">
+
                         </div>
                         <div class="col-8">
                             <p class="text-main fw-bolder text-start">
@@ -170,7 +169,7 @@
                 </div>
                 <div class="d-inline text-main mt-3">
                     <strong class="fs-2 fw-bolder me-1">
-                        <?=$progress_0?>
+                        <?= $progress_0 ?>
                     </strong>
                     <strong class="fs-5">
                         PAKET
@@ -181,8 +180,8 @@
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
-                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?=base_url('assets/img/icons/')?>progress.png" alt="" srcset="">
-                        
+                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?= base_url('assets/img/icons/') ?>progress.png" alt="" srcset="">
+
                         </div>
                         <div class="col-8">
                             <p class="text-main fw-bolder text-start">
@@ -193,7 +192,7 @@
                 </div>
                 <div class="d-inline text-main mt-3">
                     <strong class="fs-2 fw-bolder me-1">
-                        <?=$progress_40?>
+                        <?= $progress_40 ?>
                     </strong>
                     <strong class="fs-5">
                         PAKET
@@ -204,7 +203,7 @@
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
-                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?=base_url('assets/img/icons/')?>progress.png" alt="" srcset="">
+                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?= base_url('assets/img/icons/') ?>progress.png" alt="" srcset="">
                         </div>
                         <div class="col-8">
                             <p class="text-main fw-bolder text-start">
@@ -215,7 +214,7 @@
                 </div>
                 <div class="d-inline text-main mt-3">
                     <strong class="fs-2 fw-bolder me-1">
-                        <?=$progress_60?>
+                        <?= $progress_60 ?>
                     </strong>
                     <strong class="fs-5">
                         PAKET
@@ -226,7 +225,7 @@
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
-                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?=base_url('assets/img/icons/')?>progress.png" alt="" srcset="">
+                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?= base_url('assets/img/icons/') ?>progress.png" alt="" srcset="">
                         </div>
                         <div class="col-8">
                             <p class="text-main fw-bolder text-start">
@@ -237,7 +236,7 @@
                 </div>
                 <div class="d-inline text-main mt-3">
                     <strong class="fs-2 fw-bolder me-1">
-                       <?=$progress_99?>
+                        <?= $progress_99 ?>
                     </strong>
                     <strong class="fs-5">
                         PAKET
@@ -248,7 +247,7 @@
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
-                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?=base_url('assets/img/icons/')?>done.png" alt="" srcset="">
+                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?= base_url('assets/img/icons/') ?>done.png" alt="" srcset="">
                         </div>
                         <div class="col-8">
                             <p class="text-main fw-bolder text-start">
@@ -259,7 +258,7 @@
                 </div>
                 <div class="d-inline text-main mt-3">
                     <strong class="fs-2 fw-bolder me-1">
-                        <?=$progress_100?>
+                        <?= $progress_100 ?>
                     </strong>
                     <strong class="fs-5">
                         PAKET
@@ -267,7 +266,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="row d-none">
             <div onclick="" class="col-xl-3 col-lg-3 col-md-4 col-sm-4 mt-4 zoom-hover  nb-shadow">
                 <a href="<?php echo site_url('user/ubah_info_stok') ?>">
@@ -395,5 +394,79 @@
             </div>
         </div>
     </div>
-    </div>
 </section>
+
+<section id="modalContent">
+
+</section>
+
+
+
+<script>
+
+    function showModal(id_pks) {
+        let persentase = 0;
+        let wait = true
+        setTimeout(() => {
+            if (wait) {
+                $('#loader>div').addClass('lds-ellipsis')
+                $('#loader').css('display', 'block');
+                $('html').css('overflow', 'hidden');
+            }
+        }, 100);
+        let content = ""
+        let num = 1;
+        let basepath = $('#basepath').val()
+        $.ajax({
+            url: basepath + "index.php/admin/ajax_get_list_pekerjaan",
+            type: "POST",
+            dataType: 'json',
+            data: {
+                id_pks: id_pks,
+            },
+            success: function(object) {
+                wait = false
+                for (const key in object) {
+                    if (Object.hasOwnProperty.call(object, key)) {
+                        const element = object[key];
+                        if (element.persentase != null) {
+                            persentase = element.persentase
+                        }else{
+                            persentase = 0;
+                        }
+                        content += `<tr>
+        <td>${num}</td>
+        <td>${element.uraian_pekerjaan}</td>
+        <td>${element.singkatan}</td>
+        <td>${element.nama_progress}</td>
+        <td>${persentase}</td>
+    </tr>`
+                        num++
+
+                    }
+                }
+                let html = `
+<table class="table table-bordered">
+<thead class="mainbgc text-light fw-bold">
+    <th>No. </th>
+    <th>Uraian Pekerjaan</th>
+    <th>PKS</th>
+    <th>Progress</th>
+    <th>Persentase Progress</th>
+</thead>
+<tbody>
+    ${content}
+</tbody>
+</table>`
+                $('html').css('overflow', 'overlay');
+                $('#loader').css('display', 'none');
+                $('#loader>div').removeClass('lds-ellipsis')
+                buildModal(html);
+            },
+            error: function(arguments, status) {
+                alert('Error, cek koneksi')
+            }
+        });
+
+    }
+</script>

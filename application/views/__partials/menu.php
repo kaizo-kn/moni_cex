@@ -112,7 +112,7 @@
                     <li><a href="<?= base_url("index.php/$type/lap_invest") ?>" id="nav-info-produk" class="nav-link <?php if (isset($m2)) {
                                                                                                                             echo $m2;
                                                                                                                         } ?>">PROGRESS LAP. INVESTASI</a></li>
-                    <li><a href="<?= base_url('index.php/home/info_harga') ?>" id="nav-info-harga" class="nav-link <?php if (isset($m3)) {
+                    <li><a href="<?= base_url("index.php/$type/pengawasan_pekerjaan_lap") ?>" id="nav-info-harga" class="nav-link <?php if (isset($m3)) {
                                                                                                                         echo $m3;
                                                                                                                     } ?>">PENGAWASAN PEKERJAAN LAPANGAN</a></li>
 
