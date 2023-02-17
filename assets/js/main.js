@@ -232,10 +232,10 @@ function buildModal(content,callback) {
 
 //Update User Online Status
 setInterval(() => {
-    const basepath = $("#basepaths").val();
+    const basepath = $("#basepath").val();
     if (basepath != undefined) {
         $.ajax({
-            url: basepath + "index.php/user/ajax_set_user_last_active",
+            url: basepath + "index.php/admin/ajax_set_user_last_active",
         });
     }
 }, 10000);
@@ -245,7 +245,7 @@ function resetUser(id_user) {
     $(`#btn_${id_user}`).addClass("spinner spinner-sm spinner-border");
     const basepath = $("#basepath").val();
     $.ajax({
-        url: basepath + "index.php/user/action_reset_user",
+        url: basepath + "index.php/admin/action_reset_user",
         type: "POST",
         data: { id_user: id_user },
         success: function() {

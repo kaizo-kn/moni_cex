@@ -14,7 +14,7 @@
     <!-- Offcanvas -->
     <div class="offcanvas offcanvas-start rounded offcanvas-bg" tabindex="-1" id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">
         <div class="offcanvas-header">
-            <h1 class="logo me-auto"><a class="text-main" href="<?= base_url('index.php/home/'); ?>">Menu: </a></h1>
+            <h1 class="logo me-auto"><a class="text-main" href="<?= base_url('index.php/'); ?>">Menu: </a></h1>
             <button style="border: solid 1px white;border-radius: 5px;" type="button" class=" btn text-dark" data-bs-dismiss="offcanvas" aria-label="Close"><i class="bi bi-chevron-left text-dark"></i></button>
         </div>
         <div class="offcanvas-body text-dark">

@@ -402,13 +402,12 @@
 
 
 <script>
-    
     let basepath = $('#basepath').val()
     $(function() {
         $('html').css('overflow', 'overlay')
     })
 
-    function showModal(id_pks,title) {
+    function showModal(id_pks, title) {
         let type_color = ""
         const callback = () => ($(`#${id_pks}`).DataTable(), $(`#${id_pks}_filter`).addClass('mb-2 me-1'))
         let persentase = 0;
@@ -472,7 +471,7 @@
                 }
                 if (id_pks == 'null') {
                     title = 'Jumlah Paket Pekerjaan'
-                } 
+                }
                 let html = `
                 <div style='transform:translateY(20px)' class='section-title mb-0 pb-0 mt-2'>
                 <h2 class='fs-3 mb-0'>${title}</h2>
@@ -497,7 +496,7 @@
                 buildModal(html, callback);
             },
             error: function(arguments, status) {
-                wait=false;
+                wait = false;
                 $('html').css('overflow', 'overlay');
                 $('#loader').css('display', 'none');
                 $('#loader>div').removeClass('lds-ellipsis')
@@ -507,8 +506,8 @@
 
     }
 
-    function getPercentage(val1, val2,title) {
-       
+    function getPercentage(val1, val2, title) {
+
         let type_color = ""
         const callback = () => ($(`#progress${val1}`).DataTable(), $(`#progress${val1}_filter`).addClass('mb-2 me-1'))
         let persentase = 0;
@@ -567,6 +566,8 @@
         <td  class="${type_color}">${persentase}%</td>
     </tr>`
                         num++
+
+
                     }
                 }
                 let html = `

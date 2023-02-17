@@ -26,18 +26,26 @@ class User extends CI_Controller
   // }
   public function index()
   {
-    var_dump($this->session->userdata());
-    // if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('singkatan') == 'admin') {
-    //   redirect('user/admin_dashboard', 'refresh');
-    // } else if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('singkatan') != 'admin') {
-    //   redirect('user/user_dashboard', 'refresh');
-    // } else {
-    //   $data['page_title'] = "Log In";
-    //   $this->load->view('main/header.php', $data);
-    //   $this->load->view('user/login_header.php');
-    //   $this->load->view('user/form_login.php');
-    //   $this->load->view('main/footer.php');
-    // }
+    {
+      if ($this->session->userdata('is_login') == TRUE) {
+       $id_pks= $this->session->userdata('id_pks');
+         $total = $this->db->query("SELECT COUNT(id_pekerjaan) AS jumlah_pekerjaan from `uraian_pekerjaan` WHERE `id_pks` = $id_pks")->result_array()[0]['jumlah_pekerjaan'];
+         $jumlah_per_progress = $this->db->query("SELECT nama_progress, COUNT(uraian_pekerjaan.id_progress) AS jumlah FROM uraian_pekerjaan RIGHT JOIN progress ON uraian_pekerjaan.id_progress = progress.id_progress WHERE id_pks = $id_pks GROUP BY uraian_pekerjaan.id_progress;")->result_array();
+         $new = array();
+         foreach ($jumlah_per_progress as $key => $value) {
+            $new["progress_" . strtolower($value['nama_progress'])] = $value['jumlah'];
+         }
+         $jumlah_per_progress = $new;
+         $data = array('progress_0' => 3, 'progress_40' => 3, 'progress_60' => 3, 'progress_99' => 3, 'progress_100' => 3, 'jumlah_per_progress' => $jumlah_per_progress);
+         $this->load->view('__partials/header.php', array('page_title' => 'Dashboard'));
+         $this->load->view('__partials/menu.php', array('m1' => 'nav-menu-active'));
+         $this->load->view('user/dashboard.php', array_merge($data, array('total_pekerjaan' => $total)));
+         $this->load->view('__partials/footer.php');
+      } else {
+        $this->session->set_flashdata('message',$this->flash_error("Silakan Login Terlebih Dahulu!"));
+         redirect('login', 'refresh');
+      }
+   }
   }
 
   public function admin_dashboard()

@@ -63,10 +63,6 @@ class Admin extends CI_Controller
       }
    }
 
-
-
-
-
    public function update_progress()
    {
       if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
@@ -80,7 +76,21 @@ class Admin extends CI_Controller
       }
    }
 
-   public function get_persentase_pekerjaan($id_pks)
+   public function reset_user()
+   {
+      if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
+         $data_user = array('data_user' => $this->m_admin->m_list_user());
+         $title['page_title'] = "Reset Password User";
+         $this->load->view('__partials/header.php', array('page_title' => 'Progress Lap. Investasi'));
+         $this->load->view('__partials/menu.php', array('m2' => 'nav-menu-active'));
+         $this->load->view('admin/reset_user.php', $data_user);
+         $this->load->view('__partials/footer.php');
+      } else {
+         redirect('login', 'refresh');
+      }
+   }
+
+   public function get_persentase_pekerjaan()
    {
       if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
       } else {
@@ -107,6 +117,7 @@ class Admin extends CI_Controller
          redirect('login', 'refresh');
       }
    }
+
    public function upload_dokumen_pekerjaan()
    {
       if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
@@ -292,6 +303,17 @@ class Admin extends CI_Controller
       }
    }
 
+   //reset user pass
+   public function action_reset_user()
+   {
+      
+      if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
+         $id_user = $this->input->post('id_user');
+         $this->m_admin->m_reset_user($id_user);
+      } else {
+         echo json_encode(array('message' => 'forbidden'));
+      }
+   }
 
 
    //tambah_pekerjaan
@@ -335,47 +357,27 @@ class Admin extends CI_Controller
       }
    }
 
-
-   public function info_stok()
+//ajax dashboard persentase
+   public function ajax_dash_persentase()
    {
 
-
-      $info_stok = $this->m_home->m_get_stok();
-      $this->load->view('main/header.php', array('page_title' => 'Informasi Stok Produk PMT'));
-      $this->load->view('main/menu.php', array('m4' => 'nav-menu-active'));
-      $this->load->view('main/info_stok.php', $info_stok);
-      $this->load->view('main/footer.php');
-   }
-
-
-   public function faq()
-   {
-      $this->load->view('main/header.php', array('page_title' => 'Pertanyaan Umum'));
-      $this->load->view('main/menu.php', array('m5' => 'nav-menu-active'));
-      $this->load->view('main/faq.php');
-      $this->load->view('main/footer.php');
-      if ($this->session->userdata('is_login') == true) {
-         $this->session->set_userdata(array('sitenow' => 'home/faq'));
+      if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
+         echo json_encode($this->m_admin->m_dash_persentase($this->input->post('val1'), $this->input->post('val2')));
+      } else {
+         echo json_encode(array('message' => 'forbidden'));
       }
    }
 
-   public function review()
-   {
-      $data_review = $this->m_home->m_get_data_review();
-      $this->load->view('main/header.php', array('page_title' => 'Halaman Review Produk'));
-      $this->load->view('main/menu.php', array('m6' => 'nav-menu-active'));
-      $this->load->view('main/review.php', array('data_review' => $data_review));
-      $this->load->view('main/footer.php');
-      if ($this->session->userdata('is_login') == true) {
-         $this->session->set_userdata(array('sitenow' => 'home/review'));
-      }
-   }
+//set user last active
+public function ajax_set_user_last_active()
+  {
+    if ($this->session->userdata('is_login') === true) {
+      $this->m_admin->m_set_user_last_active($this->session->userdata('id_user'), time());
+    }
+  }
 
-   public function get_json_data()
-   {
-      $id_pesanan = $this->input->post('id_pesanan');
-      echo $this->m_home->m_get_json_data($id_pesanan);
-   }
+
+   //Addon Function
 
    //Rmdir
    function deleteDirectory($dir)
@@ -400,97 +402,6 @@ class Admin extends CI_Controller
 
       return rmdir($dir);
    }
-
-
-
-   public function ajax_dash_persentase()
-   {
-
-      if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
-         echo json_encode($this->m_admin->m_dash_persentase($this->input->post('val1'), $this->input->post('val2')));
-      } else {
-         echo json_encode(array('message' => 'forbidden'));
-      }
-   }
-
-
-   //Buat Review
-   public function c_add_review()
-   {
-      $path = "";
-      $message = "";
-      $title = $this->filter_input($this->input->post('judul'));
-      $name = $this->filter_input($this->input->post('nama'));
-      $review = $this->filter_input($this->input->post('review'));
-      $timestamp = $this->getTimestamp();
-      if (!empty($_FILES['files']['name']) && count(array_filter($_FILES['files']['name'])) > 0) {
-         $date = date("Y-m-d_H-i-s");
-         $sname = substr(str_replace(" ", "", $name), 0, 5);
-         $microtime = str_replace('.', '-', microtime(true));
-         $folder = $sname . "_" . $microtime;
-         $path = FCPATH . 'media/upload/review/' . $folder;
-         if (!is_dir($path)) {
-            mkdir($path, 0755, TRUE);
-         }
-         $filesCount = count($_FILES['files']['name']);
-         for ($i = 0; $i < $filesCount && $i < 4; $i++) {
-            $_FILES['file']['name']     = $_FILES['files']['name'][$i];
-            $_FILES['file']['type']     = $_FILES['files']['type'][$i];
-            $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i];
-            $_FILES['file']['error']     = $_FILES['files']['error'][$i];
-            $_FILES['file']['size']     = $_FILES['files']['size'][$i];
-
-            // File upload configuration 
-            $file = $sname . "_" . $date . "_" . $i;
-            $config['upload_path']          = $path;
-            $config['allowed_types']        = 'jpeg|jpg|png';
-            $config['max_size']             = 5000;
-            $config['overwrite']            = true;
-            $config['allowed_types'] = 'jpeg|jpg|png';
-            $config['file_name'] = $file;
-
-
-            // Load and initialize upload library 
-            $this->load->library('upload', $config);
-            $this->upload->initialize($config);
-
-            // Upload file to server 
-            if ($this->upload->do_upload('file')) {
-               $message .= ('Gambar Berhasil Dikirim <br>');
-            } else {
-               $message .= $this->upload->display_errors() . "<br>";
-            }
-         }
-         $this->session->set_flashdata('message', $this->flash_info($message));
-      } else {
-         $this->session->set_flashdata('message', $this->flash_success("Review Berhasil Dikirim"));
-      }
-      $data = array('nama' => $name, 'tanggal_review' => $timestamp, 'judul_review' => $title, 'isi_review' => $review, 'gambar' => $folder);
-      $this->m_home->m_add_review($data);
-      redirect('home/review');
-      $this->session->set_flashdata('message', '');
-   }
-
-
-
-   //Upload File
-   public function ubah_info_harga()
-   {
-      if ($this->session->userdata('is_login') == FALSE || $this->session->userdata('id_pks') != "0") {
-         redirect('user/', 'refresh');
-      } else {
-         $title['page_title'] = "Ubah Informasi Harga";
-         $this->load->view('header.php', $title);
-         $this->load->view('user/admin_header.php');
-         $this->load->view('user/info_harga.php', array('image' => $this->m_user->m_get_banner()));
-         $this->load->view('main/footer.php');
-      }
-   }
-
-
-
-   //Addon Function
-
    //Input Filter
    private function filter_input($input)
    {
@@ -511,19 +422,6 @@ class Admin extends CI_Controller
    }
 
 
-   private function getTimestamp()
-   {
-      $locale = 'id_ID';
-      $dateObj = new DateTime;
-      $formatter = new IntlDateFormatter(
-         $locale,
-         IntlDateFormatter::FULL,
-         IntlDateFormatter::SHORT
-      );
-      $formatter->format($dateObj);
-      $cDate = $formatter->format($dateObj);
-      return substr($cDate, 0, -6) . " pukul " . substr($cDate, -5) . " WIB";
-   }
    private function flash_success($message)
    {
       return "

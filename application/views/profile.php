@@ -21,7 +21,7 @@
             <li><a href="'. site_url("admin/update_progress").'">Update Progress</a></li>
             <li><a href="'. site_url("admin/upload_dokumen").'">Upload Dokumen</a></li>
             <li><a href="'. site_url("admin/pengawasan_pekerjaan_lap").'">Pengawasan Pekerjaan Lap.</a></li>
-            <li><a href="'. site_url("admin/reset_password").'">Reset Password User</a></li>
+            <li><a href="'. site_url("admin/reset_user").'">Reset Password User</a></li>
             <li><a href="'. site_url("admin/register").'">Tambah User</a></li>';
         }else{
             echo '<li><a href="'. site_url("user/pemesanan_produk").'">Buat Pesanan</a></li>

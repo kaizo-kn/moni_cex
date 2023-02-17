@@ -57,7 +57,7 @@ class Login extends CI_Controller
                 if (hash_verified($this->input->post('password'), $db->password)) {
                     $last_active = intval($this->m_login->m_get_user_last_active($db->id_user));
                     $difference = time() - $last_active;
-                    if ($difference > 15) {
+                    if (intval($difference) > 15) {
                         $this->m_login->m_set_user_last_active($db->id_user, time());
                         $data_login = array(
                             'is_login' => TRUE,
