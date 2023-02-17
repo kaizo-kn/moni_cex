@@ -18,12 +18,12 @@ class Admin extends CI_Controller
       if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
          $total = $this->db->query('SELECT COUNT(id_pekerjaan) AS jumlah_pekerjaan from `uraian_pekerjaan`')->result_array()[0]['jumlah_pekerjaan'];
          $jumlah_per_progress = $this->db->query("SELECT nama_progress, COUNT(uraian_pekerjaan.id_progress) AS jumlah FROM uraian_pekerjaan RIGHT JOIN progress ON uraian_pekerjaan.id_progress = progress.id_progress GROUP BY uraian_pekerjaan.id_progress;")->result_array();
-        $new=array();
+         $new = array();
          foreach ($jumlah_per_progress as $key => $value) {
-          $new["progress_".strtolower($value['nama_progress'])]=$value['jumlah'];
+            $new["progress_" . strtolower($value['nama_progress'])] = $value['jumlah'];
          }
-         $jumlah_per_progress=$new;
-         $data = array('progress_0' => 3, 'progress_40' => 3, 'progress_60' => 3, 'progress_99' => 3, 'progress_100' => 3,'jumlah_per_progress'=>$jumlah_per_progress);
+         $jumlah_per_progress = $new;
+         $data = array('progress_0' => 3, 'progress_40' => 3, 'progress_60' => 3, 'progress_99' => 3, 'progress_100' => 3, 'jumlah_per_progress' => $jumlah_per_progress);
          $this->load->view('__partials/header.php', array('page_title' => 'Dashboard'));
          $this->load->view('__partials/menu.php', array('m1' => 'nav-menu-active'));
          $this->load->view('admin/dashboard.php', array_merge($data, array('total_pekerjaan' => $total)));
@@ -335,7 +335,7 @@ class Admin extends CI_Controller
       }
    }
 
-   
+
    public function info_stok()
    {
 
@@ -403,7 +403,15 @@ class Admin extends CI_Controller
 
 
 
+   public function ajax_dash_persentase()
+   {
 
+      if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
+         echo json_encode($this->m_admin->m_dash_persentase($this->input->post('val1'), $this->input->post('val2')));
+      } else {
+         echo json_encode(array('message' => 'forbidden'));
+      }
+   }
 
 
    //Buat Review

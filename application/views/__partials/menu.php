@@ -3,7 +3,7 @@
        
     </div>
 
-    <div style="overflow:hidden;display:none;position:absolute;z-index:99;width:100%;height:100%;backdrop-filter:blur(10px)" id="loader">
+    <div style="overflow:hidden;display:none;position:absolute;z-index:99;width:100vw;height:100vh;backdrop-filter:blur(10px)" id="loader">
         <div style="top:50%;left:50%;transform:translate(-50%,-50%);background-color:darkgray;border-radius:10px" class="">
             <div></div>
             <div></div>

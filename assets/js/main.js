@@ -210,9 +210,9 @@ function setRangeSliderValue(rangeval) {
 }
 
 //Order Modal
-function buildModal(content) {
+function buildModal(content,callback) {
     let modal = `<!-- Modal -->
-        <div class="modal fade " id="staticBackdrop"  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div onclick='checkModal(this)'  class="modal fade " id="staticBackdrop"  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div style="max-width: 95vw;" class="modal-dialog modal-dialog-centered ">
                 <div class="modal-content">
                     ${content}
@@ -226,6 +226,7 @@ function buildModal(content) {
         $("#staticBackdrop").modal("show");
         modal = "";
         content += " ";
+        callback()
     }, 150);
 }
 
@@ -264,4 +265,16 @@ function resetUser(id_user) {
             }, 2000);
         },
     });
+}
+
+function checkModal(modal) {
+    setTimeout(() => {
+        let show=$(modal).hasClass("show")
+        if(show){
+            $('html').css('overflow','hidden')
+        }else{
+            $('html').css('overflow','overlay')
+        }
+        console.log(show)
+    }, 1);
 }

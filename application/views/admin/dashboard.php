@@ -6,24 +6,24 @@
                 <h2>Dashboard</h2>
             </div>
             <div class="row justify-content-center">
-                <div onclick="showModal('null')" class="col-3 bg-light curpo rounded mt-4 zoom-hover  w-25 pb-4 ps-3">
+                <div onclick="showModal('null','')" class="col-xl-4 col-lg-4 col-md-4 col-10 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                     <div class="member bg-light nb-shadow">
                         <div class="row justify-content-start mb-2">
                             <div class="col-4">
-                                <img style="transform: translate(-15%,-15%);" width="100px" height="auto" src="<?= base_url('assets/img/icons/') ?>progress.png" alt="" srcset="">
+                                <img style="width:100%" height="auto" src="<?= base_url('assets/img/icons/') ?>progress.png" alt="" srcset="">
                             </div>
                             <div class="col-8">
-                                <p class="text-main fw-bolder text-start fs-5">
+                                <h2 class="text-main fw-bolder text-start ms-lg-3 mt-2">
                                     JUMLAH PAKET PEKERJAAN
-                                </p>
+                                </h2>
                             </div>
                         </div>
                     </div>
-                    <div class="d-inline text-main mt-3 ">
-                        <strong class="fs-2 fw-bolder me-1 ms-3">
+                    <div class="d-inline text-main mt-3 ms-lg-3 ms-xl-3">
+                        <strong class="fs-1 fw-bolder me-1">
                             <?= $total_pekerjaan ?>
                         </strong>
-                        <strong class="fs-5">
+                        <strong class="fs-4">
                             PAKET
                         </strong>
                     </div>
@@ -34,7 +34,7 @@
             <div class="col-12">
                 <h1 class="fw-bold text-main text-center">PROGRESS PENGADAAN PEKERJAAN INVESTASI</h1>
             </div>
-            <div onclick="showModal('pks')" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="showModal('pks',$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
@@ -56,7 +56,7 @@
                     </strong>
                 </div>
             </div>
-            <div onclick="showModal('tekpol')" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="showModal('tekpol',$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
@@ -79,7 +79,7 @@
                     </strong>
                 </div>
             </div>
-            <div onclick="showModal('hps')" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="showModal('hps',$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
@@ -102,7 +102,7 @@
                     </strong>
                 </div>
             </div>
-            <div onclick="showModal('pengadaan')" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="showModal('pengadaan',$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
@@ -125,7 +125,7 @@
                     </strong>
                 </div>
             </div>
-            <div onclick="showModal('sppbj')" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="showModal('sppbj',$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
@@ -153,7 +153,7 @@
             <div class="col-12">
                 <h1 class="fw-bold text-main text-center">PROGRESS PENGADAAN PEKERJAAN INVESTASI</h1>
             </div>
-            <div onclick="" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="getPercentage(0,0,$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
@@ -176,7 +176,7 @@
                     </strong>
                 </div>
             </div>
-            <div onclick="" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="getPercentage(1,40,$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
@@ -199,7 +199,7 @@
                     </strong>
                 </div>
             </div>
-            <div onclick="" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="getPercentage(41,60,$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
@@ -221,7 +221,7 @@
                     </strong>
                 </div>
             </div>
-            <div onclick="" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="getPercentage(61,99,$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
@@ -243,7 +243,7 @@
                     </strong>
                 </div>
             </div>
-            <div onclick="" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="getPercentage(100,100,$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
@@ -396,15 +396,21 @@
     </div>
 </section>
 
-<section id="modalContent">
-
+<section class="section-bg m-0 p-0" id="modalContent">
 </section>
 
 
 
 <script>
+    
+    let basepath = $('#basepath').val()
+    $(function() {
+        $('html').css('overflow', 'overlay')
+    })
 
-    function showModal(id_pks) {
+    function showModal(id_pks,title) {
+        let type_color = ""
+        const callback = () => ($(`#${id_pks}`).DataTable(), $(`#${id_pks}_filter`).addClass('mb-2 me-1'))
         let persentase = 0;
         let wait = true
         setTimeout(() => {
@@ -413,10 +419,9 @@
                 $('#loader').css('display', 'block');
                 $('html').css('overflow', 'hidden');
             }
-        }, 100);
+        }, 30);
         let content = ""
         let num = 1;
-        let basepath = $('#basepath').val()
         $.ajax({
             url: basepath + "index.php/admin/ajax_get_list_pekerjaan",
             type: "POST",
@@ -431,22 +436,49 @@
                         const element = object[key];
                         if (element.persentase != null) {
                             persentase = element.persentase
-                        }else{
+                        } else {
                             persentase = 0;
                         }
-                        content += `<tr>
-        <td>${num}</td>
-        <td>${element.uraian_pekerjaan}</td>
-        <td>${element.singkatan}</td>
-        <td>${element.nama_progress}</td>
-        <td>${persentase}</td>
+
+                        switch (element.id_progress) {
+                            case '1':
+                                type_color = "text-dark";
+                                break;
+                            case '2':
+                                type_color = "text-danger";
+                                break;
+                            case '3':
+                                type_color = "text-orange";
+                                break;
+                            case '4':
+                                type_color = "text-warning";
+                                break;
+                            case '5':
+                                type_color = "text-main";
+                                break;
+                        }
+
+                        content += `<tr >
+        <td >${num}</td>
+        <td class="${type_color}">${element.uraian_pekerjaan}</td>
+        <td class="${type_color}">${element.singkatan}</td>
+        <td  class="${type_color}">${element.nama_progress}</td>
+        <td  class="${type_color}">${persentase}%</td>
     </tr>`
                         num++
 
+
                     }
                 }
+                if (id_pks == 'null') {
+                    title = 'Jumlah Paket Pekerjaan'
+                } 
                 let html = `
-<table class="table table-bordered">
+                <div style='transform:translateY(20px)' class='section-title mb-0 pb-0 mt-2'>
+                <h2 class='fs-3 mb-0'>${title}</h2>
+                </div>
+                <div class='p-3'>
+<table  id="${id_pks}" class="table table-bordered mb-0">
 <thead class="mainbgc text-light fw-bold">
     <th>No. </th>
     <th>Uraian Pekerjaan</th>
@@ -457,16 +489,113 @@
 <tbody>
     ${content}
 </tbody>
-</table>`
-                $('html').css('overflow', 'overlay');
+</table>
+</div>`
+                $('html').css('overflow', 'hidden');
                 $('#loader').css('display', 'none');
                 $('#loader>div').removeClass('lds-ellipsis')
-                buildModal(html);
+                buildModal(html, callback);
             },
             error: function(arguments, status) {
                 alert('Error, cek koneksi')
             }
         });
+
+    }
+
+    function getPercentage(val1, val2,title) {
+       
+        let type_color = ""
+        const callback = () => ($(`#progress${val1}`).DataTable(), $(`#progress${val1}_filter`).addClass('mb-2 me-1'))
+        let persentase = 0;
+        let wait = true
+        setTimeout(() => {
+            if (wait) {
+                $('#loader>div').addClass('lds-ellipsis')
+                $('#loader').css('display', 'block');
+                $('html').css('overflow', 'hidden');
+            }
+        }, 30);
+        let content = ""
+        let num = 1;
+        $.ajax({
+            url: basepath + "index.php/admin/ajax_dash_persentase",
+            type: "POST",
+            dataType: 'json',
+            data: {
+                val1: val1,
+                val2: val2
+            },
+            success: function(object) {
+                wait = false
+                for (const key in object) {
+                    if (Object.hasOwnProperty.call(object, key)) {
+                        const element = object[key];
+                        if (element.persentase != null) {
+                            persentase = element.persentase
+                        } else {
+                            persentase = 0;
+                        }
+
+                        switch (element.id_progress) {
+                            case '1':
+                                type_color = "text-dark";
+                                break;
+                            case '2':
+                                type_color = "text-danger";
+                                break;
+                            case '3':
+                                type_color = "text-orange";
+                                break;
+                            case '4':
+                                type_color = "text-warning";
+                                break;
+                            case '5':
+                                type_color = "text-main";
+                                break;
+                        }
+
+                        content += `<tr >
+        <td >${num}</td>
+        <td class="${type_color}">${element.uraian_pekerjaan}</td>
+        <td class="${type_color}">${element.singkatan}</td>
+        <td  class="${type_color}">${element.nama_progress}</td>
+        <td  class="${type_color}">${persentase}%</td>
+    </tr>`
+                        num++
+
+
+                    }
+                }
+                let html = `
+                <div style='transform:translateY(20px)' class='section-title mb-0 pb-0 mt-2'>
+                <h2 class='fs-3 mb-0'>${title}</h2>
+                </div>
+                <div class='p-3'>
+<table  id="progress${val1}" class="table table-bordered mb-0">
+<thead class="mainbgc text-light fw-bold">
+    <th>No. </th>
+    <th>Uraian Pekerjaan</th>
+    <th>PKS</th>
+    <th>Progress</th>
+    <th>Persentase Progress</th>
+</thead>
+<tbody>
+    ${content}
+</tbody>
+</table>
+</div>`
+                $('html').css('overflow', 'hidden');
+                $('#loader').css('display', 'none');
+                $('#loader>div').removeClass('lds-ellipsis')
+                buildModal(html, callback);
+            },
+            error: function(arguments, status) {
+                alert('Error, cek koneksi')
+            }
+        });
+
+
 
     }
 </script>
