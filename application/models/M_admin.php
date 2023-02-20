@@ -120,6 +120,18 @@ class M_admin extends CI_Model
                 }
                 
         }
+
+        public function m_dash_list_percent($id_pks){
+                return $this->db
+                ->query("SELECT 
+                (SELECT COUNT(persentase_progress.id_pekerjaan) FROM `persentase_progress` RIGHT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase = 0) AS progress_0,
+                (SELECT COUNT(persentase_progress.id_pekerjaan)FROM `persentase_progress` RIGHT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase >=$id_pks AND persentase <= 40) AS progress_40,
+                (SELECT COUNT(persentase_progress.id_pekerjaan)FROM `persentase_progress` RIGHT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase >= 41 AND persentase <= 60) AS progress_60,
+                (SELECT COUNT(persentase_progress.id_pekerjaan)FROM `persentase_progress` RIGHT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase >= 61 AND persentase <= 99) AS progress_99,
+                (SELECT COUNT(persentase_progress.id_pekerjaan)FROM `persentase_progress` RIGHT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase =100) AS progress_100;")
+                ->result_array();
+        }
+
         public function m_ajax_get_list_doc_pekerjaan($id_pks)
         {
                 $data = $this->db->query("SELECT id_pekerjaan,id_progress,id_pks,id_user,uraian_pekerjaan

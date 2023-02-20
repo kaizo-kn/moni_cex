@@ -346,7 +346,7 @@ class Admin extends CI_Controller
          redirect('login', 'refresh');
       }
    }
-   //ajax get list pekerjaan
+   //ajax get list doc pekerjaan
    public function ajax_get_list_doc_pekerjaan()
    {
       if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {

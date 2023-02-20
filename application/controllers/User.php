@@ -26,280 +26,48 @@ class User extends CI_Controller
   // }
   public function index()
   {
-    {
-      if ($this->session->userdata('is_login') == TRUE) {
-       $id_pks= $this->session->userdata('id_pks');
-         $total = $this->db->query("SELECT COUNT(id_pekerjaan) AS jumlah_pekerjaan from `uraian_pekerjaan` WHERE `id_pks` = $id_pks")->result_array()[0]['jumlah_pekerjaan'];
-         $jumlah_per_progress = $this->db->query("SELECT nama_progress, COUNT(uraian_pekerjaan.id_progress) AS jumlah FROM uraian_pekerjaan RIGHT JOIN progress ON uraian_pekerjaan.id_progress = progress.id_progress WHERE id_pks = $id_pks GROUP BY uraian_pekerjaan.id_progress;")->result_array();
-         $new = array();
-         foreach ($jumlah_per_progress as $key => $value) {
-            $new["progress_" . strtolower($value['nama_progress'])] = $value['jumlah'];
-         }
-         $jumlah_per_progress = $new;
-         $data = array('progress_0' => 3, 'progress_40' => 3, 'progress_60' => 3, 'progress_99' => 3, 'progress_100' => 3, 'jumlah_per_progress' => $jumlah_per_progress);
-         $this->load->view('__partials/header.php', array('page_title' => 'Dashboard'));
-         $this->load->view('__partials/menu.php', array('m1' => 'nav-menu-active'));
-         $this->load->view('user/dashboard.php', array_merge($data, array('total_pekerjaan' => $total)));
-         $this->load->view('__partials/footer.php');
-      } else {
-        $this->session->set_flashdata('message',$this->flash_error("Silakan Login Terlebih Dahulu!"));
-         redirect('login', 'refresh');
+
+    if ($this->session->userdata('is_login') == TRUE) {
+      $id_pks = $this->session->userdata('id_pks');
+      $total = $this->db->query("SELECT COUNT(id_pekerjaan) AS jumlah_pekerjaan from `uraian_pekerjaan` WHERE `id_pks` = $id_pks")->result_array()[0]['jumlah_pekerjaan'];
+      $jumlah_per_progress = $this->db->query("SELECT nama_progress, COUNT(uraian_pekerjaan.id_progress) AS jumlah FROM uraian_pekerjaan RIGHT JOIN progress ON uraian_pekerjaan.id_progress = progress.id_progress WHERE id_pks = $id_pks GROUP BY uraian_pekerjaan.id_progress;")->result_array();
+      $new = array();
+      foreach ($jumlah_per_progress as $key => $value) {
+        $new["progress_" . strtolower($value['nama_progress'])] = $value['jumlah'];
       }
-   }
-  }
-
-  public function admin_dashboard()
-  {
-    if ($this->session->userdata('is_login') == FALSE || $this->session->userdata('id_pks') != "0") {
-      redirect('user/', 'refresh');
+      $jumlah_per_progress = $new;
+      $data = $this->m_user->m_dash_list_percent($id_pks);
+      $this->load->view('__partials/header.php', array('page_title' => 'Dashboard'));
+      $this->load->view('__partials/menu.php', array('m1' => 'nav-menu-active'));
+      $this->load->view('user/dashboard.php', array_merge($data, $jumlah_per_progress, array('total_pekerjaan' => $total)));
+      $this->load->view('__partials/footer.php');
     } else {
-      $data['page_title'] = "Admin Dashboard";
-      $this->load->view('main/header.php', $data);
-      $this->load->view('user/admin_header.php');
-      $this->load->view('user/admin_dashboard.php');
-      $this->load->view('main/footer.php');
-    }
-  }
-  public function user_dashboard()
-  {
-    if ($this->session->userdata('is_login') == true && $this->session->userdata('id_pks') != "0") {
-      $data['page_title'] = "User Dashboard";
-      $this->load->view('main/header.php', $data);
-      $this->load->view('user/admin_header.php');
-      $this->load->view('user/user_dashboard.php');
-      $this->load->view('main/footer.php');
-    } else {
-      $this->session->set_flashdata('message', $this->flash_info('Silakan Login Terlebih Dahulu!'));
-      redirect('user/', 'refresh');
+      $this->session->set_flashdata('message', $this->flash_error("Silakan Login Terlebih Dahulu!"));
+      redirect('login', 'refresh');
     }
   }
 
-  public function daftar_pesanan()
+  //ajax dashboard persentase
+  public function ajax_dash_persentase()
   {
-    if ($this->session->userdata('is_login') == true && $this->session->userdata('id_pks') != "0") {
-      $data_pesanan = $this->m_user->m_daftar_pesanan($this->session->userdata('id_pks'));
-      $surat = array();
-      for ($i = 0; $i < count($data_pesanan); $i++) {
-        $path = FCPATH . "media/upload/pesanan/" . $data_pesanan[$i]['singkatan'] . "/" . $data_pesanan[$i]['tanggal_pemesanan'] . "";
-        $foldername_array = directory_map($path);
-        if (!empty($foldername_array)) {
-          for ($xi = 0; $xi < count($foldername_array); $xi++) {
-            $surat[$data_pesanan[$i]['tanggal_pemesanan']][$xi] = ($foldername_array[$xi]);
-          }
-        }
-      }
-      $data['page_title'] = "Daftar Pesanan";
-      $this->load->view('main/header.php', $data);
-      $this->load->view('user/admin_header.php');
-      $this->load->view('user/pesanan_saya.php', array('data_pesanan' => $data_pesanan, 'surat' => $surat));
-      $this->load->view('main/footer.php');
+    if ($this->session->userdata('is_login') == TRUE) {
+      echo json_encode($this->m_user->m_dash_persentase($this->input->post('val1'), $this->input->post('val2'), $this->input->post('id_pks')));
     } else {
-      redirect('user/', 'refresh');
+      echo json_encode(array('message' => 'forbidden'));
     }
   }
-
-  public function ubah_info_stok()
-  {
-    if ($this->session->userdata('is_login') == FALSE || $this->session->userdata('id_pks') != "0") {
-      redirect('user/', 'refresh');
-    } else {
-      $info_stok = $this->m_user->m_get_stok();
-      $data['page_title'] = "Ubah Info Stok Sparepart";
-      $this->load->view('main/header.php', $data);
-      $this->load->view('user/admin_header.php');
-      $this->load->view('user/info_stok.php', $info_stok);
-      $this->load->view('main/footer.php');
-    }
-  }
-
-  public function ubah_info_harga()
-  {
-    if ($this->session->userdata('is_login') == FALSE || $this->session->userdata('id_pks') != "0") {
-      redirect('user/', 'refresh');
-    } else {
-      $data = $this->m_user->m_get_catatan();
-      $title['page_title'] = "Ubah Informasi Harga";
-      $this->load->view('main/header.php', $title);
-      $this->load->view('user/admin_header.php');
-      $this->load->view('user/info_harga.php', $data);
-      $this->load->view('main/footer.php');
-    }
-  }
-  public function pemesanan_produk()
-  {
-    if ($this->session->userdata('is_login') == FALSE || $this->session->userdata('id_pks') == "0") {
-      redirect('user/', 'refresh');
-    } else {
-      $data = array('produk_pmt' => $this->db->query('select * from produk_pmt order by nama_produk ASC')->result_array());
-      $title['page_title'] = "Pemesanan Produk";
-      $this->load->view('main/header.php', $title);
-      $this->load->view('user/admin_header.php');
-      $this->load->view('user/pemesanan_produk.php', $data);
-      $this->load->view('main/footer.php');
-    }
-  }
-
-  public function manajemen_review()
-  {
-    if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
-
-      $data_review = $this->m_user->m_get_data_review();
-      $title['page_title'] = "Manajemen Review Produk";
-      $this->load->view('main/header.php', $title);
-      $this->load->view('user/admin_header.php');
-      $this->load->view('user/manajemen_review', array('data_review' => $data_review));
-      $this->load->view('main/footer.php');
-    } else {
-      redirect('user/', 'refresh');
-    }
-  }
-
-
-
-  public function c_hapus_review()
-  {
-    if ($this->session->userdata('is_login') == FALSE || $this->session->userdata('id_pks') != "0") {
-      redirect('user/', 'refresh');
-    } else {
-      $id_review = $this->input->post('id_review');
-      $this->m_user->m_hapus_review($id_review);
-      $this->session->set_flashdata('message', $this->flash_success('Review Berhasil Dihapus'));
-      redirect('user/manajemen_review');
-      $this->session->set_flashdata('message', '');
-    }
-  }
-
-  public function c_tampilkan_review()
-  {
-    if ($this->session->userdata('is_login') == FALSE || $this->session->userdata('id_pks') != "0") {
-      redirect('user/', 'refresh');
-    } else {
-      if ($this->m_user->m_tampilkan_review($this->input->post('id_review')) == '1') {
-        $this->session->set_flashdata('message', $this->flash_success('Review Ditampilkan'));
-      } else {
-        $this->session->set_flashdata('message', $this->flash_error('Error'));
-      }
-      redirect('user/manajemen_review');
-      $this->session->set_flashdata('message', '');
-    }
-  }
-
-  //Balas Review
-  public function c_balas_review()
-  {
-    if ($this->session->userdata('is_login') == FALSE || $this->session->userdata('id_pks') != "0") {
-      redirect('user/', 'refresh');
-    } else {
-      $path = "";
-      $message = "";
-      $nama = $this->input->post('nama_reviewer');
-      $gambar_balasan = $this->input->post('gambar_balasan');
-      $id_review = $this->input->post('id-review');
-      $balasan = $this->input->post('balasan-review');
-      $timestamp = $this->dateUpdate();
-      if (!empty($_FILES['files']['name']) && count(array_filter($_FILES['files']['name'])) > 0) {
-        $date = date("Y-m-d_H-i-s");
-        if (!isset($gambar_balasan) || empty($gambar_balasan) || $gambar_balasan == "") {
-          $folder = $nama . "_" . $date;
-          $gambar_balasan = $folder;
-        } else {
-          $folder = $gambar_balasan;
-        }
-        $path = FCPATH . 'media/upload/answer/' . $folder;
-        if (!is_dir($path)) {
-          mkdir($path, 0755, TRUE);
-        }
-        $filesCount = count($_FILES['files']['name']);
-        for ($i = 0; $i < $filesCount && $i < 4; $i++) {
-          $_FILES['file']['name']     = $_FILES['files']['name'][$i];
-          $_FILES['file']['type']     = $_FILES['files']['type'][$i];
-          $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i];
-          $_FILES['file']['error']     = $_FILES['files']['error'][$i];
-          $_FILES['file']['size']     = $_FILES['files']['size'][$i];
-
-          // File upload configuration 
-          $file = $nama . "_" . $date . "_" . $i;
-          $config['upload_path']          = $path;
-          $config['allowed_types']        = 'jpeg|jpg|png';
-          $config['max_size']             = 5000;
-          $config['overwrite']            = true;
-          $config['allowed_types'] = 'jpeg|jpg|png';
-          $config['file_name'] = $file;
-
-
-          // Load and initialize upload library 
-          $this->load->library('upload', $config);
-          $this->upload->initialize($config);
-
-          // Upload file to server 
-          if ($this->upload->do_upload('file')) {
-            $message .= ('Gambar Berhasil Dikirim <br>');
-          } else {
-            $message .= $this->upload->display_errors() . "<br>";
-          }
-        }
-        $this->session->set_flashdata('message', $this->flash_info($message));
-      } else {
-        $this->session->set_flashdata('message', $this->flash_success("Balasan Berhasil Dikirim"));
-      }
-      $data = array('id_balasan' => $id_review, 'tanggal_balasan' => $timestamp, 'balasan' => $balasan, 'gambar_balasan' => $gambar_balasan);
-      $this->m_user->m_balas_review($data);
-      redirect('user/manajemen_review');
-      $this->session->set_flashdata('message', '');
-    }
-  }
-
-  //Ubah Review
-  public function c_sembunyikan_review()
-  {
-    if ($this->session->userdata('is_login') == FALSE || $this->session->userdata('id_pks') != "0") {
-      redirect('user/', 'refresh');
-    } else {
-      $this->m_user->m_sembunyikan_review($this->input->post('id_review'));
-      $this->session->set_flashdata('message', $this->flash_success('Review Disembunyian'));
-      redirect('user/manajemen_review');
-      $this->session->set_flashdata('message', '');
-    }
-  }
-
-
-
-  public function manajemen_pesanan()
-  {
-    if ($this->session->userdata('is_login') == FALSE || $this->session->userdata('id_pks') != '0') {
-      redirect('user/', 'refresh');
-    } else {
-      $data_pesanan = $this->m_user->m_manajemen_pesanan();
-      $surat = array();
-      for ($i = 0; $i < count($data_pesanan); $i++) {
-        $path = FCPATH . "media/upload/pesanan/" . $data_pesanan[$i]['singkatan'] . "/" . $data_pesanan[$i]['tanggal_pemesanan'] . "";
-        $foldername_array = directory_map($path);
-        if (!empty($foldername_array)) {
-          for ($xi = 0; $xi < count($foldername_array); $xi++) {
-            $surat[$data_pesanan[$i]['tanggal_pemesanan']][$xi] = ($foldername_array[$xi]);
-          }
-        }
-      }
-      $title['page_title'] = "Manajemen Pesanan Produk";
-      $this->load->view('main/header.php', $title);
-      $this->load->view('user/admin_header.php');
-      $this->load->view('user/manajemen_pesanan', array('data_pesanan' => $data_pesanan, 'surat' => $surat));
-      $this->load->view('main/footer.php');
-    }
-  }
-
   //Profil User
-  public function user_profile()
+  public function profile()
   {
     if ($this->session->userdata('is_login') == FALSE) {
       redirect('user/', 'refresh');
     } else {
       $userdata = array('nama' => $this->session->userdata('nama'), 'profile' => $this->session->userdata('profile'), 'username' => $this->session->userdata('username'));
       $title['page_title'] = "Profil User";
-      $this->load->view('main/header.php', $title);
-      $this->load->view('user/admin_header.php');
+      $this->load->view('__partials/header.php', $title);
+      $this->load->view('__partials/menu.php');
       $this->load->view('user/ubah_profil.php', $userdata);
-      $this->load->view('main/footer.php');
+      $this->load->view('__partials/footer.php');
     }
   }
 
@@ -456,21 +224,14 @@ class User extends CI_Controller
       $this->m_user->m_set_user_last_active($this->session->userdata('id_user'), time());
     }
   }
-  public function ajax_update_comment()
-  {
-    if ($this->session->userdata('is_login') === true && $this->session->userdata('id_pks') == '0') {
-      $id_pesanan = $this->input->post('id_pesanan');
-      $komentar = $this->input->post('komentar');
-      $this->m_user->m_set_user_comment($id_pesanan, $komentar);
-    }
-  }
 
-  //ajax get balasan
-  public function ajax_get_balasan()
+  //ajax get list pekerjaan
+  public function ajax_get_list_pekerjaan()
   {
-    if ($this->session->userdata('is_login') === true && $this->session->userdata('id_pks') == '0') {
-      $id_balasan = $this->input->post('id_balasan');
-      echo json_encode($this->m_user->m_get_balasan($id_balasan));
+    if ($this->session->userdata('is_login') == TRUE) {
+      echo json_encode($this->m_user->m_ajax_get_list_pekerjaan($this->input->post('id_pks')));
+    } else {
+      echo json_encode(array('message' => 'forbidden'));
     }
   }
 
@@ -583,7 +344,7 @@ class User extends CI_Controller
         'singkatan' => $db->singkatan
       );
       $this->session->set_userdata($data_login);
-      redirect('user/user_profile', 'refresh');
+      redirect('user/profile', 'refresh');
       $this->session->set_flashdata('message', '');
     } else {
       redirect('user/', 'refresh');

@@ -1,5 +1,5 @@
 <section id="dashboard" class="team pt-4" style="background-color:#e2e2e2;">
-    <?php extract($jumlah_per_progress) ?>
+    <?php $id_pks = $this->session->userdata('id_pks') ?>
     <div class="container-fluid">
         <div class="h-100">
             <div class="section-title mt-5 ">
@@ -21,7 +21,11 @@
                     </div>
                     <div class="d-inline text-main mt-3 ms-lg-3 ms-xl-3">
                         <strong class="fs-1 fw-bolder me-1">
-                            <?= $total_pekerjaan ?>
+                            <?php if (!isset($total_pekerjaan)) {
+                                echo "0";
+                            } else {
+                                echo $total_pekerjaan;
+                            } ?>
                         </strong>
                         <strong class="fs-4">
                             PAKET
@@ -49,7 +53,11 @@
                 </div>
                 <div class="d-inline text-main mt-3">
                     <strong class="fs-2 fw-bolder me-1">
-                        <?= $progress_pks ?>
+                        <?php if (!isset($progress_pks)) {
+                            echo "0";
+                        } else {
+                            echo $progress_pks;
+                        } ?>
                     </strong>
                     <strong class="fs-5">
                         PAKET
@@ -72,7 +80,11 @@
                 </div>
                 <div class="d-inline text-main mt-3">
                     <strong class="fs-2 fw-bolder me-1">
-                        <?= $progress_tekpol ?>
+                        <?php if (!isset($progress_tekpol)) {
+                            echo "0";
+                        } else {
+                            echo $progress_tekpol;
+                        } ?>
                     </strong>
                     <strong class="fs-5">
                         PAKET
@@ -95,7 +107,11 @@
                 </div>
                 <div class="d-inline text-main mt-3">
                     <strong class="fs-2 fw-bolder me-1">
-                        <?= $progress_hps ?>
+                        <?php if (!isset($progress_hps)) {
+                            echo "0";
+                        } else {
+                            echo $progress_hps;
+                        } ?>
                     </strong>
                     <strong class="fs-5">
                         PAKET
@@ -118,7 +134,11 @@
                 </div>
                 <div class="d-inline text-main mt-3">
                     <strong class="fs-2 fw-bolder me-1">
-                        <?= $progress_pengadaan ?>
+                        <?php if (!isset($progress_pengadaan)) {
+                            echo "0";
+                        } else {
+                            echo $progress_pengadaan;
+                        } ?>
                     </strong>
                     <strong class="fs-5">
                         PAKET
@@ -141,7 +161,11 @@
                 </div>
                 <div class="d-inline text-main mt-3">
                     <strong class="fs-2 fw-bolder me-1">
-                        <?= $progress_sppbj ?>
+                        <?php if (!isset($progress_sppbj)) {
+                            echo "0";
+                        } else {
+                            echo $progress_sppbj;
+                        } ?>
                     </strong>
                     <strong class="fs-5">
                         PAKET
@@ -153,7 +177,7 @@
             <div class="col-12">
                 <h1 class="fw-bold text-main text-center">PROGRESS PENGADAAN PEKERJAAN INVESTASI</h1>
             </div>
-            <div onclick="getPercentage(0,0,$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="getPercentage(0,0,<?= $id_pks ?>,$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
@@ -169,14 +193,18 @@
                 </div>
                 <div class="d-inline text-main mt-3">
                     <strong class="fs-2 fw-bolder me-1">
-                        <?= $progress_0 ?>
+                        <?php if (!isset($progress_0)) {
+                            echo "0";
+                        } else {
+                            echo $progress_0;
+                        } ?>
                     </strong>
                     <strong class="fs-5">
                         PAKET
                     </strong>
                 </div>
             </div>
-            <div onclick="getPercentage(1,40,$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="getPercentage(1,40,<?= $id_pks ?>,$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
@@ -192,14 +220,18 @@
                 </div>
                 <div class="d-inline text-main mt-3">
                     <strong class="fs-2 fw-bolder me-1">
-                        <?= $progress_40 ?>
+                        <?php if (!isset($progress_40)) {
+                            echo "0";
+                        } else {
+                            echo $progress_40;
+                        } ?>
                     </strong>
                     <strong class="fs-5">
                         PAKET
                     </strong>
                 </div>
             </div>
-            <div onclick="getPercentage(41,60,$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="getPercentage(41,60,<?= $id_pks ?>,$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
@@ -214,14 +246,18 @@
                 </div>
                 <div class="d-inline text-main mt-3">
                     <strong class="fs-2 fw-bolder me-1">
-                        <?= $progress_60 ?>
+                        <?php if (!isset($progress_60)) {
+                            echo "0";
+                        } else {
+                            echo $progress_60;
+                        } ?>
                     </strong>
                     <strong class="fs-5">
                         PAKET
                     </strong>
                 </div>
             </div>
-            <div onclick="getPercentage(61,99,$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="getPercentage(61,99,<?= $id_pks ?>,$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
@@ -236,14 +272,18 @@
                 </div>
                 <div class="d-inline text-main mt-3">
                     <strong class="fs-2 fw-bolder me-1">
-                        <?= $progress_99 ?>
+                        <?php if (!isset($progress_99)) {
+                            echo "0";
+                        } else {
+                            echo $progress_99;
+                        } ?>
                     </strong>
                     <strong class="fs-5">
                         PAKET
                     </strong>
                 </div>
             </div>
-            <div onclick="getPercentage(100,100,$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="getPercentage(100,100,<?= $id_pks ?>,$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
@@ -258,7 +298,11 @@
                 </div>
                 <div class="d-inline text-main mt-3">
                     <strong class="fs-2 fw-bolder me-1">
-                        <?= $progress_100 ?>
+                        <?php if (!isset($progress_100)) {
+                            echo "0";
+                        } else {
+                            echo $progress_100;
+                        } ?>
                     </strong>
                     <strong class="fs-5">
                         PAKET
@@ -422,7 +466,7 @@
         let content = ""
         let num = 1;
         $.ajax({
-            url: basepath + "index.php/admin/ajax_get_list_pekerjaan",
+            url: basepath + "index.php/user/ajax_get_list_pekerjaan",
             type: "POST",
             dataType: 'json',
             data: {
@@ -465,8 +509,6 @@
         <td  class="${type_color}">${persentase}%</td>
     </tr>`
                         num++
-
-
                     }
                 }
                 if (id_pks == 'null') {
@@ -506,8 +548,7 @@
 
     }
 
-    function getPercentage(val1, val2, title) {
-
+    function getPercentage(val1, val2, id_pks, title) {
         let type_color = ""
         const callback = () => ($(`#progress${val1}`).DataTable(), $(`#progress${val1}_filter`).addClass('mb-2 me-1'))
         let persentase = 0;
@@ -522,12 +563,13 @@
         let content = ""
         let num = 1;
         $.ajax({
-            url: basepath + "index.php/admin/ajax_dash_persentase",
+            url: basepath + "index.php/user/ajax_dash_persentase",
             type: "POST",
             dataType: 'json',
             data: {
                 val1: val1,
-                val2: val2
+                val2: val2,
+                id_pks: id_pks
             },
             success: function(object) {
                 wait = false
@@ -566,8 +608,6 @@
         <td  class="${type_color}">${persentase}%</td>
     </tr>`
                         num++
-
-
                     }
                 }
                 let html = `
@@ -593,7 +633,7 @@
                 $('#loader>div').removeClass('lds-ellipsis')
                 buildModal(html, callback);
             },
-            error: function(arguments, status) {
+            error: function(arguments, status, error) {
                 alert('Error, cek koneksi')
             }
         });

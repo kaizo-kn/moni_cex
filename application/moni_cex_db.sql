@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 17, 2023 at 12:33 PM
+-- Generation Time: Feb 20, 2023 at 04:24 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -152,28 +152,26 @@ INSERT INTO `progress` (`id_progress`, `nama_progress`) VALUES
 
 CREATE TABLE `uraian_pekerjaan` (
   `id_pekerjaan` int(11) NOT NULL,
-  `id_user` tinyint(3) NOT NULL,
   `id_pks` tinyint(3) NOT NULL,
   `id_progress` tinyint(2) NOT NULL DEFAULT 1,
   `id_dokumen` int(11) DEFAULT NULL,
-  `uraian_pekerjaan` text NOT NULL DEFAULT ' ',
-  `persentase_progress` int(3) NOT NULL DEFAULT 0
+  `uraian_pekerjaan` text NOT NULL DEFAULT ' '
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `uraian_pekerjaan`
 --
 
-INSERT INTO `uraian_pekerjaan` (`id_pekerjaan`, `id_user`, `id_pks`, `id_progress`, `id_dokumen`, `uraian_pekerjaan`, `persentase_progress`) VALUES
-(1, 0, 11, 2, 0, 'tekpol aja', 0),
-(2, 0, 8, 4, 0, 'Update Lori Pengadaan', 0),
-(3, 0, 1, 1, 0, 'Memperbaiki Lori Rusak', 0),
-(4, 0, 1, 1, 0, 'Input Data 1', 0),
-(5, 0, 1, 3, 0, 'Input Data 2 di hps', 0),
-(7, 0, 1, 2, 0, 'kkkksad', 0),
-(8, 0, 2, 2, NULL, 'Bah Jambi', 0),
-(9, 0, 8, 1, NULL, 'Aba 1', 0),
-(10, 0, 12, 1, NULL, 'Cat Lori No 2', 0);
+INSERT INTO `uraian_pekerjaan` (`id_pekerjaan`, `id_pks`, `id_progress`, `id_dokumen`, `uraian_pekerjaan`) VALUES
+(1, 11, 2, 0, 'tekpol aja'),
+(2, 8, 4, 0, 'Update Lori Pengadaan'),
+(3, 1, 1, 0, 'Memperbaiki Lori Rusak'),
+(4, 1, 1, 0, 'Input Data 1'),
+(5, 1, 3, 0, 'Input Data 2 di hps'),
+(7, 1, 2, 0, 'kkkksad'),
+(8, 2, 2, NULL, 'Bah Jambi'),
+(9, 8, 1, NULL, 'Aba 1'),
+(10, 12, 1, NULL, 'Cat Lori No 2');
 
 -- --------------------------------------------------------
 
@@ -197,9 +195,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `id_pks`, `username`, `nama`, `password`, `foto_profil`, `date_created`, `last_active`) VALUES
-(0, '0', 'admin_cex', 'Admin', '$2y$05$QJ8HymLo/EH7SNZr4kQwPO.binYGULYBUENBb4avnAUdSsF5SVrF2', 'admin.jpeg', '2023-02-17 05:33:27', 1676612007),
-(1, '1', 'pks_ado', 'PKS Adolina', '$2y$05$OrKBL6uohN9IPdAbhfLT8eoHS/4yjQ47Vc6sCQUBEz8tJ6BpJouMm', 'default.png', '2023-02-17 05:33:35', 1676612015),
-(2, '2', 'pks_baj', 'PKS Bah Jambi', '$2y$05$fCcvSizE5k/L9RtM1yzGieAZoSitbSj3VCYURayRLimj3FCblxlfe', 'default.png', '2023-02-14 01:57:50', 1676339870),
+(0, '0', 'admin_cex', 'Admin', '$2y$05$QJ8HymLo/EH7SNZr4kQwPO.binYGULYBUENBb4avnAUdSsF5SVrF2', 'admin.jpeg', '2023-02-20 07:19:23', 1676877548),
+(1, '1', 'pks_ado', 'PKS Adolina', '$2y$05$OrKBL6uohN9IPdAbhfLT8eoHS/4yjQ47Vc6sCQUBEz8tJ6BpJouMm', 'ado.jpeg', '2023-02-20 09:24:01', 1676885041),
+(2, '2', 'pks_baj', 'PKS Bah Jambi', '$2y$05$fCcvSizE5k/L9RtM1yzGieAZoSitbSj3VCYURayRLimj3FCblxlfe', 'default.png', '2023-02-20 07:23:10', 1676877775),
 (3, '3', 'pks_doi', 'PKS Dolok Ilir', '$2y$05$fCcvSizE5k/L9RtM1yzGieAZoSitbSj3VCYURayRLimj3FCblxlfe', 'default.png', '0000-00-00 00:00:00', 0),
 (4, '4', 'pks_tim', 'PKS Timur', '$2y$05$fCcvSizE5k/L9RtM1yzGieAZoSitbSj3VCYURayRLimj3FCblxlfe', 'default.png', '0000-00-00 00:00:00', 0),
 (5, '5', 'pks_dos', 'PKS Dolok Sinumbah', '$2y$05$fCcvSizE5k/L9RtM1yzGieAZoSitbSj3VCYURayRLimj3FCblxlfe', 'default.png', '0000-00-00 00:00:00', 0),
