@@ -71,150 +71,41 @@ class User extends CI_Controller
     }
   }
 
-  public function reset_user()
+  
+
+  public function lap_invest()
   {
-    if ($this->session->userdata('is_login') == FALSE || $this->session->userdata('id_pks') != "0") {
-      redirect('user/', 'refresh');
-    } else {
-      $data_user = array('data_user' => $this->m_user->m_list_user());
-      $title['page_title'] = "Reset Password User";
-      $this->load->view('main/header.php', $title);
-      $this->load->view('user/admin_header.php');
-      $this->load->view('user/reset_user.php', $data_user);
-      $this->load->view('main/footer.php');
-    }
-  }
-  public function action_reset_user()
-  {
-    if ($this->session->userdata('is_login') == FALSE || $this->session->userdata('id_pks') != "0") {
-      redirect('user/', 'refresh');
-    } else {
-      $id_user = $this->input->post('id_user');
-      $this->m_user->m_reset_user($id_user);
-    }
-  }
+     if ($this->session->userdata('is_login') == TRUE) {
+        $data_pekerjaan = array('data_pekerjaan' => $this->m_user->m_progress_lap_invest());
 
-
-  public function login_proses()
-  {
-    $this->form_validation->set_rules('username', 'E-mail', 'trim|required|min_length[3]|max_length[45]');
-    $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[5]|max_length[12]');
-
-    if ($this->form_validation->run() == TRUE) {
-
-      if ($this->m_user->m_cek_username()->num_rows() == 1) {
-        $db = $this->m_user->m_cek_username()->row();
-        if (hash_verified($this->input->post('password'), $db->password)) {
-          $last_active = intval($this->m_user->m_get_user_last_active($db->id_user));
-          $difference = time() - $last_active;
-          if ($difference > 15) {
-            $this->m_user->m_set_user_last_active($db->id_user, time());
-            $data_login = array(
-              'sitenow' => 'user',
-              'is_login' => TRUE,
-              'id_user' => $db->id_user,
-              'id_pks' => $db->id_pks,
-              'username' => $db->username,
-              'nama' => $db->nama,
-              'profile' => $db->foto_profil,
-              'singkatan' => $db->singkatan
-            );
-            $this->session->set_userdata($data_login);
-            $this->session->set_flashdata('message', $this->flash_success('Login Berhasil!'));
-            if ($this->session->userdata('id_pks') == '0') {
-              redirect('user/admin_dashboard', 'refresh');
-            } else {
-              redirect('user/user_dashboard', 'refresh');
-            }
-
-            $this->session->set_flashdata('message', '');
-          } else {
-            $this->session->set_flashdata('message', $this->flash_error('Login Gagal! <br> Akun Sedang Digunakan!'));
-            redirect('user/', 'refresh');
-            $this->session->set_flashdata('message', '');
-            $this->session->sess_destroy();
-          }
-          $this->session->set_flashdata('message', $this->flash_success('Login Berhasil!'));
-          redirect('user/admin_dashboard', 'refresh');
-        } else {
-          $this->session->set_flashdata('message', $this->flash_error('Login gagal: username atau password salah!'));
-          $this->session->set_flashdata('username', $this->input->post('username'));
-          redirect('user', 'refresh');
-          $this->session->set_flashdata('message', '');
+        $data = array('progress_0' => 3, 'progress_40' => 3, 'progress_60' => 3, 'progress_99' => 3, 'progress_100' => 3, 'progress_pks' => 3, 'progress_tekpol' => 3, 'progress_hps' => 3, 'progress_pengadaan' => 3, 'keluar_sppbj' => 3);
+        $total = 0;
+        foreach ($data as $key => $value) {
+           $total += $value;
         }
-      } else {
-        $this->session->set_flashdata('username', $this->input->post('username'));
-        $this->session->set_flashdata('message', $this->flash_error('Login gagal: username tidak terdaftar!'));
-        redirect('user', 'refresh');
-      }
-    } else {
-      $this->session->set_flashdata('username', $this->input->post('username'));
-      $this->session->set_flashdata('message', $this->flash_error('Login gagal: username atau password salah!'));
-      redirect('user', 'refresh');
-    }
-    $this->session->set_flashdata('message', '');
+        $this->load->view('__partials/header.php', array('page_title' => 'Progress Lap. Investasi'));
+        $this->load->view('__partials/menu.php', array('m2' => 'nav-menu-active'));
+        $this->load->view('user/lap_invest', array_merge($data_pekerjaan, $data, array('total_pekerjaan' => $total)));
+        $this->load->view('__partials/footer.php');
+     } else {
+        redirect('login', 'refresh');
+     }
   }
 
-
-
-  public function logout()
+  public function pengawasan_pekerjaan_lap()
   {
-    $this->session->unset_userdata('sitenow');
-    $this->session->unset_userdata('is_login');
-    $this->session->unset_userdata('nama');
-    $this->session->unset_userdata('username');
-    if ($this->session->userdata('id_user') != null || !empty($this->session->userdata('id_user'))) {
-      $this->m_user->m_set_user_last_active($this->session->userdata('id_user'), (time() - 15));
-    }
-    $this->session->sess_destroy();
-    $this->load->library('session');
-    $this->session->set_flashdata('message', $this->flash_success('Log Out Berhasil'));
-    $sitenow = $this->session->userdata('sitenow');
-    redirect($sitenow, 'refresh');
-    $this->session->sess_destroy();
+     if ($this->session->userdata('is_login') == TRUE) {
+        $data = array('data_pekerjaan' => $this->m_user->m_get_data_pengawasan());
+        $this->load->view('__partials/header.php', array('page_title' => 'Progress Lap. Investasi'));
+        $this->load->view('__partials/menu.php', array('m3' => 'nav-menu-active'));
+        $this->load->view('admin/pengawasan_pekerjaan_lap.php', $data);
+        $this->load->view('__partials/footer.php');
+     } else {
+        redirect('login', 'refresh');
+     }
   }
 
-  public function update_stok()
-  {
-    if ($this->session->userdata('is_login') == FALSE || $this->session->userdata('id_pks') != "0") {
-      redirect('user/', 'refresh');
-    } else {
-      $tanggal_update = $this->dateUpdate();
-      $data = array(
-        'tanggal_update' => $tanggal_update,
-        'lori_rebusan' => $this->input->post('lori_rebusan', TRUE),
-        'roda_lori' => $this->input->post('roda_lori', TRUE),
-        'bushing_lori' => $this->input->post('bushing_lori', TRUE),
-        'fruit_elevator' => $this->input->post('fruit_elevator', TRUE),
-        'as_thresher' => $this->input->post('as_thresher', TRUE),
-        'tromol_thresher' => $this->input->post('tromol_thresher', TRUE),
-        'body_cbc' => $this->input->post('body_cbc', TRUE),
-        'gantungan_cbc' => $this->input->post('gantungan_cbc', TRUE),
-        'pedal_cbc' => $this->input->post('pedal_cbc', TRUE),
-        'body_polishdrum' => $this->input->post('body_polishdrum', TRUE),
-        'roll_body_polishdrum' => $this->input->post('roll_body_polishdrum', TRUE),
-        'roll_bawah_polishdrum' => $this->input->post('roll_bawah_polishdrum', TRUE),
-        'gear_polishdrum' => $this->input->post('gear_polishdrum', TRUE),
-        'dewatering_drum' => $this->input->post('dewatering_drum', TRUE),
-        'bottom_cone_inti' => $this->input->post('bottom_cone_inti', TRUE),
-        'bottom_cone_cangkang' => $this->input->post('bottom_cone_cangkang', TRUE),
-        'vortex_finder' => $this->input->post('vortex_finder', TRUE),
-        'feed_housing' => $this->input->post('feed_housing', TRUE),
-        'body_cyclone' => $this->input->post('body_cyclone', TRUE),
-        'separating_cyclone' => $this->input->post('separating_cyclone', TRUE),
-        'box_control' => $this->input->post('box_control', TRUE)
-      );
-      $result = $this->m_user->m_update_stok($data);
-      if ($result == 1) {
-        $result = "Data Sukses Diperbaharui";
-        $this->session->set_flashdata('message', $this->flash_success($result));
-      } else {
-        $this->session->set_flashdata('message', $this->flash_error($result));
-      }
-      redirect('/user/ubah_info_stok', 'refresh');
-      $this->session->set_flashdata('message', '');
-    }
-  }
+
 
   //ajax last active
 

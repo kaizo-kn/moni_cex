@@ -3,73 +3,58 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class M_user extends CI_Model
 {
-        public function m_register($data)
+   
+        public function m_progress_lap_invest()
         {
-                return $this->db->insert('user', $data);
+                $id_pks=$this->session->userdata('id_pks');
+                $data_pekerjaan = $this->db->query("SELECT uraian_pekerjaan.id_pekerjaan,nama_progress,progress.id_progress,uraian_pekerjaan,nama_progress,folder,singkatan FROM uraian_pekerjaan JOIN daftar_nama_pks ON uraian_pekerjaan.id_pks = daftar_nama_pks.id_pks LEFT JOIN dokumen ON uraian_pekerjaan.id_pekerjaan = dokumen.id_pekerjaan LEFT JOIN progress ON progress.id_progress = uraian_pekerjaan.id_progress WHERE uraian_pekerjaan.id_pks=$id_pks ORDER BY  uraian_pekerjaan.id_pekerjaan DESC")->result_array();
+                foreach ($data_pekerjaan as $key => $value) {
+                        $data_pekerjaan[$key]['persentase_progress'] = $this->m_get_persentase_pekerjaan($value['id_pekerjaan']);
+                }
+                return $data_pekerjaan;
+        }
+
+        private function m_get_persentase_pekerjaan($id_pekerjaan)
+        {
+                $return_arr = array();
+                $result = $this->db
+                        ->select('persentase,minggu,bukti')
+                        ->from('persentase_progress')
+                        ->where('id_pekerjaan', $id_pekerjaan)
+                        ->get()
+                        ->result_array();
+                foreach ($result as $key => $value) {
+                        $return_arr[$value['minggu']] = array('persentase' => $value['persentase'], 'bukti' => $value['bukti']);
+                }
+                return $return_arr;
         }
 
 
-        public function m_get_stok()
+        public function m_get_data_pengawasan()
         {
-                $r_id_produk_array = null;
-                $new_result_array = null;
-                $new_t_pesanan_array = null;
-                $result = $this->db->query("SELECT* FROM `stok_produk_pmt` ")->result_array();
-                $t_pesanan = $this->db->query("SELECT pr.nama_alias_produk,IFNULL(SUM(ps.jumlah_pesanan),0) AS jumlah_pesanan 
-        FROM `produk_pmt` AS pr 
-        LEFT JOIN (select p.id_produk,p.jumlah_pesanan from pesanan as p where p.status_pesanan in (0,1,null)) as ps USING (id_produk) 
-        GROUP BY nama_alias_produk;")->result_array();
-                $daftar_produk = $this->db->query("SELECT produk_pmt.id_produk,produk_pmt.nama_alias_produk FROM `produk_pmt`;")->result_array();
-                if (count($daftar_produk) > 0) {
+                $id_pks=$this->session->userdata('id_pks');
+                $data_pekerjaan = $this->db
+                        ->query("select uraian_pekerjaan.id_pekerjaan, uraian_pekerjaan,singkatan,nama_progress,uraian_pekerjaan.id_progress 
+                        FROM uraian_pekerjaan
+                        LEFT JOIN progress ON progress.id_progress = uraian_pekerjaan.id_progress LEFT JOIN daftar_nama_pks ON uraian_pekerjaan.id_pks = daftar_nama_pks.id_pks WHERE uraian_pekerjaan.id_pks = $id_pks ORDER BY  uraian_pekerjaan.id_pekerjaan DESC")
+                        ->result_array();
 
-                        for ($i = 0; $i < count($daftar_produk); $i++) {
-                                $id_produk = $daftar_produk[$i]['id_produk'];
-                                $nama_alias_produk = "id_p_" . $daftar_produk[$i]['nama_alias_produk'];
-
-                                $r = $this->db->query("SELECT `id_pesanan` FROM `pesanan` WHERE `id_produk` = '$id_produk'")->result_array();
-
-                                if (count($r) > 0) {
-                                        for ($xi = 0; $xi < count($r); $xi++) {
-                                                $r_id_produk_array[$nama_alias_produk][$xi] = $r[$xi]['id_pesanan'];
-                                        }
-                                } else if (count($r) == 0) {
-                                        $r_id_produk_array[$nama_alias_produk][0] = "";
-                                }
+                foreach ($data_pekerjaan as $key => $value) {
+                        $dokumentasi=$this->db
+                        ->select("ptsi,pa,apd,doc,material")
+                        ->from("dokumentasi")
+                        ->where('id_pekerjaan', $value['id_pekerjaan'])
+                        ->get()
+                        ->result_array();
+                        if(!empty($dokumentasi)){
+                                $dokumentasi=$dokumentasi[0];
+                        }else{
+                                $dokumentasi=null;
                         }
+                        $data_pekerjaan[$key]['dokumentasi'] = $dokumentasi;
                 }
-
-
-                if (isset($t_pesanan)) {
-                        for ($i = 0; $i < count($t_pesanan); $i++) {
-                                $key = $t_pesanan[$i]['nama_alias_produk'];
-                                $val = $t_pesanan[$i]['jumlah_pesanan'];
-                                $new_t_pesanan_array["p_" . $key] = $val;
-                        }
-                }
-
-                if (isset($result)) {
-                        for ($i = 0; $i < count($result); $i++) {
-                                $key = $result[$i]['nama_alias_produk'];
-                                if ($key == "tanggal_update") {
-                                        $val = $result[$i]['tanggal_update'];
-                                } else {
-                                        $val = $result[$i]['jumlah_stok'];
-                                }
-
-                                $new_result_array[$key] = $val;
-                        }
-                }
-
-                return array_merge($new_result_array, $new_t_pesanan_array, $r_id_produk_array);
+                return $data_pekerjaan;
         }
-        public function m_cek_username()
-        {
-                $username = $this->input->post('username');
-
-                return $this->db->query("SELECT user.*,daftar_nama_pks.singkatan,daftar_nama_pks.id_pks,daftar_nama_pks.nama_pks FROM user
-                INNER JOIN daftar_nama_pks ON user.id_pks = daftar_nama_pks.id_pks WHERE user.username='$username';");
-        }
-
 
         //ajax get list pekerjaan
         public function m_ajax_get_list_pekerjaan($id_pks)

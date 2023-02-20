@@ -33,6 +33,6 @@
         
         <li><a href="<?php echo site_url("$role/profile") ?>">Ubah Profil</a></li>
         <li><a href="<?php echo site_url('home/') ?>">Halaman Utama</a></li>
-        <li><a href="<?php echo site_url('user/logout') ?>">Keluar</a></li>
+        <li><a href="<?php echo site_url('login/logout') ?>">Keluar</a></li>
     </ul>
 </div>

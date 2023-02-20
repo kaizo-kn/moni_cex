@@ -38,7 +38,7 @@
                             </div>
                             <div class="form-group mt-3">
                                 <div>
-                                    <button type="submit" class="btn btn-primary float-end">Update Profil</button>
+                                    <button type="submit" class="btn mainbgc text-light float-end">Update Profil</button>
                                 </div>
                             </div>
                         </div>
