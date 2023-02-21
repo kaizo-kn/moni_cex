@@ -76,7 +76,6 @@
                         if ($folder != "" && $folder != null) {
                             echo "<a class='col-3 btn mainbgc text-light p-1 m-1' href='$basepath/media/upload/dokumen/$singkatan/$folder/rab_$singkatan-$folder.pdf' download>
                             <button class='border-0 mainbgc text-light'>RAB</button>
-                        </a>
                         <a class='col-3 btn mainbgc text-light p-1 m-1' href='$basepath/media/upload/dokumen/$singkatan/$folder/st_rkst_kak_$singkatan-$folder.pdf' download>
                             <button class='border-0 mainbgc text-light'>RKST</button>
                         </a>
