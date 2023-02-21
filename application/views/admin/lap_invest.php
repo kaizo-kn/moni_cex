@@ -26,12 +26,10 @@
                                 <tbody>
                                     <tr>
                                         <?php
-
-                                        foreach ($month_array as $key => $value) {
-                                            $ma = $key + 1;
-                                            for ($ia = 1; $ia < 5; $ia++) {
-                                                echo "<td style='white-space:nowrap ;' class='w$ia-m$ma'><div style='width:60px; margin-left:2px'>W$ia $value</div></td>";
-                                            }
+                                        foreach ($weeklist as $key => $value) {
+                                            $weeknum = $value['weeknum'];
+                                            $weekname = $value['weekname'];
+                                            echo "<td style='white-space:nowrap ;' class='$weeknum'><div style='width:60px; margin-left:2px'>$weekname</div></td>";
                                         } ?>
                                     </tr>
                                 </tbody>
@@ -65,7 +63,6 @@
                                 $type_color = "text-main";
                                 break;
                         }
-
                         echo "<tr>
                     <td>$num</td>
                     <td class='$type_color'>$uraian_pekerjaan</td>
@@ -74,15 +71,12 @@
                     <td >
                         <div class='row justify-content-evenly '>";
                         if ($folder != "" && $folder != null) {
-                            echo "<a class='col-3 btn mainbgc text-light p-1 m-1' href='$basepath/media/upload/dokumen/$singkatan/$folder/rab_$singkatan-$folder.pdf' download>
-                            <button class='border-0 mainbgc text-light'>RAB</button>
-                        </a>
-                        <a class='col-3 btn mainbgc text-light p-1 m-1' href='$basepath/media/upload/dokumen/$singkatan/$folder/st_rkst_kak_$singkatan-$folder.pdf' download>
-                            <button class='border-0 mainbgc text-light'>RKST</button>
-                        </a>
-                        <a class='col-3 btn mainbgc text-light  p-1 m-1' href='$basepath/media/upload/dokumen/$singkatan/$folder/kontrak_$singkatan-$folder.pdf' download>
+                            echo "
+                            <button onclick='displayDoc(`{$basepath}media/upload/dokumen/$singkatan/$folder/rab_$singkatan-$folder.pdf`)' class='border-0 col-3 btn mainbgc text-light p-1 m-1 text-light'>RAB</button>
+                            <button onclick='displayDoc(`$basepath/media/upload/dokumen/$singkatan/$folder/st_rkst_kak_$singkatan-$folder.pdf`)' class='border-0 col-3 btn mainbgc text-light p-1 m-1 text-light'>RKST</button>
+                        <button class='col-3 btn mainbgc text-light  p-1 m-1' onclick='displayDoc(`$basepath}media/upload/dokumen/$singkatan/$folder/kontrak_$singkatan-$folder.pdf`)'>
                         <small>Kontrak</small>
-                        </a>";
+                        </button>";
                         } else {
                             echo "<button style='pointer-events: none;' class='col-3 btn btn-secondary text-light p-1 m-1'>RAB</button>";
                             echo "<button style='pointer-events: none;' class='col-3 btn btn-secondary text-light p-1 m-1'>RKST</button>";
@@ -98,29 +92,23 @@
                                 <tbody>
                                 
                                 ";
-                                $week=1;
-                        foreach ($month_array as $key => $value) {
-                            
-                            $m = $key + 1; 
-                            for ($iz = 1; $iz < 5; $iz++) {
-                                if(isset($persentase_progress[$week])){
-                                    extract($persentase=$persentase_progress[$week]);
-                                    if(isset($bukti)){
-                                        $foto_bukti = base_url("media/upload/foto_bukti_progress/$singkatan/$bukti");
-                                        echo "<td style='white-space:nowrap;text-align:center' class='w$iz-m$m curpo'><div style='width:60px; margin-left:2px'><a href='$foto_bukti' data-gallery='portfolioGallery' class='portfolio-lightbox preview-link text-start ps-0' title='$singkatan $week'>$persentase%
+                        $week = 1;
+                        foreach ($weeklist as $key => $value) {
+                            $weeknum = $value['weeknum'];
+                            if (isset($persentase_progress[$week])) {
+                                extract($persentase = $persentase_progress[$week]);
+                                if (isset($bukti)) {
+                                    $foto_bukti = base_url("media/upload/foto_bukti_progress/$singkatan/$bukti");
+                                    echo "<td style='white-space:nowrap;text-align:center' class='$weeknum curpo'><div style='width:60px; margin-left:2px'><a href='$foto_bukti' data-gallery='portfolioGallery' class='portfolio-lightbox preview-link text-start ps-0' title='$singkatan $week'>$persentase%
                                         </a></div></td>";
-                                    }else{
-                                        echo "<td style='white-space:nowrap;text-align:center;cursor:default' class='w$iz-m$m text-secondary'><div style='width:60px; margin-left:2px'>$persentase%</div></td>";
-                                    }
-                                   
-                                }else{
-                                    echo "<td style='white-space:nowrap;text-align:center' class='w$iz-m$m'><div style='width:60px; margin-left:2px'> </div></td>";
+                                } else {
+                                    echo "<td style='white-space:nowrap;text-align:center;cursor:default' class='$weeknum text-secondary'><div style='width:60px; margin-left:2px'>$persentase%</div></td>";
                                 }
-                                
-                                $week++;
+                            } else {
+                                echo "<td style='white-space:nowrap;text-align:center' class='$weeknum'><div style='width:60px; margin-left:2px'>$week</div></td>";
                             }
+                            $week++;
                         }
-
                         echo "
                                 </tbody>
                             </table>
@@ -139,9 +127,24 @@
     </div>
 </section>
 
+<section class="d-none" id="modalContent">
 
+</section>
 
 <script>
+    function displayDoc(val) {
+        $('#modalContent').removeClass('d-none')
+        let callback = () => console.log()
+        let content = `
+        <div class="modal-header"><div class="modal-title">Dokumen</div>
+        <button onclick="$('#staticBackdrop').modal('toggle')" type="button" class="border-0 text-secondary fw-bold fs-4 bi bi-x float-end">
+        </button>
+      </div>
+        <iframe src="${val}" style="width: auto;height: 95vh;border: none;"></iframe>
+    `
+        buildModal(content, callback)
+    }
+
     let tabel_lap_invest = $('#tabel_lap_invest').DataTable({
         columnDefs: [{
             targets: [4, 5],
@@ -168,6 +171,8 @@
                         <option value="2">W2</option>
                         <option value="3">W3</option>
                         <option value="4">W4</option>
+                        <option value="5">W5</option>
+                        <option value="6">W6</option>
                     </select>
                 </label>
                 <label class="ms-1" for="">
@@ -192,7 +197,9 @@
                         <option value="1">W1</option>
                         <option value="2">W2</option>
                         <option value="3">W3</option>
-                        <option selected value="4">W4</option>
+                        <option value="4">W4</option>
+                        <option selected value="5">W5</option>
+                        <option selected value="6">W6</option>
                     </select>
                 </label>
 
@@ -263,7 +270,7 @@
         $(`.tbw td`).hide()
         for (monthfrom; monthfrom <= monthto; monthfrom++) {
             if (monthfrom < monthto) {
-                for (x; x <= 4; x++) {
+                for (x; x <= 6; x++) {
                     let mw = ("w" + x + "-m" + monthfrom)
                     $(`.tbw td.${mw}`).show();
                 }

@@ -275,6 +275,5 @@ function checkModal(modal) {
         }else{
             $('html').css('overflow','overlay')
         }
-        console.log(show)
     }, 1);
 }

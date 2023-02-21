@@ -30,7 +30,7 @@ class M_admin extends CI_Model
         }
         public function m_progress_lap_invest()
         {
-                $data_pekerjaan = $this->db->query("SELECT uraian_pekerjaan.id_pekerjaan,nama_progress,progress.id_progress,uraian_pekerjaan,persentase_progress,nama_progress,folder,singkatan FROM uraian_pekerjaan JOIN daftar_nama_pks ON uraian_pekerjaan.id_pks = daftar_nama_pks.id_pks LEFT JOIN dokumen ON uraian_pekerjaan.id_pekerjaan = dokumen.id_pekerjaan LEFT JOIN progress ON progress.id_progress = uraian_pekerjaan.id_progress ORDER BY  uraian_pekerjaan.id_pekerjaan DESC")->result_array();
+                $data_pekerjaan = $this->db->query("SELECT uraian_pekerjaan.id_pekerjaan,nama_progress,progress.id_progress,uraian_pekerjaan,nama_progress,folder,singkatan FROM uraian_pekerjaan JOIN daftar_nama_pks ON uraian_pekerjaan.id_pks = daftar_nama_pks.id_pks LEFT JOIN persentase_progress ON uraian_pekerjaan.id_pekerjaan=persentase_progress.id_pekerjaan LEFT JOIN dokumen ON uraian_pekerjaan.id_pekerjaan = dokumen.id_pekerjaan LEFT JOIN progress ON progress.id_progress = uraian_pekerjaan.id_progress ORDER BY  uraian_pekerjaan.id_pekerjaan DESC")->result_array();
                 foreach ($data_pekerjaan as $key => $value) {
                         $data_pekerjaan[$key]['persentase_progress'] = $this->m_get_persentase_pekerjaan($value['id_pekerjaan']);
                 }
@@ -53,14 +53,24 @@ class M_admin extends CI_Model
                 return $return_arr;
         }
 
-        public function m_dash_persentase ($val1,$val2){
+        public function m_dash_persentase($val1, $val2)
+        {
 
                 return $this->db->query("SELECT up.id_pekerjaan,up.id_progress,up.uraian_pekerjaan,dp.singkatan,pr.nama_progress,IFNULL(max(pp.persentase),0) AS persentase FROM `uraian_pekerjaan` AS up JOIN daftar_nama_pks AS dp ON up.id_pks = dp.id_pks LEFT JOIN persentase_progress AS pp ON up.id_pekerjaan = pp.id_pekerjaan JOIN progress AS pr ON up.id_progress = pr.id_progress GROUP BY up.id_pekerjaan HAVING persentase >=$val1 AND persentase <=$val2;")->result_array();
-
         }
         public function m_tambah_pekerjaan($data)
         {
-                return $this->db->insert('uraian_pekerjaan', $data);
+
+                $this->db->insert('uraian_pekerjaan', $data);
+                $this->db->reset_query();
+                $this->db->select('id_pekerjaan')
+                        ->from('uraian_pekerjaan')
+                        ->limit('1')
+                        ->order_by('tanggal', 'desc')
+                        ->get()
+                        ->result_array();
+                $lq = $this->db->last_query();
+                $this->log($lq);
         }
 
 
@@ -83,16 +93,16 @@ class M_admin extends CI_Model
                         ->result_array();
 
                 foreach ($data_pekerjaan as $key => $value) {
-                        $dokumentasi=$this->db
-                        ->select("ptsi,pa,apd,doc,material")
-                        ->from("dokumentasi")
-                        ->where('id_pekerjaan', $value['id_pekerjaan'])
-                        ->get()
-                        ->result_array();
-                        if(!empty($dokumentasi)){
-                                $dokumentasi=$dokumentasi[0];
-                        }else{
-                                $dokumentasi=null;
+                        $dokumentasi = $this->db
+                                ->select("ptsi,pa,apd,doc,material")
+                                ->from("dokumentasi")
+                                ->where('id_pekerjaan', $value['id_pekerjaan'])
+                                ->get()
+                                ->result_array();
+                        if (!empty($dokumentasi)) {
+                                $dokumentasi = $dokumentasi[0];
+                        } else {
+                                $dokumentasi = null;
                         }
                         $data_pekerjaan[$key]['dokumentasi'] = $dokumentasi;
                 }
@@ -103,33 +113,27 @@ class M_admin extends CI_Model
         public function m_ajax_get_list_pekerjaan($id_pks)
         {
 
-                if($id_pks=="null"){
+                if ($id_pks == "null") {
                         return json_encode($this->db->query("SELECT up.id_pekerjaan,up.id_progress,up.uraian_pekerjaan,dp.singkatan,pr.nama_progress,max(pp.persentase) AS persentase FROM `uraian_pekerjaan` AS up JOIN daftar_nama_pks AS dp ON up.id_pks = dp.id_pks LEFT JOIN persentase_progress AS pp ON up.id_pekerjaan = pp.id_pekerjaan JOIN progress AS pr ON up.id_progress = pr.id_progress GROUP BY up.id_pekerjaan ORDER BY up.id_pekerjaan DESC;")
-                        ->result_array());
-                }else if($id_pks=="tekpol"||$id_pks=="pks"||$id_pks=="hps"||$id_pks=="pengadaan"||$id_pks=="sppbj"){
+                                ->result_array());
+                } else if ($id_pks == "tekpol" || $id_pks == "pks" || $id_pks == "hps" || $id_pks == "pengadaan" || $id_pks == "sppbj") {
                         return json_encode($this->db->query("SELECT up.id_pekerjaan,up.id_progress,up.uraian_pekerjaan,dp.singkatan,pr.nama_progress,max(pp.persentase) AS persentase FROM `uraian_pekerjaan` AS up JOIN daftar_nama_pks AS dp ON up.id_pks = dp.id_pks LEFT JOIN persentase_progress AS pp ON up.id_pekerjaan = pp.id_pekerjaan JOIN progress AS pr ON up.id_progress = pr.id_progress WHERE pr.nama_progress = '$id_pks' GROUP BY up.id_pekerjaan ORDER BY up.id_pekerjaan DESC;")
-                        ->result_array());
-                }
-                else{
+                                ->result_array());
+                } else {
                         return json_encode($this->db->select('id_pekerjaan,id_progress,id_pks,id_user,uraian_pekerjaan')
-                        ->from('uraian_pekerjaan')
-                        ->where('id_pks', $id_pks)
-                        ->order_by("id_pekerjaan","desc")
-                        ->get()
-                        ->result_array());
+                                ->from('uraian_pekerjaan')
+                                ->where('id_pks', $id_pks)
+                                ->order_by("id_pekerjaan", "desc")
+                                ->get()
+                                ->result_array());
                 }
-                
         }
 
-        public function m_dash_list_percent($id_pks){
+        public function m_dash_list_percent()
+        {
                 return $this->db
-                ->query("SELECT 
-                (SELECT COUNT(persentase_progress.id_pekerjaan) FROM `persentase_progress` RIGHT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase = 0) AS progress_0,
-                (SELECT COUNT(persentase_progress.id_pekerjaan)FROM `persentase_progress` RIGHT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase >=$id_pks AND persentase <= 40) AS progress_40,
-                (SELECT COUNT(persentase_progress.id_pekerjaan)FROM `persentase_progress` RIGHT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase >= 41 AND persentase <= 60) AS progress_60,
-                (SELECT COUNT(persentase_progress.id_pekerjaan)FROM `persentase_progress` RIGHT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase >= 61 AND persentase <= 99) AS progress_99,
-                (SELECT COUNT(persentase_progress.id_pekerjaan)FROM `persentase_progress` RIGHT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase =100) AS progress_100;")
-                ->result_array();
+                        ->query("SELECT(SELECT COUNT(id_pekerjaan) FROM `uraian_pekerjaan`) AS total_pekerjaan,(SELECT COUNT(persentase_progress.id_pekerjaan) FROM `persentase_progress` RIGHT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase = 0) AS progress_0, (SELECT COUNT(persentase_progress.id_pekerjaan)FROM `persentase_progress` RIGHT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase >=1 AND persentase <= 40) AS progress_40, (SELECT COUNT(persentase_progress.id_pekerjaan)FROM `persentase_progress` RIGHT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase >= 41 AND persentase <= 60) AS progress_60, (SELECT COUNT(persentase_progress.id_pekerjaan)FROM `persentase_progress` RIGHT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase >= 61 AND persentase <= 99) AS progress_99, (SELECT COUNT(persentase_progress.id_pekerjaan)FROM `persentase_progress` RIGHT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase =100) AS progress_100;")
+                        ->result_array()[0];
         }
 
         public function m_ajax_get_list_doc_pekerjaan($id_pks)
@@ -153,7 +157,7 @@ class M_admin extends CI_Model
                 return $this->db->insert('dokumen', $data);
         }
 
-       
+
         public function m_cek_username()
         {
                 $username = $this->input->post('username');
@@ -163,14 +167,14 @@ class M_admin extends CI_Model
         }
 
 
-      
+
         public function m_update_profile($table, $where, $data)
         {
                 $this->db->where('username', $where);
                 return $this->db->update($table, $data);
         }
 
-      
+
         function m_checkNumeric($array)
         {
                 $keys = array_keys($array);
@@ -181,7 +185,7 @@ class M_admin extends CI_Model
                         return true;
                 }
         }
-       
+
         //Set Last Online
         public function m_set_user_last_active($id_user, $time)
         {
@@ -214,8 +218,8 @@ class M_admin extends CI_Model
                 return $balasan_review;
         }
 
-        
-        
+
+
         //List User
         public function m_list_user()
         {
@@ -305,6 +309,11 @@ class M_admin extends CI_Model
                 $this->db->delete('balasan_review');
         }
 
+
+        public function log($arg)
+        {
+                echo "<script>console.log($arg)</script>";
+        }
 }
 /* End of file M_user.php */
 /* Location: ./application/models/M_user.php */

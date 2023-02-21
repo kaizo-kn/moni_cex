@@ -5,6 +5,90 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Admin extends CI_Controller
 {
 
+
+
+
+
+
+   public function list_week_in_year()
+   {
+      $weeklist = array();
+      $query = "";
+      $month_array = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+      foreach ($month_array as $key => $value) {
+         $month = $value;
+         $year = date('Y');
+         $tdays = cal_days_in_month(CAL_GREGORIAN, $value, $year);
+         $query .= "(SELECT WEEK(LAST_DAY('$year-$month-$tdays') + INTERVAL 1 DAY, 1) - WEEK('$year-$month-02', 1) + 1)  AS '$month',";
+      }
+      $query = substr($query, 0, -1);
+      $result = $this->db->query("SELECT $query")
+         ->result_array()[0];
+      foreach ($result as $keys => $values) {
+         $timestamp = mktime(0, 0, 0, $keys, 1);
+         $monthname = date('M', $timestamp);
+         for ($i = 0; $i < intval($values); $i++) {
+            $m = ($i + 1);
+            $week_name['weekname'] = "W" . $m . " $monthname";
+            $week_name['weeknum'] =  "w$m-m$keys";
+            array_push($weeklist, $week_name);
+         }
+      }
+      return $weeklist;
+   }
+
+
+   public function testmode()
+   {
+      $weeklist = array();
+      $query = "";
+      $month_array = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+      foreach ($month_array as $key => $value) {
+         $month = $value;
+         $year = date('Y');
+         $tdays = cal_days_in_month(CAL_GREGORIAN, $value, $year);
+         $query .= "(SELECT WEEK(LAST_DAY('$year-$month-$tdays') + INTERVAL 1 DAY, 1) - WEEK('$year-$month-02', 1) + 1)  AS '$month',";
+      }
+      $query = substr($query, 0, -1);
+      $result = $this->db->query("SELECT $query")
+         ->result_array()[0];
+         var_dump($result);
+      foreach ($result as $keys => $values) {
+         $timestamp = mktime(0, 0, 0, $keys, 1);
+         $monthname = date('M', $timestamp);
+         for ($i = 0; $i < intval($values); $i++) {
+            $m = ($i + 1);
+            $week_name['weekname'] = "W" . $m . " $monthname";
+            $week_name['weeknum'] =  "w$m-m$key";
+            array_push($weeklist, $week_name);
+         }
+      }
+   }
+
+   private function weekOfMonth($date)
+   {
+      //Get the first day of the month.
+      $firstOfMonth = strtotime(date("Y-m-01", $date));
+      //Apply above formula.
+      return $this->weekOfYear($date) - $this->weekOfYear($firstOfMonth) + 1;
+   }
+
+   private function weekOfYear($date)
+   {
+      $weekOfYear = intval(date("W", $date));
+      if (date('n', $date) == "1" && $weekOfYear > 51) {
+         // It's the last week of the previos year.
+         return 0;
+      } else if (date('n', $date) == "12" && $weekOfYear == 1) {
+         // It's the first week of the next year.
+         return 53;
+      } else {
+         // It's a "normal" week.
+         return $weekOfYear;
+      }
+   }
+
+
    public function __construct()
    {
       parent::__construct();
@@ -16,17 +100,16 @@ class Admin extends CI_Controller
    public function index()
    {
       if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
-         $total = $this->db->query('SELECT COUNT(id_pekerjaan) AS jumlah_pekerjaan from `uraian_pekerjaan`')->result_array()[0]['jumlah_pekerjaan'];
          $jumlah_per_progress = $this->db->query("SELECT nama_progress, COUNT(uraian_pekerjaan.id_progress) AS jumlah FROM uraian_pekerjaan RIGHT JOIN progress ON uraian_pekerjaan.id_progress = progress.id_progress GROUP BY uraian_pekerjaan.id_progress;")->result_array();
          $new = array();
          foreach ($jumlah_per_progress as $key => $value) {
             $new["progress_" . strtolower($value['nama_progress'])] = $value['jumlah'];
          }
          $jumlah_per_progress = $new;
-         $data = array('progress_0' => 3, 'progress_40' => 3, 'progress_60' => 3, 'progress_99' => 3, 'progress_100' => 3, 'jumlah_per_progress' => $jumlah_per_progress);
+         $data = array('jumlah_per_progress' => $jumlah_per_progress);
          $this->load->view('__partials/header.php', array('page_title' => 'Dashboard'));
          $this->load->view('__partials/menu.php', array('m1' => 'nav-menu-active'));
-         $this->load->view('admin/dashboard.php', array_merge($data, array('total_pekerjaan' => $total)));
+         $this->load->view('admin/dashboard.php',array_merge($this->m_admin->m_dash_list_percent(),$data));
          $this->load->view('__partials/footer.php');
       } else {
          redirect('login', 'refresh');
@@ -37,14 +120,10 @@ class Admin extends CI_Controller
       if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
          $data_pekerjaan = array('data_pekerjaan' => $this->m_admin->m_progress_lap_invest());
 
-         $data = array('progress_0' => 3, 'progress_40' => 3, 'progress_60' => 3, 'progress_99' => 3, 'progress_100' => 3, 'progress_pks' => 3, 'progress_tekpol' => 3, 'progress_hps' => 3, 'progress_pengadaan' => 3, 'keluar_sppbj' => 3);
-         $total = 0;
-         foreach ($data as $key => $value) {
-            $total += $value;
-         }
+        
          $this->load->view('__partials/header.php', array('page_title' => 'Progress Lap. Investasi'));
          $this->load->view('__partials/menu.php', array('m2' => 'nav-menu-active'));
-         $this->load->view('admin/lap_invest', array_merge($data_pekerjaan, $data, array('total_pekerjaan' => $total)));
+         $this->load->view('admin/lap_invest', array_merge($data_pekerjaan, array('weeklist' => $this->list_week_in_year())));
          $this->load->view('__partials/footer.php');
       } else {
          redirect('login', 'refresh');
@@ -306,7 +385,7 @@ class Admin extends CI_Controller
    //reset user pass
    public function action_reset_user()
    {
-      
+
       if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
          $id_user = $this->input->post('id_user');
          $this->m_admin->m_reset_user($id_user);
@@ -357,7 +436,7 @@ class Admin extends CI_Controller
       }
    }
 
-//ajax dashboard persentase
+   //ajax dashboard persentase
    public function ajax_dash_persentase()
    {
 
@@ -368,13 +447,13 @@ class Admin extends CI_Controller
       }
    }
 
-//set user last active
-public function ajax_set_user_last_active()
-  {
-    if ($this->session->userdata('is_login') === true) {
-      $this->m_admin->m_set_user_last_active($this->session->userdata('id_user'), time());
-    }
-  }
+   //set user last active
+   public function ajax_set_user_last_active()
+   {
+      if ($this->session->userdata('is_login') === true) {
+         $this->m_admin->m_set_user_last_active($this->session->userdata('id_user'), time());
+      }
+   }
 
 
    //Addon Function

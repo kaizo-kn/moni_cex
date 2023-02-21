@@ -85,7 +85,7 @@ class M_user extends CI_Model
                 return $this->db
                         ->query("SELECT 
                 (SELECT COUNT(persentase_progress.id_pekerjaan) FROM `persentase_progress` LEFT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase = 0 AND uraian_pekerjaan.id_pks =$id_pks) AS progress_0,
-                (SELECT COUNT(persentase_progress.id_pekerjaan)FROM `persentase_progress` LEFT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase >=$id_pks AND persentase <= 40 AND uraian_pekerjaan.id_pks =$id_pks) AS progress_40,
+                (SELECT COUNT(persentase_progress.id_pekerjaan)FROM `persentase_progress` LEFT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase >=1 AND persentase <= 40 AND uraian_pekerjaan.id_pks =$id_pks) AS progress_40,
                 (SELECT COUNT(persentase_progress.id_pekerjaan)FROM `persentase_progress` LEFT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase >= 41 AND persentase <= 60 AND uraian_pekerjaan.id_pks =$id_pks) AS progress_60,
                 (SELECT COUNT(persentase_progress.id_pekerjaan)FROM `persentase_progress` LEFT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase >= 61 AND persentase <= 99 AND uraian_pekerjaan.id_pks =$id_pks) AS progress_99,
                 (SELECT COUNT(persentase_progress.id_pekerjaan)FROM `persentase_progress` LEFT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase =100 AND uraian_pekerjaan.id_pks =$id_pks) AS progress_100;")
