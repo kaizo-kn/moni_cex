@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 15, 2023 at 09:25 AM
+-- Generation Time: Feb 22, 2023 at 09:53 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -60,6 +60,45 @@ INSERT INTO `daftar_nama_pks` (`id_pks`, `nama_pks`, `singkatan`, `distrik`) VAL
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `dokumen`
+--
+
+CREATE TABLE `dokumen` (
+  `id_pekerjaan` int(11) NOT NULL,
+  `folder` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dokumentasi`
+--
+
+CREATE TABLE `dokumentasi` (
+  `id_pekerjaan` int(11) NOT NULL,
+  `ptsi` varchar(100) DEFAULT NULL,
+  `pa` varchar(100) DEFAULT NULL,
+  `apd` varchar(100) DEFAULT NULL,
+  `doc` varchar(100) DEFAULT NULL,
+  `material` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `persentase_progress`
+--
+
+CREATE TABLE `persentase_progress` (
+  `id_pekerjaan` int(11) NOT NULL,
+  `minggu` tinyint(2) DEFAULT NULL,
+  `persentase` tinyint(3) DEFAULT NULL,
+  `bukti` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `progress`
 --
 
@@ -87,23 +126,21 @@ INSERT INTO `progress` (`id_progress`, `nama_progress`) VALUES
 
 CREATE TABLE `uraian_pekerjaan` (
   `id_pekerjaan` int(11) NOT NULL,
-  `id_user` tinyint(3) NOT NULL,
   `id_pks` tinyint(3) NOT NULL,
-  `id_progress` tinyint(2) NOT NULL,
+  `id_progress` tinyint(2) NOT NULL DEFAULT 1,
+  `id_dokumen` int(11) DEFAULT NULL,
   `uraian_pekerjaan` text NOT NULL DEFAULT ' ',
-  `persentase_progress` int(3) NOT NULL DEFAULT 0
+  `tanggal` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `uraian_pekerjaan`
 --
 
-INSERT INTO `uraian_pekerjaan` (`id_pekerjaan`, `id_user`, `id_pks`, `id_progress`, `uraian_pekerjaan`, `persentase_progress`) VALUES
-(1, 0, 11, 1, 'tekpol', 0),
-(2, 0, 8, 3, 'Update Lori', 0),
-(3, 0, 1, 2, 'Memperbaiki Lori Rusak', 0),
-(4, 0, 1, 1, 'Input Data 1', 0),
-(5, 0, 1, 4, 'Input Data', 0);
+INSERT INTO `uraian_pekerjaan` (`id_pekerjaan`, `id_pks`, `id_progress`, `id_dokumen`, `uraian_pekerjaan`, `tanggal`) VALUES
+(2, 2, 1, NULL, ' dads', '2023-02-21'),
+(11, 1, 1, NULL, ' dwdwd', '2023-02-21'),
+(12, 1, 1, NULL, 'sds', '2023-02-21');
 
 -- --------------------------------------------------------
 
@@ -127,15 +164,15 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `id_pks`, `username`, `nama`, `password`, `foto_profil`, `date_created`, `last_active`) VALUES
-(0, '0', 'admin_cex', 'Admin Cex', '$2y$05$fCcvSizE5k/L9RtM1yzGieAZoSitbSj3VCYURayRLimj3FCblxlfe', 'admin.jpeg', '2023-02-15 08:14:07', 1676448847),
-(1, '1', 'pks_ado', 'PKS Adolina', '$2y$05$fCcvSizE5k/L9RtM1yzGieAZoSitbSj3VCYURayRLimj3FCblxlfe', 'default.png', '0000-00-00 00:00:00', 0),
-(2, '2', 'pks_baj', 'PKS Bah Jambi', '$2y$05$fCcvSizE5k/L9RtM1yzGieAZoSitbSj3VCYURayRLimj3FCblxlfe', 'default.png', '2023-02-14 01:57:50', 1676339870),
+(0, '0', 'admin_cex', 'Admin', '$2y$05$QJ8HymLo/EH7SNZr4kQwPO.binYGULYBUENBb4avnAUdSsF5SVrF2', 'admin.jpeg', '2023-02-21 09:21:22', 1676971282),
+(1, '1', 'pks_ado', 'PKS Adolina', '$2y$05$OrKBL6uohN9IPdAbhfLT8eoHS/4yjQ47Vc6sCQUBEz8tJ6BpJouMm', 'ado.jpeg', '2023-02-20 09:44:09', 1676886234),
+(2, '2', 'pks_baj', 'PKS Bah Jambi', '$2y$05$fCcvSizE5k/L9RtM1yzGieAZoSitbSj3VCYURayRLimj3FCblxlfe', 'default.png', '2023-02-21 07:05:34', 1676963134),
 (3, '3', 'pks_doi', 'PKS Dolok Ilir', '$2y$05$fCcvSizE5k/L9RtM1yzGieAZoSitbSj3VCYURayRLimj3FCblxlfe', 'default.png', '0000-00-00 00:00:00', 0),
 (4, '4', 'pks_tim', 'PKS Timur', '$2y$05$fCcvSizE5k/L9RtM1yzGieAZoSitbSj3VCYURayRLimj3FCblxlfe', 'default.png', '0000-00-00 00:00:00', 0),
 (5, '5', 'pks_dos', 'PKS Dolok Sinumbah', '$2y$05$fCcvSizE5k/L9RtM1yzGieAZoSitbSj3VCYURayRLimj3FCblxlfe', 'default.png', '0000-00-00 00:00:00', 0),
 (6, '6', 'pks_gub', 'PKS Gunung Bayu', '$2y$05$fCcvSizE5k/L9RtM1yzGieAZoSitbSj3VCYURayRLimj3FCblxlfe', 'default.png', '0000-00-00 00:00:00', 0),
 (7, '7', 'pks_may', 'PKS Mayang', '$2y$05$fCcvSizE5k/L9RtM1yzGieAZoSitbSj3VCYURayRLimj3FCblxlfe', 'default.png', '0000-00-00 00:00:00', 0),
-(8, '8', 'pks_aba', 'PKS Air Batu', '$2y$05$fCcvSizE5k/L9RtM1yzGieAZoSitbSj3VCYURayRLimj3FCblxlfe', 'default.png', '0000-00-00 00:00:00', 0),
+(8, '8', 'pks_aba', 'PKS Air Batu', '$2y$05$OrKBL6uohN9IPdAbhfLT8eoHS/4yjQ47Vc6sCQUBEz8tJ6BpJouMm', 'default.png', '2023-02-17 04:17:38', 1676607458),
 (9, '9', 'pks_pur', 'PKS Pulu Raja', '$2y$05$fCcvSizE5k/L9RtM1yzGieAZoSitbSj3VCYURayRLimj3FCblxlfe', 'default.png', '0000-00-00 00:00:00', 0),
 (10, '10', 'pks_ber', 'PKS Berangir', '$2y$05$fCcvSizE5k/L9RtM1yzGieAZoSitbSj3VCYURayRLimj3FCblxlfe', 'default.png', '0000-00-00 00:00:00', 0),
 (11, '11', 'pks_aja', 'PKS Ajamu', '$2y$05$fCcvSizE5k/L9RtM1yzGieAZoSitbSj3VCYURayRLimj3FCblxlfe', 'default.png', '0000-00-00 00:00:00', 0),
@@ -154,6 +191,24 @@ INSERT INTO `user` (`id_user`, `id_pks`, `username`, `nama`, `password`, `foto_p
 --
 ALTER TABLE `daftar_nama_pks`
   ADD PRIMARY KEY (`id_pks`);
+
+--
+-- Indexes for table `dokumen`
+--
+ALTER TABLE `dokumen`
+  ADD PRIMARY KEY (`id_pekerjaan`);
+
+--
+-- Indexes for table `dokumentasi`
+--
+ALTER TABLE `dokumentasi`
+  ADD PRIMARY KEY (`id_pekerjaan`);
+
+--
+-- Indexes for table `persentase_progress`
+--
+ALTER TABLE `persentase_progress`
+  ADD UNIQUE KEY `bukti` (`bukti`);
 
 --
 -- Indexes for table `progress`
@@ -178,10 +233,16 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `dokumen`
+--
+ALTER TABLE `dokumen`
+  MODIFY `id_pekerjaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT for table `uraian_pekerjaan`
 --
 ALTER TABLE `uraian_pekerjaan`
-  MODIFY `id_pekerjaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_pekerjaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `user`
