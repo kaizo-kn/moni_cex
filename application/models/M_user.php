@@ -18,22 +18,28 @@ class M_user extends CI_Model
         {
                 $return_arr = array();
                 $result = $this->db
-                        ->select('persentase,minggu,bukti')
+                        ->select('persentase,tanggal,bukti')
                         ->from('persentase_progress')
                         ->where('id_pekerjaan', $id_pekerjaan)
                         ->get()
                         ->result_array();
                 foreach ($result as $key => $value) {
-                        $return_arr[$value['minggu']] = array('persentase' => $value['persentase'], 'bukti' => $value['bukti']);
+                        $return_arr[$value['tanggal']] = array('persentase' => $value['persentase'], 'bukti' => $value['bukti']);
                 }
                 return $return_arr;
         }
 
+        public function m_input_persentase($id_pekerjaan,$persentase_progress)
+        {
+               return $this->db->where('id_pekerjaan',$id_pekerjaan)
+                ->update('persentase_progress',array('persentase'=>$persentase_progress));
+        }
 
         public function m_get_data_pengawasan()
         {
                 $id_pks=$this->session->userdata('id_pks');
                 $data_pekerjaan = $this->db
+
                         ->query("select uraian_pekerjaan.id_pekerjaan, uraian_pekerjaan,singkatan,nama_progress,uraian_pekerjaan.id_progress 
                         FROM uraian_pekerjaan
                         LEFT JOIN progress ON progress.id_progress = uraian_pekerjaan.id_progress LEFT JOIN daftar_nama_pks ON uraian_pekerjaan.id_pks = daftar_nama_pks.id_pks WHERE uraian_pekerjaan.id_pks = $id_pks ORDER BY  uraian_pekerjaan.id_pekerjaan DESC")
@@ -94,7 +100,9 @@ class M_user extends CI_Model
 
         public function m_dash_persentase($val1, $val2, $id_pks)
         {
-                return $this->db->query("SELECT up.id_pekerjaan,up.id_progress,up.uraian_pekerjaan,dp.singkatan,pr.nama_progress,IFNULL(max(pp.persentase),0) AS persentase FROM `uraian_pekerjaan` AS up JOIN daftar_nama_pks AS dp ON up.id_pks = dp.id_pks LEFT JOIN persentase_progress AS pp ON up.id_pekerjaan = pp.id_pekerjaan JOIN progress AS pr ON up.id_progress = pr.id_progress WHERE up.id_pks = $id_pks HAVING persentase >=$val1 AND persentase <= $val2 ORDER BY up.id_pekerjaan DESC;")->result_array();
+                 return $this->db->query("SELECT up.id_pekerjaan,up.id_progress,up.uraian_pekerjaan,dp.singkatan,pr.nama_progress,IFNULL(max(pp.persentase),0) AS persentase FROM `uraian_pekerjaan` AS up JOIN daftar_nama_pks AS dp ON up.id_pks = dp.id_pks LEFT JOIN persentase_progress AS pp ON up.id_pekerjaan = pp.id_pekerjaan JOIN progress AS pr ON up.id_progress = pr.id_progress WHERE up.id_pks = $id_pks HAVING persentase >=$val1 AND persentase <= $val2 ORDER BY up.id_pekerjaan DESC;")->result_array();
+                
+                 
         }
 
         public function m_update_pesanan($data)

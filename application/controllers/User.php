@@ -71,44 +71,73 @@ class User extends CI_Controller
     }
   }
 
-  
+
 
   public function lap_invest()
   {
-     if ($this->session->userdata('is_login') == TRUE) {
-        $data_pekerjaan = array('data_pekerjaan' => $this->m_user->m_progress_lap_invest());
+    if ($this->session->userdata('is_login') == TRUE) {
+      $data_pekerjaan = array('data_pekerjaan' => $this->m_user->m_progress_lap_invest());
 
-        $data = array('progress_0' => 3, 'progress_40' => 3, 'progress_60' => 3, 'progress_99' => 3, 'progress_100' => 3, 'progress_pks' => 3, 'progress_tekpol' => 3, 'progress_hps' => 3, 'progress_pengadaan' => 3, 'keluar_sppbj' => 3);
-        $total = 0;
-        foreach ($data as $key => $value) {
-           $total += $value;
-        }
-        $this->load->view('__partials/header.php', array('page_title' => 'Progress Lap. Investasi'));
-        $this->load->view('__partials/menu.php', array('m2' => 'nav-menu-active'));
-        $this->load->view('user/lap_invest', array_merge($data_pekerjaan, $data, array('total_pekerjaan' => $total)));
-        $this->load->view('__partials/footer.php');
-     } else {
-        redirect('login', 'refresh');
-     }
+      $data = array('progress_0' => 3, 'progress_40' => 3, 'progress_60' => 3, 'progress_99' => 3, 'progress_100' => 3, 'progress_pks' => 3, 'progress_tekpol' => 3, 'progress_hps' => 3, 'progress_pengadaan' => 3, 'keluar_sppbj' => 3);
+      $total = 0;
+      foreach ($data as $key => $value) {
+        $total += $value;
+      }
+      $this->load->view('__partials/header.php', array('page_title' => 'Progress Lap. Investasi'));
+      $this->load->view('__partials/menu.php', array('m2' => 'nav-menu-active'));
+      $this->load->view('user/lap_invest', array_merge($data_pekerjaan, $data, array('total_pekerjaan' => $total)));
+      $this->load->view('__partials/footer.php');
+    } else {
+      redirect('login', 'refresh');
+    }
   }
 
   public function pengawasan_pekerjaan_lap()
   {
-     if ($this->session->userdata('is_login') == TRUE) {
-        $data = array('data_pekerjaan' => $this->m_user->m_get_data_pengawasan());
-        $this->load->view('__partials/header.php', array('page_title' => 'Progress Lap. Investasi'));
-        $this->load->view('__partials/menu.php', array('m3' => 'nav-menu-active'));
-        $this->load->view('admin/pengawasan_pekerjaan_lap.php', $data);
-        $this->load->view('__partials/footer.php');
-     } else {
-        redirect('login', 'refresh');
-     }
+    if ($this->session->userdata('is_login') == TRUE) {
+      $data = array('data_pekerjaan' => $this->m_user->m_get_data_pengawasan());
+      $this->load->view('__partials/header.php', array('page_title' => 'Progress Lap. Investasi'));
+      $this->load->view('__partials/menu.php', array('m3' => 'nav-menu-active'));
+      $this->load->view('admin/pengawasan_pekerjaan_lap.php', $data);
+      $this->load->view('__partials/footer.php');
+    } else {
+      redirect('login', 'refresh');
+    }
   }
 
+  public function input_progress_lap()
+  {
+    if ($this->session->userdata('is_login') == TRUE) {
+      $id_pks = $this->session->userdata('id_pks');
+      $selected="";
+      $selected=$this->input->get('selected');
+      $list_pekerjaan = $this->db->query("SELECT id_pekerjaan,uraian_pekerjaan FROM uraian_pekerjaan WHERE id_pks = $id_pks ORDER BY id_pekerjaan DESC")->result_array();
+      $this->load->view('__partials/header.php', array('page_title' => 'Input Progress Lap. Investasi'));
+      $this->load->view('__partials/menu.php', array('m2' => 'nav-menu-active'));
+      $this->load->view('user/input_progress_lap.php', array('list_pekerjaan' => $list_pekerjaan,'selected'=>$selected));
+      $this->load->view('__partials/footer.php');
+    } else {
+      redirect('login', 'refresh');
+    }
+  }
 
-
+  public function input_progress()
+  {
+    if ($this->session->userdata('is_login') == TRUE) {
+      $id_pekerjaan = $this->input->post('id_pekerjaan');
+      $persentase_progress = $this->input->post('persentase_progress');
+      $res=$this->m_user->m_input_persentase($id_pekerjaan, $persentase_progress);
+      if ($res == 1) {
+        $this->session->set_flashdata('message', $this->flash_success('Berhasil'));
+      } else {
+        $this->session->set_flashdata('message', $this->flash_success('Error'));
+      }
+      redirect('user/input_progress_lap', 'refresh');
+    } else {
+      redirect('login', 'refresh');
+    }
+  }
   //ajax last active
-
   public function ajax_set_user_last_active()
   {
     if ($this->session->userdata('is_login') === true) {

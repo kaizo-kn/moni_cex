@@ -42,13 +42,13 @@ class M_admin extends CI_Model
         {
                 $return_arr = array();
                 $result = $this->db
-                        ->select('persentase,minggu,bukti')
+                        ->select('persentase,tanggal,bukti')
                         ->from('persentase_progress')
                         ->where('id_pekerjaan', $id_pekerjaan)
                         ->get()
                         ->result_array();
                 foreach ($result as $key => $value) {
-                        $return_arr[$value['minggu']] = array('persentase' => $value['persentase'], 'bukti' => $value['bukti']);
+                        $return_arr[$value['tanggal']] = array('persentase' => $value['persentase'], 'bukti' => $value['bukti']);
                 }
                 return $return_arr;
         }
@@ -61,16 +61,7 @@ class M_admin extends CI_Model
         public function m_tambah_pekerjaan($data)
         {
 
-                $this->db->insert('uraian_pekerjaan', $data);
-                $this->db->reset_query();
-                $this->db->select('id_pekerjaan')
-                        ->from('uraian_pekerjaan')
-                        ->limit('1')
-                        ->order_by('tanggal', 'desc')
-                        ->get()
-                        ->result_array();
-                $lq = $this->db->last_query();
-                $this->log($lq);
+                return $this->db->insert('uraian_pekerjaan', $data);
         }
 
 
@@ -112,20 +103,23 @@ class M_admin extends CI_Model
         //ajax get list pekerjaan
         public function m_ajax_get_list_pekerjaan($id_pks)
         {
-
-                if ($id_pks == "null") {
-                        return json_encode($this->db->query("SELECT up.id_pekerjaan,up.id_progress,up.uraian_pekerjaan,dp.singkatan,pr.nama_progress,max(pp.persentase) AS persentase FROM `uraian_pekerjaan` AS up JOIN daftar_nama_pks AS dp ON up.id_pks = dp.id_pks LEFT JOIN persentase_progress AS pp ON up.id_pekerjaan = pp.id_pekerjaan JOIN progress AS pr ON up.id_progress = pr.id_progress GROUP BY up.id_pekerjaan ORDER BY up.id_pekerjaan DESC;")
-                                ->result_array());
-                } else if ($id_pks == "tekpol" || $id_pks == "pks" || $id_pks == "hps" || $id_pks == "pengadaan" || $id_pks == "sppbj") {
-                        return json_encode($this->db->query("SELECT up.id_pekerjaan,up.id_progress,up.uraian_pekerjaan,dp.singkatan,pr.nama_progress,max(pp.persentase) AS persentase FROM `uraian_pekerjaan` AS up JOIN daftar_nama_pks AS dp ON up.id_pks = dp.id_pks LEFT JOIN persentase_progress AS pp ON up.id_pekerjaan = pp.id_pekerjaan JOIN progress AS pr ON up.id_progress = pr.id_progress WHERE pr.nama_progress = '$id_pks' GROUP BY up.id_pekerjaan ORDER BY up.id_pekerjaan DESC;")
-                                ->result_array());
-                } else {
-                        return json_encode($this->db->select('id_pekerjaan,id_progress,id_pks,id_user,uraian_pekerjaan')
-                                ->from('uraian_pekerjaan')
-                                ->where('id_pks', $id_pks)
-                                ->order_by("id_pekerjaan", "desc")
-                                ->get()
-                                ->result_array());
+                try {
+                        if ($id_pks == "null") {
+                                return json_encode($this->db->query("SELECT up.id_pekerjaan,up.id_progress,up.uraian_pekerjaan,dp.singkatan,pr.nama_progress,max(pp.persentase) AS persentase FROM `uraian_pekerjaan` AS up JOIN daftar_nama_pks AS dp ON up.id_pks = dp.id_pks LEFT JOIN persentase_progress AS pp ON up.id_pekerjaan = pp.id_pekerjaan JOIN progress AS pr ON up.id_progress = pr.id_progress GROUP BY up.id_pekerjaan ORDER BY up.id_pekerjaan DESC;")
+                                        ->result_array());
+                        } else if ($id_pks == "tekpol" || $id_pks == "pks" || $id_pks == "hps" || $id_pks == "pengadaan" || $id_pks == "sppbj") {
+                                return json_encode($this->db->query("SELECT up.id_pekerjaan,up.id_progress,up.uraian_pekerjaan,dp.singkatan,pr.nama_progress,max(pp.persentase) AS persentase FROM `uraian_pekerjaan` AS up JOIN daftar_nama_pks AS dp ON up.id_pks = dp.id_pks LEFT JOIN persentase_progress AS pp ON up.id_pekerjaan = pp.id_pekerjaan JOIN progress AS pr ON up.id_progress = pr.id_progress WHERE pr.nama_progress = '$id_pks' GROUP BY up.id_pekerjaan ORDER BY up.id_pekerjaan DESC;")
+                                        ->result_array());
+                        } else {
+                                return json_encode($this->db->select('id_pekerjaan,id_progress,id_pks,uraian_pekerjaan')
+                                        ->from('uraian_pekerjaan')
+                                        ->where('id_pks', $id_pks)
+                                        ->order_by("id_pekerjaan", "desc")
+                                        ->get()
+                                        ->result_array());
+                        }
+                } catch (\Throwable $th) {
+                       return $this->db->last_query();
                 }
         }
 
@@ -138,7 +132,7 @@ class M_admin extends CI_Model
 
         public function m_ajax_get_list_doc_pekerjaan($id_pks)
         {
-                $data = $this->db->query("SELECT id_pekerjaan,id_progress,id_pks,id_user,uraian_pekerjaan
+                $data = $this->db->query("SELECT id_pekerjaan,id_progress,id_pks,uraian_pekerjaan
                 FROM   uraian_pekerjaan
                 WHERE id_pks = $id_pks AND NOT EXISTS (SELECT id_pekerjaan 
                                    FROM   dokumen 

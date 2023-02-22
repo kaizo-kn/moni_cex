@@ -39,7 +39,6 @@
                         </div>
                     </th>
                 </thead>
-
                 <tbody>
                     <?php
                     $basepath = base_url();
@@ -65,10 +64,11 @@
                                 $type_color = "text-main";
                                 break;
                         }
-
+                      
                         echo "<tr>
                     <td>$num</td>
-                    <td class='$type_color'>$uraian_pekerjaan</td>
+                    <td >
+                    <a class='$type_color' href='{$basepath}index.php/user/input_progress_lap?selected=$id_pekerjaan'>$uraian_pekerjaan</a></td>
                     <td class='$type_color'>$singkatan</td>
                     <td class='d-none'>$nama_progress</td>
                     <td >

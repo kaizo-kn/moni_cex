@@ -139,8 +139,17 @@
                 $('#loader').css('display', 'none');
                 $('#loader>div').removeClass('lds-ellipsis')
             },
-            error: function(arguments, status) {
-                alert('Error, cek koneksi')
+            error: function(arguments, status,error) {
+                setTimeout(() => {
+                    $('html').css('overflow', 'overlay');
+                    $('#loader').css('display', 'none');
+                    $('#loader>div').removeClass('lds-ellipsis')
+                }, 300);
+                toastMixin.fire({
+                    icon: 'error',
+                    animation: true,
+                    title: error
+                });
             }
         });
     }

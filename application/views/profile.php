@@ -24,8 +24,8 @@
             <li><a href="'. site_url("admin/reset_user").'">Reset Password User</a></li>
             <li><a href="'. site_url("admin/register").'">Tambah User</a></li>';
         }else{
-            echo '<li><a href="'. site_url("user/pemesanan_produk").'">Buat Pesanan</a></li>
-            <li><a href="'. site_url("user/daftar_pesanan").'">Pesanan Saya</a></li>
+            echo '<li><a href="'. site_url("user/input_progress_lap").'">Input Progress Lap. Invest.</a></li>
+            <li><a href="'. site_url("user/daftar_pesanan").'"><small>Upload Dokumen Pengawasan Pekerjaan Lap.</small></a></li>
             ';
         }
         

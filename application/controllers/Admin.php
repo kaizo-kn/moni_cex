@@ -422,7 +422,7 @@ class Admin extends CI_Controller
          $data = $this->m_admin->m_ajax_get_list_pekerjaan($this->input->post('id_pks'));
          echo $data;
       } else {
-         redirect('login', 'refresh');
+         echo json_encode(array('message' => 'forbidden'));
       }
    }
    //ajax get list doc pekerjaan
@@ -432,7 +432,7 @@ class Admin extends CI_Controller
          $data = $this->m_admin->m_ajax_get_list_doc_pekerjaan($this->input->post('id_pks'));
          echo $data;
       } else {
-         redirect('login', 'refresh');
+         echo json_encode(array('message' => 'forbidden'));
       }
    }
 

@@ -78,6 +78,7 @@ class Login extends CI_Controller
                         $this->session->set_flashdata('message', '');
                     } else {
                         $this->session->set_flashdata('message', $this->flash_error('Login Gagal! <br> Akun Sedang Digunakan!'));
+                        $this->session->set_flashdata('username', $this->input->post('username'));
                         redirect('login/', 'refresh');
                         $this->session->set_flashdata('message', '');
                         $this->session->sess_destroy();
@@ -112,8 +113,6 @@ class Login extends CI_Controller
         if ($this->session->userdata('id_user') != null || !empty($this->session->userdata('id_user'))) {
             $this->m_login->m_set_user_last_active($this->session->userdata('id_user'), (time() - 15));
         }
-        $this->session->sess_destroy();
-        $this->load->library('session');
         $this->session->set_flashdata('message', $this->flash_success('Log Out Berhasil'));
         $sitenow = $this->session->userdata('sitenow');
         redirect($sitenow, 'refresh');
