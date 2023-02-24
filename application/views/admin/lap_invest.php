@@ -73,8 +73,8 @@
                         if ($folder != "" && $folder != null) {
                             echo "
                             <button onclick='displayDoc(`{$basepath}media/upload/dokumen/$singkatan/$folder/rab_$singkatan-$folder.pdf`)' class='border-0 col-3 btn mainbgc text-light p-1 m-1 text-light'>RAB</button>
-                            <button onclick='displayDoc(`$basepath/media/upload/dokumen/$singkatan/$folder/st_rkst_kak_$singkatan-$folder.pdf`)' class='border-0 col-3 btn mainbgc text-light p-1 m-1 text-light'>RKST</button>
-                        <button class='col-3 btn mainbgc text-light  p-1 m-1' onclick='displayDoc(`$basepath}media/upload/dokumen/$singkatan/$folder/kontrak_$singkatan-$folder.pdf`)'>
+                            <button onclick='displayDoc(`{$basepath}media/upload/dokumen/$singkatan/$folder/st_rkst_kak_$singkatan-$folder.pdf`)' class='border-0 col-3 btn mainbgc text-light p-1 m-1 text-light'>RKST</button>
+                        <button class='col-3 btn mainbgc text-light  p-1 m-1' onclick='displayDoc(`{$basepath}media/upload/dokumen/$singkatan/$folder/kontrak_$singkatan-$folder.pdf`)'>
                         <small>Kontrak</small>
                         </button>";
                         } else {

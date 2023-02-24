@@ -515,10 +515,10 @@
                     title = 'Jumlah Paket Pekerjaan'
                 }
                 let html = `
-                <div style='transform:translateY(20px)' class='section-title mb-0 pb-0 mt-2'>
+                <div style='transform:translateY(20px)' class='section-title mb-0 pb-0 mt-2 '>
                 <h2 class='fs-3 mb-0'>${title}</h2>
                 </div>
-                <div class='p-3'>
+                <div class='p-3 table-responsive mt-4 mt-4'>
 <table  id="${id_pks}" class="table table-bordered mb-0">
 <thead class="mainbgc text-light fw-bold">
     <th>No. </th>
@@ -559,6 +559,8 @@
                 $('#loader').css('display', 'block');
                 $('html').css('overflow', 'hidden');
             }
+
+            
         }, 30);
         let content = ""
         let num = 1;
@@ -615,7 +617,7 @@
                 <div style='transform:translateY(20px)' class='section-title mb-0 pb-0 mt-2'>
                 <h2 class='fs-3 mb-0'>${title}</h2>
                 </div>
-                <div class='p-3'>
+                <div class='p-3 table-responsive mt-4'>
 <table  id="progress${val1}" class="table table-bordered mb-0">
 <thead class="mainbgc text-light fw-bold">
     <th>No. </th>
@@ -639,7 +641,9 @@
             }
         });
 
-
+// //
+// UPDATE `persentase_progress` SET `persentase` = '10' WHERE id_pekerjaan = 15;
+//             SELECT persentase_progress.id_pekerjaan,persentase,id_pks FROM `persentase_progress` JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE id_pks = 1;
 
     }
 </script>

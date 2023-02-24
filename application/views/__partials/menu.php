@@ -11,73 +11,46 @@
             <div></div>
         </div>
     </div>
+
+    <?php
+        if ($this->session->userdata('is_login') == true && $this->session->userdata('id_pks') == '0') {
+            $role='admin';
+        }else{
+            $role='user';
+        }
+        ?>
     <!-- Offcanvas -->
     <div class="offcanvas offcanvas-start rounded offcanvas-bg" tabindex="-1" id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">
         <div class="offcanvas-header">
             <h1 class="logo me-auto"><a class="text-main" href="<?= base_url('index.php/'); ?>">Menu: </a></h1>
             <button style="border: solid 1px white;border-radius: 5px;" type="button" class=" btn text-dark" data-bs-dismiss="offcanvas" aria-label="Close"><i class="bi bi-chevron-left text-dark"></i></button>
         </div>
+
         <div class="offcanvas-body text-dark">
-            <a href="<?= base_url('index.php/home/'); ?>" class="<?php if (isset($m1)) {
+            <a href="<?= base_url("index.php/{$role}/"); ?>" class="<?php if (isset($m1)) {
                                                                         echo $m1;
                                                                     }  ?>">
                 <div id="menu-home" class="d-flex align-items-center p-1">
                     <div style="vertical-align: middle;" class="d-table-cell">
-                        <span class="bi bi-house-fill fw-bold fs-2"></span><span class="ps-3 fw-bold mb-3">Beranda</span>
+                        <span class="bi bi-speedometer fw-bold fs-2"></span><span class="ps-3 fw-bold mb-3">Dashboard</span>
                     </div>
                 </div>
             </a>
-            <a href="<?= base_url('index.php/home/info_produk') ?>" class="<?php if (isset($m2)) {
+            <a href="<?= base_url("index.php/$role/lap_invest") ?>" class="<?php if (isset($m2)) {
                                                                                 echo $m2;
                                                                             }  ?>">
                 <div id="menu-info-produk" class="d-flex align-items-center p-1">
                     <div style="vertical-align: middle;" class="d-table-cell">
-                        <span class="bi bi-info-circle-fill fw-bold fs-2"></span><span class="ps-3 fw-bold mb-3">Info
-                            Produk</span>
+                        <span class="bi bi-cone-striped fw-bold fs-2"></span><span class="ps-3 fw-bold mb-3">Progress Lap. Investasi</span>
                     </div>
                 </div>
             </a>
-            <a href="<?= base_url('index.php/home/info_harga') ?>" class="<?php if (isset($m3)) {
+            <a href="<?= base_url("index.php/$role/pengawasan_pekerjaan_lap") ?>" class="<?php if (isset($m3)) {
                                                                                 echo $m3;
                                                                             }  ?>">
                 <div id="menu-info-harga" class="d-flex align-items-center p-1">
                     <div style="vertical-align: middle;" class="d-table-cell">
-                        <span class="bi bi-tag-fill fw-bold fs-2"></span><span class="ps-3 fw-bold mb-3">Info
-                            Harga</span>
-                    </div>
-                </div>
-            </a>
-            <a href="<?= base_url('index.php/home/info_stok') ?>" class="<?php if (isset($m4)) {
-                                                                                echo $m4;
-                                                                            }  ?>">
-                <div id="menu-info-stok" class="d-flex align-items-center p-1">
-                    <div style="vertical-align: middle;" class="d-table-cell">
-                        <span class="bi bi-archive-fill fw-bold fs-2"></span><span class="ps-3 fw-bold pb-2">Info Stok
-                            Sparepart</span>
-                    </div>
-                </div>
-            </a><a href="<?= base_url('index.php/home/faq') ?>" class="<?php if (isset($m5)) {
-                                                                            echo $m5;
-                                                                        }  ?>">
-                <div id="menu-faq" class=" d-flex align-items-center p-1">
-                    <div style="vertical-align: middle;" class="d-table-cell">
-                        <span class=" bi bi-question-circle-fill fw-bold fs-2"></span><span class="ps-3 fw-bold mb-3">Pertanyaan Umum</span>
-                    </div>
-                </div>
-            </a><a href="<?= base_url('index.php/home/review') ?>" class="<?php if (isset($m6)) {
-                                                                                echo $m6;
-                                                                            } ?>">
-                <div id="menu-review" id="menu-review" class="d-flex align-items-center p-1 ">
-                    <div style="vertical-align: middle;" class="d-table-cell">
-                        <span class="bi bi-list-check fw-bold fs-2"></span><span class="ps-3 fw-bold mb-3">Review Produk </span>
-                    </div>
-                </div>
-            </a><a href="<?= base_url('index.php/user/') ?>" class="<?php if (isset($m7)) {
-                                                                        echo $m7;
-                                                                    }  ?>">
-                <div id="menu-admin" id="menu-login" class="d-flex align-items-center p-1 ">
-                    <div style="vertical-align: middle;" class="d-table-cell">
-                        <span class="bi bi-person-fill fw-bold fs-2"></span><span class="ps-3 fw-bold mb-3">Halaman Admin</span>
+                        <span class="bi bi-binoculars-fill fw-bold fs-2"></span><span class="ps-3 fw-bold mb-3">Pengawasan Pekerjaan Lap.</span>
                     </div>
                 </div>
             </a>

@@ -132,11 +132,7 @@ class M_admin extends CI_Model
 
         public function m_ajax_get_list_doc_pekerjaan($id_pks)
         {
-                $data = $this->db->query("SELECT id_pekerjaan,id_progress,id_pks,uraian_pekerjaan
-                FROM   uraian_pekerjaan
-                WHERE id_pks = $id_pks AND NOT EXISTS (SELECT id_pekerjaan 
-                                   FROM   dokumen 
-                                   WHERE  uraian_pekerjaan.id_pekerjaan = dokumen.id_pekerjaan) ORDER BY id_pekerjaan DESC")
+                $data = $this->db->query("SELECT uraian_pekerjaan, id_pekerjaan FROM `uraian_pekerjaan` WHERE id_pks = $id_pks ORDER BY id_pekerjaan DESC")
                         ->result_array();
                 return json_encode($data);
         }
@@ -148,7 +144,8 @@ class M_admin extends CI_Model
         }
         public function m_upload_dokumen_pekerjaan($data)
         {
-                return $this->db->insert('dokumen', $data);
+                return $this->db->where('id_pekerjaan', $data['id_pekerjaan'])
+                ->update('dokumen',array('folder'=>$data['folder']));
         }
 
 

@@ -25,7 +25,7 @@
             <li><a href="'. site_url("admin/register").'">Tambah User</a></li>';
         }else{
             echo '<li><a href="'. site_url("user/input_progress_lap").'">Input Progress Lap. Invest.</a></li>
-            <li><a href="'. site_url("user/daftar_pesanan").'"><small>Upload Dokumen Pengawasan Pekerjaan Lap.</small></a></li>
+            <li><a href="'. site_url("user/input_pengawasan_lap").'"><small>Upload Dokumen Pengawasan Pekerjaan Lap.</small></a></li>
             ';
         }
         

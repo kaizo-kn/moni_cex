@@ -81,7 +81,6 @@
     $('#list_pks').selectize();
     $('#list_pekerjaan').selectize();
 
-
     function getListPekerjaan(id_pks) {
         let wait = true
         setTimeout(() => {
@@ -100,6 +99,7 @@
                 id_pks: id_pks,
             },
             success: function(data) {
+                console.log(data)
                 wait = false
                 $('#list_pekerjaan').selectize()[0].selectize.destroy();
                 let my_options = []
