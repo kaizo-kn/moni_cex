@@ -30,7 +30,10 @@ class M_admin extends CI_Model
         }
         public function m_progress_lap_invest()
         {
-                $data_pekerjaan = $this->db->query("SELECT uraian_pekerjaan.id_pekerjaan,nama_progress,progress.id_progress,uraian_pekerjaan,nama_progress,folder,singkatan FROM uraian_pekerjaan JOIN daftar_nama_pks ON uraian_pekerjaan.id_pks = daftar_nama_pks.id_pks LEFT JOIN persentase_progress ON uraian_pekerjaan.id_pekerjaan=persentase_progress.id_pekerjaan LEFT JOIN dokumen ON uraian_pekerjaan.id_pekerjaan = dokumen.id_pekerjaan LEFT JOIN progress ON progress.id_progress = uraian_pekerjaan.id_progress ORDER BY  uraian_pekerjaan.id_pekerjaan DESC")->result_array();
+                $id_pks = $this->session->userdata('id_pks');
+                $data_pekerjaan = $this->db->query("SELECT uraian_pekerjaan.id_pekerjaan,nama_progress,progress.id_progress,uraian_pekerjaan,nama_progress,folder,singkatan FROM uraian_pekerjaan JOIN daftar_nama_pks ON uraian_pekerjaan.id_pks = daftar_nama_pks.id_pks LEFT JOIN dokumen ON uraian_pekerjaan.id_pekerjaan = dokumen.id_pekerjaan LEFT JOIN progress ON progress.id_progress = uraian_pekerjaan.id_progress ORDER BY  uraian_pekerjaan.id_pekerjaan DESC")->result_array();
+
+
                 foreach ($data_pekerjaan as $key => $value) {
                         $data_pekerjaan[$key]['persentase_progress'] = $this->m_get_persentase_pekerjaan($value['id_pekerjaan']);
                 }
@@ -41,18 +44,15 @@ class M_admin extends CI_Model
         private function m_get_persentase_pekerjaan($id_pekerjaan)
         {
                 $return_arr = array();
-                $result = $this->db
-                        ->select('persentase,tanggal,bukti')
-                        ->from('persentase_progress')
-                        ->where('id_pekerjaan', $id_pekerjaan)
-                        ->get()
+                $result = $this->db->query("SELECT `persentase`, `minggu`, `tanggal`, `bukti` FROM `persentase_progress`")
                         ->result_array();
                 foreach ($result as $key => $value) {
-                        $return_arr[$value['tanggal']] = array('persentase' => $value['persentase'], 'bukti' => $value['bukti']);
+                        $tanggal = substr($value['tanggal'], 0, 10);
+                        $month =  date('M', strtotime($tanggal));
+                        $return_arr["W" . $value['minggu'] . "-$month"] = array('month' => $month, 'persentase' => $value['persentase'], 'bukti' => $value['bukti']);
                 }
                 return $return_arr;
         }
-
         public function m_dash_persentase($val1, $val2)
         {
 
@@ -119,14 +119,19 @@ class M_admin extends CI_Model
                                         ->result_array());
                         }
                 } catch (\Throwable $th) {
-                       return $this->db->last_query();
+                        return $this->db->last_query();
                 }
         }
 
         public function m_dash_list_percent()
         {
                 return $this->db
-                        ->query("SELECT(SELECT COUNT(id_pekerjaan) FROM `uraian_pekerjaan`) AS total_pekerjaan,(SELECT COUNT(persentase_progress.id_pekerjaan) FROM `persentase_progress` RIGHT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase = 0) AS progress_0, (SELECT COUNT(persentase_progress.id_pekerjaan)FROM `persentase_progress` RIGHT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase >=1 AND persentase <= 40) AS progress_40, (SELECT COUNT(persentase_progress.id_pekerjaan)FROM `persentase_progress` RIGHT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase >= 41 AND persentase <= 60) AS progress_60, (SELECT COUNT(persentase_progress.id_pekerjaan)FROM `persentase_progress` RIGHT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase >= 61 AND persentase <= 99) AS progress_99, (SELECT COUNT(persentase_progress.id_pekerjaan)FROM `persentase_progress` RIGHT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase =100) AS progress_100;")
+                        ->query("SELECT(SELECT COUNT(id_pekerjaan) FROM `uraian_pekerjaan`) AS total_pekerjaan,
+                        (SELECT COUNT(id_pekerjaan) FROM `uraian_pekerjaan` WHERE max_persentase = 0) AS progress_0,
+                        (SELECT COUNT(id_pekerjaan) FROM `uraian_pekerjaan` WHERE max_persentase >=1 AND max_persentase <= 40) AS progress_40,
+                        (SELECT COUNT(id_pekerjaan) FROM `uraian_pekerjaan` WHERE max_persentase >= 41 AND max_persentase <= 60) AS progress_60,
+                        (SELECT COUNT(id_pekerjaan) FROM `uraian_pekerjaan` WHERE max_persentase >= 61 AND max_persentase <= 99) AS progress_99,
+                        (SELECT COUNT(id_pekerjaan) FROM `uraian_pekerjaan` WHERE max_persentase =100) AS progress_100;")
                         ->result_array()[0];
         }
 
@@ -140,12 +145,18 @@ class M_admin extends CI_Model
         public function m_update_progress($data)
         {
                 $this->db->where('id_pekerjaan', $data['id_pekerjaan']);
-                return $this->db->update('uraian_pekerjaan', $data);
+                if ($data['action'] == 'edit') {
+                        unset($data['action']);
+                        return $this->db->update('uraian_pekerjaan', $data);
+                } else {
+                        $id_pekerjaan = array($data['id_pekerjaan']);
+                        return $this->m_hapus_pekerjaan($id_pekerjaan);
+                }
         }
         public function m_upload_dokumen_pekerjaan($data)
         {
                 return $this->db->where('id_pekerjaan', $data['id_pekerjaan'])
-                ->update('dokumen',array('folder'=>$data['folder']));
+                        ->update('dokumen', array('folder' => $data['folder']));
         }
 
 
@@ -268,43 +279,38 @@ class M_admin extends CI_Model
         }
 
 
-        public function m_hapus_review($id_review)
+        public function m_hapus_pekerjaan($id_pekerjaan)
         {
-                $this->db->select('gambar');
-                $this->db->where('id_review', $id_review);
-                $folder = $this->db->get_where('review')->result_array();
-                if (null != $folder) {
-                        $folder = $folder[0]['gambar'];
-                        if ($folder != '' && $folder != null && trim($folder != ' ' && $folder != ' ')) {
-                                $path = FCPATH . 'media/upload/review/' . $folder;
-                                $this->deleteDirectory($path);
+                $in = implode(",", $id_pekerjaan);
+                $res = $this->db->query("SELECT id_pekerjaan,singkatan FROM `uraian_pekerjaan` JOIN daftar_nama_pks ON
+        uraian_pekerjaan.id_pks = daftar_nama_pks.id_pks WHERE `id_pekerjaan` IN
+        ($in)")->result_array();
+                foreach ($res as $key => $value) {
+                        if ($value['singkatan'] != "" && $value['id_pekerjaan'] != "") {
+                                try {
+                                        $this->deleteDirectory(FCPATH . "media/upload/dokumen/" . $value['singkatan'] . "/" . $value['id_pekerjaan']);
+                                } catch (\Throwable $th) {
+                                }
+                                try {
+                                        $this->deleteDirectory(FCPATH . "media/upload/bukti/" . $value['singkatan'] . "/" . $value['id_pekerjaan']);
+                                } catch (\Throwable $th) {
+                                }
+                                try {
+                                        $this->deleteDirectory(FCPATH . "media/upload/dokumentasi/" . $value['singkatan'] . "/" .
+                                                $value['id_pekerjaan']);
+                                } catch (\Throwable $th) {
+                                }
                         }
                 }
-                $this->db->reset_query();
-                $this->db->where('id_review', $id_review);
-                $this->db->delete('review');
-
-                $this->db->reset_query();
-                $this->db->select('gambar_balasan');
-                $this->db->where('id_balasan', $id_review);
-                $folder = $this->db->get_where('balasan_review')->result_array();
-                if (null != $folder) {
-                        $folder = $folder[0]['gambar_balasan'];
-                        if ($folder != '' && $folder != null && trim($folder != ' ' && $folder != ' ')) {
-                                $path = FCPATH . 'media/upload/answer/' . $folder;
-                                $this->deleteDirectory($path);
-                        }
-                }
-                $this->db->reset_query();
-                $this->db->where('id_balasan', $id_review);
-                $this->db->delete('balasan_review');
+                return $this->db->query("DELETE FROM `uraian_pekerjaan` WHERE id_pekerjaan IN ($in)");
         }
-
 
         public function log($arg)
         {
-                echo "<script>console.log($arg)</script>";
+                echo "<script>
+        console.log($arg)
+        </script>";
         }
 }
-/* End of file M_user.php */
-/* Location: ./application/models/M_user.php */
+        /* End of file M_user.php */
+        /* Location: ./application/models/M_user.php */
