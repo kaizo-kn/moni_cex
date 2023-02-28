@@ -7,20 +7,24 @@ class Admin extends CI_Controller
    public function list_week_in_year()
    {
       $weeklist = array();
-      $query = "";
-      $month_array = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
-      foreach ($month_array as $key => $value) {
-         $month = $value;
+      $result = array();
+      for ($i = 1; $i <= 12; $i++) {
+         if ($i < 10) {
+            $month = "0$i";
+         } else {
+            $month = $i;
+         }
          $year = date('Y');
-         $tdays = cal_days_in_month(CAL_GREGORIAN, $value, $year);
-         $query .= "(SELECT WEEK(LAST_DAY('$year-$month-$tdays') + INTERVAL 1 DAY, 1) - WEEK('$year-$month-02', 1) + 1)  AS '$month',";
+         $tdays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+         $result[$i] = $this->db->query("SELECT WEEK('$year-$month-$tdays') - WEEK(DATE_FORMAT('$year-$month-01', '%Y-%m-01')) + 1 AS '$month'")->result_array()[0][$month];
       }
-      $query = substr($query, 0, -1);
-      $result = $this->db->query("SELECT $query")
-         ->result_array()[0];
       foreach ($result as $keys => $values) {
-         $timestamp = mktime(0, 0, 0, $keys, 1);
-         $monthname = date('M', $timestamp);
+         if (intval($keys) < 10) {
+            $ms = "0$keys";
+         } else {
+            $ms = $keys;
+         }
+         $monthname =  date("M", strtotime("2023-{$ms}-01"));
          for ($i = 0; $i < intval($values); $i++) {
             $m = ($i + 1);
             $week_name['weekname'] = "W" . $m . " $monthname";
@@ -30,8 +34,6 @@ class Admin extends CI_Controller
       }
       return $weeklist;
    }
-
-
    public function testmode()
    {
       $weeklist = array();
@@ -46,7 +48,7 @@ class Admin extends CI_Controller
       $query = substr($query, 0, -1);
       $result = $this->db->query("SELECT $query")
          ->result_array()[0];
-         var_dump($result);
+      var_dump($result);
       foreach ($result as $keys => $values) {
          $timestamp = mktime(0, 0, 0, $keys, 1);
          $monthname = date('M', $timestamp);
@@ -103,8 +105,34 @@ class Admin extends CI_Controller
          $data = array('jumlah_per_progress' => $jumlah_per_progress);
          $this->load->view('__partials/header.php', array('page_title' => 'Dashboard'));
          $this->load->view('__partials/menu.php', array('m1' => 'nav-menu-active'));
-         $this->load->view('admin/dashboard.php',array_merge($this->m_admin->m_dash_list_percent(),$data));
+         $this->load->view('admin/dashboard.php', array_merge($this->m_admin->m_dash_list_percent(), $data));
          $this->load->view('__partials/footer.php');
+      } else {
+         redirect('login', 'refresh');
+      }
+   }
+   public function hapus_pekerjaan()
+   {
+      if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
+         $data = array('data_pekerjaan' => $this->db->query('SELECT up.id_progress, up.id_pekerjaan,up.uraian_pekerjaan,nama_progress,nama_pks, max(persentase) AS persentase FROM `uraian_pekerjaan` AS up JOIN daftar_nama_pks AS dp ON up.id_pks = dp.id_pks JOIN progress ON up.id_progress = progress.id_progress JOIN persentase_progress ON up.id_pekerjaan = persentase_progress.id_pekerjaan GROUP BY id_pekerjaan;')->result_array());
+         $this->load->view('__partials/header.php', array('page_title' => 'Hapus Pekerjaan'));
+         $this->load->view('__partials/menu.php', array('m1' => 'nav-menu-active'));
+         $this->load->view('admin/hapus_pekerjaan.php', $data);
+         $this->load->view('__partials/footer.php');
+      } else {
+         redirect('login', 'refresh');
+      }
+   }
+   public function action_hapus_pekerjaan()
+   {
+      if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
+         $id_pekerjaan = $this->input->post('id_pekerjaan[]');
+         if ($this->m_admin->m_hapus_pekerjaan($id_pekerjaan)) {
+            $this->session->set_flashdata('message', $this->flash_success('Data Berhasil Dihapus'));
+         } else {
+            $this->session->set_flashdata('message', $this->flash_error('Terjadi Kesalahan'));
+         }
+         redirect('admin/hapus_pekerjaan', 'refresh');
       } else {
          redirect('login', 'refresh');
       }
@@ -113,11 +141,9 @@ class Admin extends CI_Controller
    {
       if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
          $data_pekerjaan = array('data_pekerjaan' => $this->m_admin->m_progress_lap_invest());
-
-        
          $this->load->view('__partials/header.php', array('page_title' => 'Progress Lap. Investasi'));
          $this->load->view('__partials/menu.php', array('m2' => 'nav-menu-active'));
-         $this->load->view('admin/lap_invest', array_merge($data_pekerjaan, array('weeklist' => $this->list_week_in_year())));
+         $this->load->view('admin/lap_invest',  array_merge($data_pekerjaan, array('weeklist' => $this->list_week_in_year())));
          $this->load->view('__partials/footer.php');
       } else {
          redirect('login', 'refresh');
@@ -173,13 +199,14 @@ class Admin extends CI_Controller
    public function update_progress_pekerjaan()
    {
       if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
+         $action = $this->input->post('action');
          $id_pekerjaan = $this->input->post('id_pekerjaan');
          $id_pekerjaan = explode(",", $id_pekerjaan);
          $id_pekerjaan = $id_pekerjaan[0];
          $id_pks = $this->input->post('id_pks');
          $uraian_pekerjaan = $this->filter_input($this->input->post('uraian_pekerjaan'));
          $id_progress = $this->input->post('id_progress');
-         $data = compact('id_pekerjaan', 'id_pks', 'id_progress', 'uraian_pekerjaan');
+         $data = compact('id_pekerjaan', 'id_pks', 'id_progress', 'uraian_pekerjaan', 'action');
          if ($this->m_admin->m_update_progress($data) == 1) {
             $this->session->set_flashdata('message', $this->flash_success('Berhasil'));
          } else {
@@ -200,7 +227,7 @@ class Admin extends CI_Controller
          $id_pks = $this->input->post('id_pks');
          $singkatan = $this->m_admin->get_singkatan_pks($id_pks);
          $folder = date('d-m-Y_H-i-s');
-         $path = FCPATH . "media/upload/dokumen/$singkatan/$folder/";
+         $path = FCPATH . "media/upload/dokumen/$singkatan/$id_pekerjaan/$folder/";
          $config['upload_path'] = "$path";
          $config['allowed_types'] = 'pdf';
          $config['max_size'] = 5000;

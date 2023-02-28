@@ -18,10 +18,13 @@
                     <th style="min-width:30rem;vertical-align:middle;text-align:center">Uraian Pekerjaan</th>
                     <th style="width:1em;vertical-align:middle;text-align:center">PKS</th>
                     <th style="display:none;">Progress</th>
-                    <th style="width:8%;vertical-align:text-top;text-align:center">Presentasi Timeline dan Safety Induction</th>
-                    <th style="width:8%;vertical-align:text-top;text-align:center">Pengecekan Administrasi (Sertifikat, dll)</th>
+                    <th style="width:8%;vertical-align:text-top;text-align:center">Presentasi Timeline dan Safety
+                        Induction</th>
+                    <th style="width:8%;vertical-align:text-top;text-align:center">Pengecekan Administrasi (Sertifikat,
+                        dll)</th>
                     <th style="width:8%;vertical-align:text-top;text-align:center">Memastikan Pemakaian APD</th>
-                    <th style="width:8%;vertical-align:text-top;text-align:center">Pengecekan Dokumen RKST, RAB, dan Kontrak</th>
+                    <th style="width:8%;vertical-align:text-top;text-align:center">Pengecekan Dokumen RKST, RAB, dan
+                        Kontrak</th>
                     <th style="width:8%;vertical-align:text-top;text-align:center">Pengecekan Material Masuk</th>
                 </thead>
 
@@ -61,7 +64,7 @@
                                 if (!empty($foto_dokumentasi)) {
                                     echo
                                     "<td class='text-center'>
-                                <a onclick ='setDownloadImage(`$basepath/media/upload/dokumentasi_progress/$singkatan/$id_pekerjaan/$foto_dokumentasi`)' href='$basepath/media/upload/dokumentasi_progress/$singkatan/$id_pekerjaan/$foto_dokumentasi' data-gallery='portfolioGallery' class='portfolio-lightbox preview-link' title='$foto_dokumentasi'><i class='curpo bi bi-check-circle text-main fs-4 fw-bold text-center'></i></td></a>";
+                                <a onclick ='setDownloadImage(`{$basepath}media/upload/dokumentasi/$singkatan/$id_pekerjaan/$foto_dokumentasi`)' href='{$basepath}media/upload/dokumentasi/$singkatan/$id_pekerjaan/$foto_dokumentasi' data-gallery='portfolioGallery' class='portfolio-lightbox preview-link' title='$foto_dokumentasi'><i class='curpo bi bi-check-circle text-main fs-4 fw-bold text-center'></i></td></a>";
                                 } else {
                                     echo
                                     "<td class='text-center'><i class=' bi bi-x-circle text-danger fs-4 fw-bold text-center></i>'</td>";
@@ -93,7 +96,7 @@
         pageLength: 25
     });
 
-    let filtertype = `<div id="filter_type" class="form-inline float-start me-4 pe-3">
+    let filtertype = `<div id="filter_type" class="form-inline float-start me-4 pe-3 d-none d-lg-block d-xl-block">
             <span class="ms-2 text-dark"><label for="pks" ><input onchange="filterType()" style="transform:translateY(25%);" type="checkbox" checked name="" value="pks" id="pks" class="form-check curpo d-inline"><small class="me-1 curpo ms-1 fw-bolder">PKS</small></label></span>
             <span class="ms-2 text-danger"><label for="tekpol" ><input onchange="filterType()" style="transform:translateY(25%);" type="checkbox" checked name="" value="tekpol" id="tekpol" class="form-check curpo d-inline"><small class="me-1 curpo ms-1 fw-bolder">TEKPOL</small></label></span>
             <span class="ms-2 text-orange"><label for="hps" ><input onchange="filterType()" style="transform:translateY(25%);" type="checkbox" checked name="" value="hps" id="hps" class="form-check curpo d-inline"><small class="me-1 curpo ms-1 fw-bolder">HPS</small></label></span>

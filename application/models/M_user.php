@@ -9,7 +9,7 @@ class M_user extends CI_Model
                 $id_pks = $this->session->userdata('id_pks');
                 $data_pekerjaan = $this->db->query("SELECT uraian_pekerjaan.id_pekerjaan,nama_progress,progress.id_progress,uraian_pekerjaan,nama_progress,folder,singkatan FROM uraian_pekerjaan JOIN daftar_nama_pks ON uraian_pekerjaan.id_pks = daftar_nama_pks.id_pks LEFT JOIN dokumen ON uraian_pekerjaan.id_pekerjaan = dokumen.id_pekerjaan LEFT JOIN progress ON progress.id_progress = uraian_pekerjaan.id_progress WHERE uraian_pekerjaan.id_pks=$id_pks ORDER BY  uraian_pekerjaan.id_pekerjaan DESC")->result_array();
 
-               
+
                 foreach ($data_pekerjaan as $key => $value) {
                         $data_pekerjaan[$key]['persentase_progress'] = $this->m_get_persentase_pekerjaan($value['id_pekerjaan']);
                 }
@@ -22,22 +22,104 @@ class M_user extends CI_Model
                 $result = $this->db->query("SELECT `persentase`, `minggu`, `tanggal`, `bukti` FROM `persentase_progress` WHERE `id_pekerjaan` = '$id_pekerjaan'")
                         ->result_array();
                 foreach ($result as $key => $value) {
-                        $tanggal=substr($value['tanggal'],0,10);
+                        $tanggal = substr($value['tanggal'], 0, 10);
                         $month =  date('M', strtotime($tanggal));
-                        $return_arr["W".$value['minggu']."-$month"] = array('month'=>$month,'persentase' => $value['persentase'], 'bukti' => $value['bukti']);
+                        $return_arr["W" . $value['minggu'] . "-$month"] = array('month' => $month, 'persentase' => $value['persentase'], 'bukti' => $value['bukti']);
                 }
                 return $return_arr;
         }
 
-        public function m_input_persentase($id_pekerjaan, $persentase,$bukti)
+        public function m_input_persentase($id_pekerjaan, $persentase)
         {
-                $m = $this->db->query("SELECT MAX(minggu)  AS m FROM `persentase_progress` WHERE id_pekerjaan  = '$id_pekerjaan';")->result_array()[0]['m'];
-                $curm = $this->db->query("SELECT WEEK(CURRENT_DATE) - WEEK(DATE_FORMAT(CURRENT_DATE, '%Y-%m-01')) + 1 AS curm")->result_array()[0]['curm'];
-                if ($curm == $m) {
-                        return $this->db->query("UPDATE persentase_progress SET persentase = $persentase,bukti=$bukti WHERE id_pekerjaan = $id_pekerjaan and minggu = $m");
+                if (!empty($_FILES['bukti']['name'])) {
+                        $mgg = array();
+                        $upfile = "";
+                        $singkatan_pks = $this->session->userdata("singkatan");
+                        $bukti = $this->session->userdata('id_pks') . $id_pekerjaan . date("Y-m-d_H-i-s") . "(Kosong)";
+                        $t = $this->db->query("SELECT id_persentase,tanggal,minggu FROM `persentase_progress` WHERE id_pekerjaan  = '$id_pekerjaan';")->result_array();
+                        foreach ($t as $key => $value) {
+                                $mgg[$key] = date("m", strtotime($value['tanggal'])) . $value['minggu'];
+                        }
+                        $m = max(($mgg));
+                        $curm = $this->db->query("SELECT WEEK(CURRENT_DATE) - WEEK(DATE_FORMAT(CURRENT_DATE, '%Y-%m-01')) + 1 AS curm")->result_array()[0]['curm'];
+                        $curm = date('m') . $curm;
+                        if ($curm == $m) {
+                                $sm = substr($m, 2, 1);
+                                $this->db->query("UPDATE persentase_progress SET persentase = $persentase,bukti='$bukti' WHERE id_pekerjaan = $id_pekerjaan and minggu = $sm");
+                                $this->db->query("UPDATE `uraian_pekerjaan` SET `max_persentase` = (SELECT MAX(persentase) FROM `persentase_progress` WHERE id_pekerjaan = $id_pekerjaan) WHERE `id_pekerjaan` = $id_pekerjaan;");
+                        } else {
+                                $this->db->query("INSERT INTO `persentase_progress`(`id_pekerjaan`, `minggu`, `persentase`, `bukti`) VALUES ('$id_pekerjaan',(SELECT WEEK(CURRENT_DATE) - WEEK(DATE_FORMAT(CURRENT_DATE, '%Y-%m-01')) + 1),'$persentase','$bukti')");
+                                $this->db->query("UPDATE `uraian_pekerjaan` SET `max_persentase` = (SELECT MAX(persentase) FROM `persentase_progress` WHERE id_pekerjaan = $id_pekerjaan) WHERE `id_pekerjaan` = $id_pekerjaan;");
+                        }
+
+                        $result = $this->db->query("select id_persentase,id_pekerjaan,tanggal,minggu FROM `persentase_progress` WHERE bukti = '$bukti'")->result_array()[0];
+                        $id_pekerjaan = $result["id_pekerjaan"];
+                        $id_persentase = $result['id_persentase'];
+                        $tanggal = substr($result['tanggal'], 0, 10);
+                        $month =  date('M', strtotime($tanggal));
+                        $ext = pathinfo($_FILES["bukti"]["name"], PATHINFO_EXTENSION);
+                        $filename = 'bukti_' . $singkatan_pks . "-W" . $result['minggu'] . "-$month." . $ext;
+                        $filenames = 'bukti_' . $singkatan_pks . "-W" . $result['minggu'] . "-$month";
+                        $upfile = $this->db->query("UPDATE persentase_progress SET bukti = '$filename' WHERE id_persentase = $id_persentase");
+                        $path = FCPATH . "media/upload/bukti/$singkatan_pks/$id_pekerjaan/$filenames";
+                        if (!is_dir($path)) {
+                                mkdir($path, 0755, TRUE);
+                        }
+                        // File upload configuration 
+                        $config['upload_path'] = $path;
+                        $config['allowed_types'] = 'jpeg|jpg|png';
+                        $config['max_size'] = 5000;
+                        $config['overwrite'] = true;
+                        $config['file_name'] = $filename;
+
+                        // Load and initialize upload library 
+                        $this->load->library('upload', $config);
+                        $this->upload->initialize($config);
+
+                        // Upload file to server 
+                        if ($this->upload->do_upload('bukti')) {
+                                $message = ('Bukti berhasil di-upload');
+                        } else {
+                                $message =  "Bukti gagal di-upload: <br>" . $this->upload->display_errors();
+                        }
                 } else {
-                        return $this->db->query("INSERT INTO `persentase_progress`(`id_pekerjaan`, `minggu`, `persentase`, `bukti`) VALUES ('$id_pekerjaan',(SELECT WEEK(CURRENT_DATE) - WEEK(DATE_FORMAT(CURRENT_DATE, '%Y-%m-01')) + 1),'10','$bukti')");
+                        $message = "Bukti Kosong";
                 }
+                return array('status' => $upfile, 'message' => $message);
+        }
+        public function m_input_pengawasan($id_pekerjaan, $dokumentasi)
+        {
+                $upfile = "";
+                if (!empty($_FILES['doc']['name'])) {
+                        $singkatan_pks = $this->session->userdata('singkatan');
+                        $ext = pathinfo($_FILES["doc"]["name"], PATHINFO_EXTENSION);
+                        $filename = "{$dokumentasi}_{$singkatan_pks}_{$id_pekerjaan}";
+                        $path = FCPATH . "media/upload/dokumentasi/$singkatan_pks/$id_pekerjaan";
+                        if (!is_dir($path)) {
+                                mkdir($path, 0755, TRUE);
+                        }
+                        // File upload configuration 
+                        $config['upload_path'] = $path;
+                        $config['allowed_types'] = 'jpeg|jpg|png';
+                        $config['max_size'] = 5000;
+                        $config['overwrite'] = true;
+                        $config['file_name'] = $filename;
+
+                        // Load and initialize upload library 
+                        $this->load->library('upload', $config);
+                        $this->upload->initialize($config);
+
+                        // Upload file to server 
+                        if ($this->upload->do_upload('doc')) {
+                                $message = ('Dokumentasi berhasil di-upload');
+                                $upfile = $this->db->query("UPDATE `dokumentasi` SET `$dokumentasi`='$filename.$ext'  WHERE `id_pekerjaan`  = '$id_pekerjaan' ");
+                        } else {
+                                $message =  "Dokumentasi gagal di-upload: <br>" . $this->upload->display_errors();
+                        }
+                } else {
+                        $message = "Dokumentasi Kosong";
+                }
+                return array('status' => $upfile, 'message' => $message);
         }
 
         public function m_get_data_pengawasan()
@@ -103,12 +185,12 @@ class M_user extends CI_Model
         public function m_dash_list_percent($id_pks)
         {
                 return $this->db
-                        ->query("SELECT 
-                (SELECT COUNT(persentase_progress.id_pekerjaan) FROM `persentase_progress` LEFT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase = 0 AND uraian_pekerjaan.id_pks =$id_pks) AS progress_0,
-                (SELECT COUNT(persentase_progress.id_pekerjaan)FROM `persentase_progress` LEFT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase >=1 AND persentase <= 40 AND uraian_pekerjaan.id_pks =$id_pks) AS progress_40,
-                (SELECT COUNT(persentase_progress.id_pekerjaan)FROM `persentase_progress` LEFT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase >= 41 AND persentase <= 60 AND uraian_pekerjaan.id_pks =$id_pks) AS progress_60,
-                (SELECT COUNT(persentase_progress.id_pekerjaan)FROM `persentase_progress` LEFT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase >= 61 AND persentase <= 99 AND uraian_pekerjaan.id_pks =$id_pks) AS progress_99,
-                (SELECT COUNT(persentase_progress.id_pekerjaan)FROM `persentase_progress` LEFT JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE persentase =100 AND uraian_pekerjaan.id_pks =$id_pks) AS progress_100;")
+                        ->query("SELECT(SELECT COUNT(id_pekerjaan) FROM `uraian_pekerjaan`) AS total_pekerjaan,
+                        (SELECT COUNT(id_pekerjaan) FROM `uraian_pekerjaan` WHERE max_persentase = 0 AND id_pks = $id_pks) AS progress_0,
+                        (SELECT COUNT(id_pekerjaan) FROM `uraian_pekerjaan` WHERE max_persentase >=1 AND max_persentase <= 40 AND id_pks = $id_pks) AS progress_40,
+                        (SELECT COUNT(id_pekerjaan) FROM `uraian_pekerjaan` WHERE max_persentase >= 41 AND max_persentase <= 60 AND id_pks = $id_pks) AS progress_60,
+                        (SELECT COUNT(id_pekerjaan) FROM `uraian_pekerjaan` WHERE max_persentase >= 61 AND max_persentase <= 99 AND id_pks = $id_pks) AS progress_99,
+                        (SELECT COUNT(id_pekerjaan) FROM `uraian_pekerjaan` WHERE max_persentase =100 AND id_pks = $id_pks) AS progress_100;")
                         ->result_array()[0];
         }
 
@@ -329,10 +411,11 @@ class M_user extends CI_Model
         }
 
 
-        //Balas Review 
+        //Balas Review
         public function m_balas_review($data)
         {
-                $check_id_balasan = ($this->db->query('SELECT `id_balasan` FROM `balasan_review` WHERE `id_balasan`=' . $data['id_balasan'])->result_array()[0]['id_balasan']);
+                $check_id_balasan = ($this->db->query('SELECT `id_balasan` FROM `balasan_review` WHERE `id_balasan`=' .
+                        $data['id_balasan'])->result_array()[0]['id_balasan']);
                 if (!isset($check_id_balasan)) {
                         $this->db->insert('balasan_review', $data);
                         $this->db->where('id_review', $data['id_balasan']);
@@ -341,7 +424,8 @@ class M_user extends CI_Model
                         $this->db->where('id_balasan', $data['id_balasan']);
                         $this->db->update('balasan_review', $data);
                         $this->db->reset_query();
-                        $this->db->query('UPDATE `review` SET `id_balasan` = ' . $data["id_balasan"] . ' WHERE `id_review` =' . $data["id_balasan"] . '');
+                        $this->db->query('UPDATE `review` SET `id_balasan` = ' . $data["id_balasan"] . ' WHERE `id_review` =' .
+                                $data["id_balasan"] . '');
                 }
         }
 
@@ -388,5 +472,5 @@ class M_user extends CI_Model
                 return $this->db->update('review', array('is_hidden' => '1'));
         }
 }
-/* End of file M_user.php */
-/* Location: ./application/models/M_user.php */
+        /* End of file M_user.php */
+        /* Location: ./application/models/M_user.php */

@@ -4,7 +4,7 @@
         <div class="section-title">
             <h2>Input Progress Lap. Investasi</h2>
         </div>
-        <form action="<?= base_url('index.php/') ?>user/input_progress" method="post" enctype="multipart/form-data">
+        <form action="<?= base_url('index.php/') ?>user/input_pengawasan" method="post" enctype="multipart/form-data">
             <table class="table table-bordered table-hover rounded">
                 <tbody>
                     <tr>
@@ -12,9 +12,7 @@
                             Pilih Uraian Pekerjaan
                         </td>
                         <td class="control-group">
-                            <select
-                                onchange="$(`#list_pekerjaan-selectized`).prop('required',false);getListDokumentasi($(this).val())"
-                                name="id_pekerjaan" id="list_pekerjaan" required>
+                            <select onchange="$(`#list_pekerjaan-selectized`).prop('required',false);getListDokumentasi($(this).val())" name="id_pekerjaan" id="list_pekerjaan" required>
                                 <option disabled selected value="">Pilih Uraian Pekerjaan</option>
                                 <?php
                                 foreach ($list_pekerjaan as $key => $value) {
@@ -33,8 +31,7 @@
                             Item Pengawasan Pekerjaan Lap.
                         </td>
                         <td class="control-group">
-                            <select onchange="$(`#list_dokumentasi-selectized`).prop('required',false);"
-                                name="id_dokumentasi" id="list_dokumentasi" required>
+                            <select onchange="$(`#list_dokumentasi-selectized`).prop('required',false);" name="id_dokumentasi" id="list_dokumentasi" required>
                                 <option disabled selected value="">Pilih Item Pengawasan Pekerjaan Lap.</option>
                             </select>
                         </td>
@@ -44,8 +41,8 @@
                             Dokumentasi<span class="text-danger">*</span>
                         </td>
                         <td>
-                            <input class="form-control" type="file" name="bukti" id="" accept=".jpeg,.jpg,.png">
-                            <?php echo form_error('bukti', '<p class="text-danger">', '</p>'); ?>
+                            <input class="form-control" type="file" name="doc" id="" accept=".jpeg,.jpg,.png">
+                            <?php echo form_error('doc', '<p class="text-danger">', '</p>'); ?>
                         </td>
                     </tr>
                 </tbody>
@@ -57,15 +54,16 @@
     </div>
 </section>
 <script>
-
-
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#list_pekerjaan').selectize();
         $('#list_dokumentasi').selectize();
-<?php
-echo "getListDokumentasi($selected)";
-?>
-        
+        <?php
+        if ($selected != "") {
+            echo "getListDokumentasi($selected)";
+        }
+
+        ?>
+
     });
 
     function getListDokumentasi(id_pekerjaan) {
@@ -85,7 +83,7 @@ echo "getListDokumentasi($selected)";
             data: {
                 id_pekerjaan: id_pekerjaan,
             },
-            success: function (data) {
+            success: function(data) {
                 console.log(data)
                 wait = false
                 $('#list_dokumentasi').selectize()[0].selectize.destroy();
@@ -93,7 +91,13 @@ echo "getListDokumentasi($selected)";
                 let i = 0;
                 const data_element = data[0];
 
-                let content = { 'ptsi': 'Presentasi Timeline dan Safety Induction', 'pa': 'Pengecekan Administrasi (Sertifikat, dll)', 'apd': 'Memastikan Pemakaian APD', 'doc': 'Pengecekan Dokumen RKST, RAB, dan Kontrak', 'material': 'Pengecekan Material Masuk' }
+                let content = {
+                    'ptsi': 'Presentasi Timeline dan Safety Induction',
+                    'pa': 'Pengecekan Administrasi (Sertifikat, dll)',
+                    'apd': 'Memastikan Pemakaian APD',
+                    'doc': 'Pengecekan Dokumen RKST, RAB, dan Kontrak',
+                    'material': 'Pengecekan Material Masuk'
+                }
 
                 for (const key in content) {
                     if (Object.hasOwnProperty.call(content, key)) {
@@ -125,7 +129,7 @@ echo "getListDokumentasi($selected)";
                 $('#loader').css('display', 'none');
                 $('#loader>div').removeClass('lds-ellipsis')
             },
-            error: function (arguments, status, error) {
+            error: function(arguments, status, error) {
                 setTimeout(() => {
                     $('html').css('overflow', 'overlay');
                     $('#loader').css('display', 'none');

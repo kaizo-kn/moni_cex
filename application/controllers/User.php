@@ -44,7 +44,7 @@ class User extends CI_Controller
       } else {
         $ms = $keys;
       }
-      $monthname =  date("M",strtotime("2023-{$ms}-01"));
+      $monthname =  date("M", strtotime("2023-{$ms}-01"));
       for ($i = 0; $i < intval($values); $i++) {
         $m = ($i + 1);
         $week_name['weekname'] = "W" . $m . " $monthname";
@@ -135,7 +135,7 @@ class User extends CI_Controller
       $id_pks = $this->session->userdata('id_pks');
       $selected = "";
       $selected = $this->input->get('selected');
-      $list_pekerjaan = $this->db->query("SELECT id_pekerjaan,uraian_pekerjaan FROM uraian_pekerjaan WHERE id_pks = $id_pks ORDER BY id_pekerjaan DESC")->result_array();
+      $list_pekerjaan = $this->db->query("SELECT uraian_pekerjaan.id_pekerjaan,uraian_pekerjaan, MAX(persentase) AS persentase FROM uraian_pekerjaan JOIN persentase_progress ON uraian_pekerjaan.id_pekerjaan = persentase_progress.id_pekerjaan WHERE id_pks = $id_pks GROUP BY uraian_pekerjaan.id_pekerjaan ORDER BY id_pekerjaan DESC")->result_array();
       $this->load->view('__partials/header.php', array('page_title' => 'Input Progress Lap. Investasi'));
       $this->load->view('__partials/menu.php', array('m2' => 'nav-menu-active'));
       $this->load->view('user/input_progress_lap.php', array('list_pekerjaan' => $list_pekerjaan, 'selected' => $selected));
@@ -165,18 +165,33 @@ class User extends CI_Controller
 
   public function input_progress()
   {
-
-    $bukti = rand(0, 100);
     if ($this->session->userdata('is_login') == TRUE) {
       $id_pekerjaan = $this->input->post('id_pekerjaan');
       $persentase_progress = $this->input->post('persentase_progress');
-      $res = $this->m_user->m_input_persentase($id_pekerjaan, $persentase_progress, $bukti);
-      if ($res == 1) {
-        $this->session->set_flashdata('message', $this->flash_success('Berhasil'));
+      $res = $this->m_user->m_input_persentase($id_pekerjaan, $persentase_progress);
+      if ($res['status'] == 1) {
+        $this->session->set_flashdata('message', $this->flash_info($res['message']));
       } else {
-        $this->session->set_flashdata('message', $this->flash_success('Error'));
+        $this->session->set_flashdata('message', $this->flash_error($res['message']));
       }
       redirect('user/input_progress_lap', 'refresh');
+    } else {
+      redirect('login', 'refresh');
+    }
+  }
+
+  public function input_pengawasan()
+  {
+    if ($this->session->userdata('is_login') == TRUE) {
+      $id_pekerjaan = $this->input->post('id_pekerjaan');
+      $dokumentasi = $this->input->post('id_dokumentasi');
+      $res = $this->m_user->m_input_pengawasan($id_pekerjaan, $dokumentasi);
+      if ($res['status'] == 1) {
+        $this->session->set_flashdata('message', $this->flash_info($res['message']));
+      } else {
+        $this->session->set_flashdata('message', $this->flash_error($res['message']));
+      }
+      redirect('user/input_pengawasan_lap', 'refresh');
     } else {
       redirect('login', 'refresh');
     }
@@ -205,38 +220,6 @@ class User extends CI_Controller
       echo json_encode($this->m_user->m_ajax_get_list_dokumentasi($this->input->post('id_pekerjaan')));
     } else {
       echo json_encode(array('message' => 'forbidden'));
-    }
-  }
-
-  //Upload File
-  public function upload_info_harga()
-  {
-    if ($this->session->userdata('is_login') == FALSE || $this->session->userdata('id_pks') != "0") {
-      redirect('user/', 'refresh');
-    } else {
-      $catatan = $this->input->post('catatan');
-      $tanggal_update = $this->dateUpdate();
-      $filename = 'banner_harga';
-      if (!empty($_FILES['berkas']['name'])) {
-        delete_files('media/upload/banner_harga/');
-        $config['upload_path'] = 'media/upload/banner_harga';
-        $config['allowed_types'] = 'jpeg|jpg|png';
-        $config['max_size'] = 10000;
-        $config['overwrite'] = true;
-        $config['file_name'] = $filename;
-        $this->load->library('upload', $config);
-        $this->upload->overwrite = true;
-        if (!$this->upload->do_upload('berkas')) {
-          $this->session->set_flashdata('message', $this->flash_error($this->upload->display_errors()));
-        }
-        $filename = $filename . '.' . pathinfo($_FILES["berkas"]["name"], PATHINFO_EXTENSION);
-        $this->m_user->m_update_catatan_harga(array('catatan' => $catatan, 'tanggal_update' => $tanggal_update, 'banner_harga' => $filename));
-      } else {
-        $this->m_user->m_update_catatan_harga(array('catatan' => $catatan, 'tanggal_update' => $tanggal_update));
-      }
-      $this->session->set_flashdata('message', $this->flash_success('Harga Diperbaharui'));
-      redirect('user/ubah_info_harga', 'refresh');
-      $this->session->set_flashdata('message', '');
     }
   }
 
@@ -324,112 +307,6 @@ class User extends CI_Controller
     }
   }
 
-
-
-  public function buat_pesanan()
-  {
-    if ($this->session->userdata('is_login') == FALSE || $this->session->userdata('id_pks') == "0") {
-      redirect('user/', 'refresh');
-    } else {
-      $id_pks = $this->session->userdata('id_pks');
-      if ($id_pks != "0") {
-        $id_user = $this->session->userdata('id_user');
-        $singkatan_pks = $this->session->userdata('singkatan');
-        $id_produk = $this->input->post('id_produk');
-        $jumlah_pesanan = $this->input->post('jumlah_pesanan');
-        $message = "";
-        $valid = false;
-        $date = date("d-m-Y_H-i-s");
-
-        if (!empty($_FILES['surat_1']['name'])) {
-          $path = FCPATH . "media/upload/pesanan/$singkatan_pks/$date";
-          if (!is_dir($path)) {
-            mkdir($path, 0755, TRUE);
-          }
-          // File upload configuration 
-          $file = "surat_pemesanan_$singkatan_pks" . "_" . $date . "_1";
-          $config['upload_path'] = $path;
-          $config['allowed_types'] = 'jpeg|jpg|png|pdf';
-          $config['max_size'] = 5000;
-          $config['overwrite'] = true;
-          $config['file_name'] = $file;
-
-          // Load and initialize upload library 
-          $this->load->library('upload', $config);
-          $this->upload->initialize($config);
-
-          // Upload file to server 
-          if ($this->upload->do_upload('surat_1')) {
-            $message = ('Surat 1 OK <br>');
-            $valid = true;
-          } else {
-            $message .= $this->upload->display_errors() . "<br>";
-          }
-          $this->session->set_flashdata('message', $this->flash_info($message));
-        } else {
-          $message = "Surat 1 Kosong <br>";
-        }
-        if (!empty($_FILES['surat_2']['name'])) {
-          $path = FCPATH . "media/upload/pesanan/$singkatan_pks/$date";
-          if (!is_dir($path)) {
-            mkdir($path, 0755, TRUE);
-          }
-          // File upload configuration 
-          $file = "surat_pemesanan_$singkatan_pks" . "_" . $date . "_2";
-          $config['upload_path'] = $path;
-          $config['allowed_types'] = 'jpeg|jpg|png|pdf';
-          $config['max_size'] = 5000;
-          $config['overwrite'] = true;
-          $config['file_name'] = $file;
-
-          // Load and initialize upload library 
-          $this->load->library('upload', $config);
-          $this->upload->initialize($config);
-
-          // Upload file to server 
-          if ($this->upload->do_upload('surat_2')) {
-            $message .= ('Surat 2 OK <br>');
-            $valid = true;
-          } else {
-            $message .= $this->upload->display_errors() . "<br>";
-            $valid = false;
-          }
-          $this->session->set_flashdata('message', $this->flash_info($message));
-        } else {
-          $message .= "Surat 2 Kosong <br>";
-          $valid = false;
-        }
-        if ($valid == true) {
-          $data = array('id_pesanan' => '', 'id_user' => $id_user, 'id_pks' => $id_pks, 'id_produk' => $id_produk, 'status_pesanan' => '0', 'jumlah_pesanan' => $jumlah_pesanan, 'tanggal_pemesanan' => $date, 'tanggal_selesai' => ' ');
-          $this->session->set_flashdata('message', $this->flash_success('Pesanan Berhasil Dikirim'));
-          $this->m_user->m_buat_pesanan($data);
-        } else {
-          $this->session->set_flashdata('message', $this->flash_error($message));
-        }
-      } else {
-        $this->session->set_flashdata('message', $this->flash_error('Admin Tidak Bisa Memesan Produk!'));
-      }
-      redirect('user/pemesanan_produk', 'refresh');
-      $this->session->set_flashdata('message', '');
-    }
-  }
-  public function ubah_pesanan()
-  {
-    if ($this->session->userdata('id_pks') == '0' && $this->session->userdata('is_login') == true) {
-      $value = array('komentar' => $this->input->post('komentar[]'), 'option' => $this->input->post('opt[]'), 'action' => $this->input->post('act'));
-      if (!empty($value['option'])) {
-        if ($this->m_user->m_ubah_pesanan($value) == true) {
-          $this->session->set_flashdata('message', $this->flash_success('Data Berhasil Diubah'));
-        }
-      } else {
-        $this->session->set_flashdata('message', $this->flash_info('Tidak Ada Perubahan Diterapkan'));
-      }
-      redirect('user/manajemen_pesanan', 'refresh');
-      $this->session->set_flashdata('message', '');
-    } else {
-      redirect('user', 'refresh');
-    }
-  }
 
 
   private function flash_success($message)

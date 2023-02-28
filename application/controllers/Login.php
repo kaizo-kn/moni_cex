@@ -18,15 +18,20 @@ class Login extends CI_Controller
     public function index()
     {
 
-        if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('singkatan') == 'admin') {
-            redirect('admin/admin_dashboard', 'refresh');
+        if ($this->session->userdata('is_login') == TRUE) {
+            if (
+                $this->session->userdata('singkatan') == 'admin'
+            ) {
+                redirect('admin', 'refresh');
+            } else {
+                redirect('user', 'refresh');
+            }
         } else {
             $data['page_title'] = "Masuk";
             $this->load->view('__partials/header.php', $data);
             $this->load->view('__partials/form_login.php');
             $this->load->view('__partials/footer.php');
         }
-       
     }
 
     // public function testdata()
@@ -71,10 +76,10 @@ class Login extends CI_Controller
                         $this->session->set_userdata($data_login);
                         $this->session->set_flashdata('message', $this->flash_success('Login Berhasil!'));
                         if ($this->session->userdata('id_pks') == '0') {
-                        redirect('admin/', 'refresh');
-                    } else {
-                        redirect('user/', 'refresh');
-                    }
+                            redirect('admin/', 'refresh');
+                        } else {
+                            redirect('user/', 'refresh');
+                        }
                         $this->session->set_flashdata('message', '');
                     } else {
                         $this->session->set_flashdata('message', $this->flash_error('Login Gagal! <br> Akun Sedang Digunakan!'));

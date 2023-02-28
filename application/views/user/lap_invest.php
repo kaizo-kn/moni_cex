@@ -65,16 +65,18 @@
                         }
                         echo "<tr>
                     <td>$num</td>
-                    <td class='$type_color'>$uraian_pekerjaan</td>
+                    <td class='$type_color'><a class='d-block w-100 text-normalize' href='{$basepath}index.php/user/input_progress_lap?selected=$id_pekerjaan'>
+                    $uraian_pekerjaan
+                    </a></td>
                     <td class='$type_color'>$singkatan</td>
                     <td class='d-none'>$nama_progress</td>
                     <td >
                         <div class='row justify-content-evenly '>";
                         if ($folder != "" && $folder != null) {
                             echo "
-                            <button onclick='displayDoc(`{$basepath}media/upload/dokumen/$singkatan/$folder/rab_$singkatan-$folder.pdf`)' class='border-0 col-3 btn mainbgc text-light p-1 m-1 text-light'>RAB</button>
-                            <button onclick='displayDoc(`{$basepath}media/upload/dokumen/$singkatan/$folder/st_rkst_kak_$singkatan-$folder.pdf`)' class='border-0 col-3 btn mainbgc text-light p-1 m-1 text-light'>RKST</button>
-                        <button class='col-3 btn mainbgc text-light  p-1 m-1' onclick='displayDoc(`{$basepath}media/upload/dokumen/$singkatan/$folder/kontrak_$singkatan-$folder.pdf`)'>
+                            <button onclick='displayDoc(`{$basepath}media/upload/dokumen/$singkatan/$id_pekerjaan/$folder/rab_$singkatan-$folder.pdf`)' class='border-0 col-3 btn mainbgc text-light p-1 m-1 text-light'>RAB</button>
+                            <button onclick='displayDoc(`{$basepath}media/upload/dokumen/$singkatan/$id_pekerjaan/$folder/st_rkst_kak_$singkatan-$folder.pdf`)' class='border-0 col-3 btn mainbgc text-light p-1 m-1 text-light'>RKST</button>
+                        <button class='col-3 btn mainbgc text-light  p-1 m-1' onclick='displayDoc(`{$basepath}media/upload/dokumen/$singkatan/$id_pekerjaan/$folder/kontrak_$singkatan-$folder.pdf`)'>
                         <small>Kontrak</small>
                         </button>";
                         } else {
@@ -93,20 +95,29 @@
                                 
                                 ";
                         $week = 1;
+                        $persentase_s = "";
+                        $ppl = count($persentase_progress);
+                        $counter = 0;
                         foreach ($weeklist as $key => $value) {
                             $weeknum = $value['weeknum'];
-                            $weekname =str_replace(" ","-",$value['weekname']);
+                            $weekname = str_replace(" ", "-", $value['weekname']);
                             if (isset($persentase_progress[$weekname])) {
                                 extract($persentase = $persentase_progress[$weekname]);
+                                $persentase_s = $persentase . "%";
                                 if (isset($bukti)) {
-                                    $foto_bukti = base_url("media/upload/foto_bukti_progress/$singkatan/$bukti");
-                                    echo "<td style='white-space:nowrap;text-align:center' class='$weeknum curpo'><div style='width:60px; margin-left:2px'><a href='$foto_bukti' data-gallery='portfolioGallery' class='portfolio-lightbox preview-link text-start ps-0' title='$singkatan $week'>$persentase%
+                                    $fold = pathinfo($bukti)['filename'];
+                                    $foto_bukti = base_url("media/upload/bukti/$singkatan/$id_pekerjaan/$fold/$bukti");
+                                    echo "<td style='white-space:nowrap;text-align:center' class='$weeknum curpo'><div style='width:60px; margin-left:2px'><a onclick='setDownloadImage(`$foto_bukti`)' href='$foto_bukti' data-gallery='portfolioGallery' class='portfolio-lightbox preview-link text-start ps-0' title='$bukti'>$persentase_s
                                         </a></div></td>";
                                 } else {
-                                    echo "<td style='white-space:nowrap;text-align:center;cursor:default' class='$weeknum text-secondary'><div style='width:60px; margin-left:2px'>$persentase%</div></td>";
+                                    echo "<td style='white-space:nowrap;text-align:center;cursor:default' class='$weeknum text-secondary'><div style='width:60px; margin-left:2px'>$persentase_s</div></td>";
                                 }
+                                $counter++;
                             } else {
-                                echo "<td style='white-space:nowrap;text-align:center;' class='$weeknum '><div style='width:60px; margin-left:2px'> - </div></td>";
+                                if ($ppl <= $counter) {
+                                    $persentase_s = "";
+                                }
+                                echo "<td style='white-space:nowrap;text-align:center;' class='$weeknum text-secondary'><div style='width:60px; margin-left:2px'> $persentase_s</div></td>";
                             }
                             $week++;
                         }
@@ -128,7 +139,7 @@
     </div>
 </section>
 
-<section class="d-none" id="modalContent">
+<section id="modalContent">
 
 </section>
 
@@ -154,7 +165,7 @@
         pageLength: 25
     });
 
-    let filtertype = `<div id="filter_type" class="form-inline float-start me-4 pe-3">
+    let filtertype = `<div id="filter_type" class="form-inline float-start me-4 pe-3 d-none d-lg-block d-xl-block">
             <span class="ms-2 text-dark"><label for="pks" ><input onchange="filterType()" style="transform:translateY(25%);" type="checkbox" checked name="" value="pks" id="pks" class="form-check curpo d-inline"><small class="me-1 ms-1">PKS</small></label></span>
             <span class="ms-2 text-danger"><label for="tekpol" ><input onchange="filterType()" style="transform:translateY(25%);" type="checkbox" checked name="" value="tekpol" id="tekpol" class="form-check curpo d-inline"><small class="me-1 ms-1">TEKPOL</small></label></span>
             <span class="ms-2 text-orange"><label for="hps" ><input onchange="filterType()" style="transform:translateY(25%);" type="checkbox" checked name="" value="hps" id="hps" class="form-check curpo d-inline"><small class="me-1 ms-1">HPS</small></label></span>
@@ -288,5 +299,12 @@
                 }
             }
         }
+    }
+
+    function setDownloadImage(url) {
+        let elem = `<a href="${url}" class="bi bi-download fw-bold ms-3" download></a>`
+        setTimeout(() => {
+            $('.gslide-title').append(elem)
+        }, 100);
     }
 </script>

@@ -4,7 +4,7 @@
         <div class="section-title">
             <h2> Update Progress Pengadaan</h2>
         </div>
-        <form action="<?= base_url('index.php/') ?>admin/update_progress_pekerjaan" method="post" enctype="multipart/form-data">
+        <form id="table_progress" action="<?= base_url('index.php/') ?>admin/update_progress_pekerjaan" method="post" enctype="multipart/form-data">
             <table class="table table-bordered table-hover rounded">
                 <tbody>
                     <tr>
@@ -38,7 +38,8 @@
                         </td>
                         <td class="control-group">
                             <select style="border-color:#b8b8b8;color:#303030;;font-size:13px" class="form-select" name="id_progress" id="type_progress" required>
-                                <option style="color:#b8b8b8!important;" disabled selected value="disabled">Pilih Progress... </option>
+                                <option style="color:#b8b8b8!important;" disabled selected value="disabled">Pilih
+                                    Progress... </option>
                                 <?php try {
                                     for ($i = 0; $i < count($data_progress); $i++) {
                                         echo ' <option class="curpo" value=' . $data_progress[$i]['id_progress'] . '>' . $data_progress[$i]['nama_progress'] . '</option>';
@@ -63,15 +64,15 @@
 
             </table>
             <div class="row justify-content-end">
-
+                <input id="action" type="hidden" name="action">
                 <div class="col-3 col-lg-1 ">
-                    <button class="btn btn-danger text-light  fw-bold" type="submit">Hapus</button>
+                    <button onclick="confirmDeletion();$('#action').val('hapus')" class="btn btn-danger text-light  fw-bold" type="button">Hapus</button>
                 </div>
                 <div class="col-3 col-lg-1 me-2">
                     <button onclick="$('#koreksi').removeClass('d-none')" class="btn btn-warning text-light fw-bold" type="button">Koreksi</button>
                 </div>
                 <div class="col-3 col-lg-1 ">
-                    <button class="btn mainbgc text-light fw-bold" type="submit">Kirim</button>
+                    <button onclick="$('#action').val('edit');$('#table_progress').submit()" class="btn mainbgc text-light fw-bold" type="button">Kirim</button>
                 </div>
 
             </div>
@@ -79,8 +80,23 @@
     </div>
 </section>
 <script>
-    function setCorrection(id_val) {
+    function confirmDeletion() {
+        Swal.fire({
+            title: 'Apakah anda yakin?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $("#table_progress").submit()
+            }
+        })
+    }
 
+    function setCorrection(id_val) {
         if (id_val != "") {
             id_progress = JSON.parse("[" + id_val + "]")[1];
             $('#type_progress').selectize()[0].selectize.destroy();
@@ -139,7 +155,7 @@
                 $('#loader').css('display', 'none');
                 $('#loader>div').removeClass('lds-ellipsis')
             },
-            error: function(arguments, status,error) {
+            error: function(arguments, status, error) {
                 setTimeout(() => {
                     $('html').css('overflow', 'overlay');
                     $('#loader').css('display', 'none');

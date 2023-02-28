@@ -68,3 +68,15 @@ BEGIN
    DELETE FROM `dokumentasi` WHERE `id_pekerjaan` = OLD.id_pekerjaan;
 END$$
 DELIMITER ;
+
+/*change on persentase_progress*/
+DELIMITER $$
+CREATE TRIGGER update_persentase_up
+   AFTER UPDATE
+    ON persentase_progress
+    FOR EACH ROW 
+BEGIN
+   UPDATE `uraian_pekerjaan` SET `max_persentase` = (SELECT MAX(persentase) FROM `persentase_progress` WHERE id_pekerjaan = OLD.id_pekerjaan) WHERE `id_pekerjaan` = OLD.id_pekerjaan;
+END$$
+DELIMITER ;
+
