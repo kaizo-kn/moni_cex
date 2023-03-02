@@ -12,7 +12,9 @@
                             Pilih Uraian Pekerjaan
                         </td>
                         <td class="control-group">
-                            <select onchange="$(`#list_pekerjaan-selectized`).prop('required',false);$('#u_p').text($(this).children('option').filter(':selected').text());setCorrection($(this).val())" name="id_pekerjaan" id="list_pekerjaan" required>
+                            <select
+                                onchange="$(`#list_pekerjaan-selectized`).prop('required',false);$('#u_p').text($(this).children('option').filter(':selected').text());setCorrection($(this).val())"
+                                name="id_pekerjaan" id="list_pekerjaan" required>
                                 <option disabled selected value="">Pilih Uraian Pekerjaan</option>
                                 <?php
                                 foreach ($list_pekerjaan as $key => $value) {
@@ -30,14 +32,16 @@
                         <td style="width:30%">
                             Isi Persentase Progress
                         </td>
-                        <td><input min="0" max="100" class="form-control" type="number" name="persentase_progress" id="" required></td>
+                        <td><input min="0" max="100" class="form-control" type="number" name="persentase_progress" id=""
+                                required></td>
                     </tr>
                     <tr>
                         <td style="width:30%">
                             Bukti<span class="text-danger">*</span>
                         </td>
                         <td>
-                            <input class="form-control" type="file" name="bukti" id="" accept=".jpeg,.jpg,.png">
+                            <input class="form-control" type="file" name="bukti" id="" accept=".jpeg,.jpg,.png"
+                                required>
                             <?php echo form_error('bukti', '<p class="text-danger">', '</p>'); ?>
                         </td>
                     </tr>
@@ -50,7 +54,7 @@
     </div>
 </section>
 <script>
-    $(document).ready(function() {
-        $('#list_pekerjaan').selectize();
-    });
+$(document).ready(function() {
+    $('#list_pekerjaan').selectize();
+});
 </script>

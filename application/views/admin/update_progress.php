@@ -37,7 +37,7 @@
                             Update Progress Pengadaan
                         </td>
                         <td class="control-group">
-                            <select style="border-color:#b8b8b8;color:#303030;;font-size:13px" class="form-select" name="id_progress" id="type_progress" required>
+                            <select onchange="$('#keterangan').removeClass('d-none')" style="border-color:#b8b8b8;color:#303030;;font-size:13px" class="form-select" name="id_progress" id="type_progress" required>
                                 <option style="color:#b8b8b8!important;" disabled selected value="disabled">Pilih
                                     Progress... </option>
                                 <?php try {
@@ -58,6 +58,14 @@
                         </td>
                         <td>
                             <textarea id="u_p" name="uraian_pekerjaan" rows="5" cols="5" class="form-control w-100" placeholder="Uraian Pekerjaan..."></textarea>
+                        </td>
+                    </tr>
+                    <tr id="keterangan" class="d-none">
+                        <td style="width:30%">
+                            Keterangan
+                        </td>
+                        <td>
+                            <textarea id='txt_ket' name="keterangan" rows="5" cols="5" class="form-control w-100" placeholder="Keterangan..."></textarea>
                         </td>
                     </tr>
                 </tbody>
@@ -100,7 +108,7 @@
         if (id_val != "") {
             id_progress = JSON.parse("[" + id_val + "]")[1];
             $('#type_progress').selectize()[0].selectize.destroy();
-            $(`#type_progress`).val(id_progress).change()
+            $(`#type_progress`).val(id_progress)
         }
 
 

@@ -137,7 +137,7 @@ class User extends CI_Controller
       $selected = $this->input->get('selected');
       $list_pekerjaan = $this->db->query("SELECT uraian_pekerjaan.id_pekerjaan,uraian_pekerjaan, MAX(persentase) AS persentase FROM uraian_pekerjaan JOIN persentase_progress ON uraian_pekerjaan.id_pekerjaan = persentase_progress.id_pekerjaan WHERE id_pks = $id_pks GROUP BY uraian_pekerjaan.id_pekerjaan ORDER BY id_pekerjaan DESC")->result_array();
       $this->load->view('__partials/header.php', array('page_title' => 'Input Progress Lap. Investasi'));
-      $this->load->view('__partials/menu.php', array('m2' => 'nav-menu-active'));
+      $this->load->view('__partials/menu.php');
       $this->load->view('user/input_progress_lap.php', array('list_pekerjaan' => $list_pekerjaan, 'selected' => $selected));
       $this->load->view('__partials/footer.php');
     } else {
@@ -154,7 +154,7 @@ class User extends CI_Controller
       $selected = $this->input->get('selected');
       $list_pekerjaan = $this->db->query("SELECT id_pekerjaan,uraian_pekerjaan FROM uraian_pekerjaan WHERE id_pks = $id_pks ORDER BY id_pekerjaan DESC")->result_array();
       $this->load->view('__partials/header.php', array('page_title' => 'Input Progress Lap. Investasi'));
-      $this->load->view('__partials/menu.php', array('m2' => 'nav-menu-active'));
+      $this->load->view('__partials/menu.php');
       $this->load->view('user/input_pengawasan_lap.php', array('list_pekerjaan' => $list_pekerjaan, 'selected' => $selected));
       $this->load->view('__partials/footer.php');
     } else {
@@ -223,7 +223,16 @@ class User extends CI_Controller
     }
   }
 
-
+  //ajax get history
+  public function ajax_get_history()
+  {
+    if ($this->session->userdata('is_login') == TRUE) {
+      $data = $this->m_user->m_ajax_get_history($this->input->post('id_pekerjaan'));
+      echo $data;
+    } else {
+      echo json_encode(array('message' => 'forbidden'));
+    }
+  }
 
 
   //Edit Profil User

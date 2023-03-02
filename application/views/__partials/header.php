@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="width: 100%;">
+<html lang="en" style="width: 100%;overflow:overlay;">
 
 <head>
     <meta charset="utf-8">
@@ -34,7 +34,8 @@
     <!-- JS -->
     <script src="<?= base_url() ?>assets/js/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
     <script src="<?= base_url() ?>assets/js/sweetalert2.all.js" crossorigin="anonymous"></script>
-    <script src="<?= base_url() ?>assets/vendor/datatables/js/datatables_1.13.1.min.js" crossorigin="anonymous"></script>
+    <script src="<?= base_url() ?>assets/vendor/datatables/js/datatables_1.13.1.min.js" crossorigin="anonymous">
+    </script>
     <script src="<?= base_url('assets/vendor/selectize/js/selectize.js') ?>"></script>
 
 </head>

@@ -4,7 +4,8 @@
             <h2>pengawasan pekerjaan lapangan</h2>
         </div>
         <div style="width: 100%;">
-            <table style="table-layout: fixed;width:100%" id="tabel_lap_invest" class="table table-hover table-bordered w-100">
+            <table style="table-layout: fixed;width:100%" id="tabel_lap_invest"
+                class="table table-hover table-bordered w-100">
                 <div class="row justify-content-end">
 
 
@@ -25,7 +26,6 @@
                     <th style="width:8%;vertical-align:text-top;text-align:center">Memastikan Pemakaian APD</th>
                     <th style="width:8%;vertical-align:text-top;text-align:center">Pengecekan Dokumen RKST, RAB, dan
                         Kontrak</th>
-                    <th style="width:8%;vertical-align:text-top;text-align:center">Pengecekan Material Masuk</th>
                 </thead>
 
                 <tbody>
@@ -56,7 +56,7 @@
 
                         echo "<tr>
                    <td>$num</td>
-                   <td class='$type_color'><a style='width:100vw' class='$type_color d-block' href='{$basepath}index.php/user/input_pengawasan_lap?selected=$id_pekerjaan'>$uraian_pekerjaan</a></td>
+                   <td class='$type_color'>$uraian_pekerjaan</td>
                    <td class='$type_color'>$singkatan</td>
                    <td class='d-none'>$nama_progress</td>";
                         if (!empty($dokumentasi)) {
@@ -88,15 +88,15 @@
 </section>
 
 <script>
-    let tabel_lap_invest = $('#tabel_lap_invest').DataTable({
-        columnDefs: [{
-            targets: [3, 4, 5, 6, 7, 8],
-            orderable: false
-        }],
-        pageLength: 25
-    });
+let tabel_lap_invest = $('#tabel_lap_invest').DataTable({
+    columnDefs: [{
+        targets: [3, 4, 5, 6, 7],
+        orderable: false
+    }],
+    pageLength: 25
+});
 
-    let filtertype = `<div id="filter_type" class="form-inline float-start me-4 pe-3 d-none d-lg-block d-xl-block">
+let filtertype = `<div id="filter_type" class="form-inline float-start me-4 pe-3 d-none d-lg-block d-xl-block">
             <span class="ms-2 text-dark"><label for="pks" ><input onchange="filterType()" style="transform:translateY(25%);" type="checkbox" checked name="" value="pks" id="pks" class="form-check curpo d-inline"><small class="me-1 curpo ms-1 fw-bolder">PKS</small></label></span>
             <span class="ms-2 text-danger"><label for="tekpol" ><input onchange="filterType()" style="transform:translateY(25%);" type="checkbox" checked name="" value="tekpol" id="tekpol" class="form-check curpo d-inline"><small class="me-1 curpo ms-1 fw-bolder">TEKPOL</small></label></span>
             <span class="ms-2 text-orange"><label for="hps" ><input onchange="filterType()" style="transform:translateY(25%);" type="checkbox" checked name="" value="hps" id="hps" class="form-check curpo d-inline"><small class="me-1 curpo ms-1 fw-bolder">HPS</small></label></span>
@@ -107,37 +107,37 @@
 
 
 
-    $(document).ready(function() {
+$(document).ready(function() {
 
-        setTimeout(() => {
-            $('#tabel_lap_invest_filter').append(filtertype);
-            $('#tabel_lap_invest_filter').addClass("mb-3 me-3");
-        }, 100);
-    });
+    setTimeout(() => {
+        $('#tabel_lap_invest_filter').append(filtertype);
+        $('#tabel_lap_invest_filter').addClass("mb-3 me-3");
+    }, 100);
+});
 
-    function setDownloadImage(url) {
-        let elem = `<a href="${url}" class="bi bi-download fw-bold ms-3" download></a>`
-        setTimeout(() => {
-            $('.gslide-title').append(elem)
-        }, 100);
+function setDownloadImage(url) {
+    let elem = `<a href="${url}" class="bi bi-download fw-bold ms-3" download></a>`
+    setTimeout(() => {
+        $('.gslide-title').append(elem)
+    }, 100);
+}
+
+function filterType() {
+    let res = ""
+    let filter_value = $('#filter_type input:checked').map(function() {
+        return $(this).val();
+    }).get()
+    if (filter_value.length < 1) {
+        res = 'x'
     }
 
-    function filterType() {
-        let res = ""
-        let filter_value = $('#filter_type input:checked').map(function() {
-            return $(this).val();
-        }).get()
-        if (filter_value.length < 1) {
-            res = 'x'
+    for (let index = 0; index < filter_value.length; index++) {
+        if (filter_value.length == (index + 1)) {
+            res += filter_value[index];
+        } else {
+            res += filter_value[index] + "|";
         }
-
-        for (let index = 0; index < filter_value.length; index++) {
-            if (filter_value.length == (index + 1)) {
-                res += filter_value[index];
-            } else {
-                res += filter_value[index] + "|";
-            }
-        }
-        tabel_lap_invest.columns(3).search(`${res}`, true, false).draw();
     }
+    tabel_lap_invest.columns(3).search(`${res}`, true, false).draw();
+}
 </script>

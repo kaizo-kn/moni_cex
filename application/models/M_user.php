@@ -58,8 +58,8 @@ class M_user extends CI_Model
                         $tanggal = substr($result['tanggal'], 0, 10);
                         $month =  date('M', strtotime($tanggal));
                         $ext = pathinfo($_FILES["bukti"]["name"], PATHINFO_EXTENSION);
-                        $filename = 'bukti_' . $singkatan_pks . "-W" . $result['minggu'] . "-$month." . $ext;
-                        $filenames = 'bukti_' . $singkatan_pks . "-W" . $result['minggu'] . "-$month";
+                        $filename = 'bukti_' . $singkatan_pks . "-W" . $result['minggu'] . "-$month-$id_pekerjaan." . $ext;
+                        $filenames = 'bukti_' . $singkatan_pks . "-W" . $result['minggu'] . "-$month-$id_pekerjaan";
                         $upfile = $this->db->query("UPDATE persentase_progress SET bukti = '$filename' WHERE id_persentase = $id_persentase");
                         $path = FCPATH . "media/upload/bukti/$singkatan_pks/$id_pekerjaan/$filenames";
                         if (!is_dir($path)) {
@@ -134,7 +134,7 @@ class M_user extends CI_Model
 
                 foreach ($data_pekerjaan as $key => $value) {
                         $dokumentasi = $this->db
-                                ->select("ptsi,pa,apd,doc,material")
+                                ->select("rta,material,k3sp,komis")
                                 ->from("dokumentasi")
                                 ->where('id_pekerjaan', $value['id_pekerjaan'])
                                 ->get()
@@ -180,7 +180,14 @@ class M_user extends CI_Model
                         ->result_array();
         }
 
-
+        //ajax get history
+        public function m_ajax_get_history($id_pekerjaan)
+        {
+                $this->db->query('SET lc_time_names = "id_ID"');
+                $data = $this->db->query("SELECT history.id_progress,nama_progress,DATE_FORMAT(STR_TO_DATE(tanggal, '%Y-%m-%d %H:%i:%s'), '%d %M %Y pukul %H:%i:%s WIB') as tanggal,keterangan
+                        FROM `history` JOIN progress ON history.id_progress = progress.id_progress WHERE id_pekerjaan = $id_pekerjaan ORDER BY tanggal ASC")->result_array();
+                return json_encode($data);
+        }
 
         public function m_dash_list_percent($id_pks)
         {
@@ -196,7 +203,7 @@ class M_user extends CI_Model
 
         public function m_dash_persentase($val1, $val2, $id_pks)
         {
-                return $this->db->query("SELECT up.id_pekerjaan,up.id_progress,up.uraian_pekerjaan,dp.singkatan,pr.nama_progress,IFNULL(max(pp.persentase),0) AS persentase FROM `uraian_pekerjaan` AS up JOIN daftar_nama_pks AS dp ON up.id_pks = dp.id_pks LEFT JOIN persentase_progress AS pp ON up.id_pekerjaan = pp.id_pekerjaan JOIN progress AS pr ON up.id_progress = pr.id_progress WHERE up.id_pks = $id_pks HAVING persentase >=$val1 AND persentase <= $val2 ORDER BY up.id_pekerjaan DESC;")->result_array();
+                return $this->db->query("SELECT up.id_pekerjaan,up.id_progress,up.uraian_pekerjaan,dp.singkatan,pr.nama_progress,IFNULL(max(pp.persentase),0) AS persentase FROM `uraian_pekerjaan` AS up JOIN daftar_nama_pks AS dp ON up.id_pks = dp.id_pks LEFT JOIN persentase_progress AS pp ON up.id_pekerjaan = pp.id_pekerjaan JOIN progress AS pr ON up.id_progress = pr.id_progress WHERE up.id_pks = $id_pks GROUP BY up.id_pekerjaan HAVING persentase >=$val1 AND persentase <=$val2;")->result_array();
         }
 
         public function m_update_pesanan($data)

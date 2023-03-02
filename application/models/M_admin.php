@@ -30,7 +30,6 @@ class M_admin extends CI_Model
         }
         public function m_progress_lap_invest()
         {
-                $id_pks = $this->session->userdata('id_pks');
                 $data_pekerjaan = $this->db->query("SELECT uraian_pekerjaan.id_pekerjaan,nama_progress,progress.id_progress,uraian_pekerjaan,nama_progress,folder,singkatan FROM uraian_pekerjaan JOIN daftar_nama_pks ON uraian_pekerjaan.id_pks = daftar_nama_pks.id_pks LEFT JOIN dokumen ON uraian_pekerjaan.id_pekerjaan = dokumen.id_pekerjaan LEFT JOIN progress ON progress.id_progress = uraian_pekerjaan.id_progress ORDER BY  uraian_pekerjaan.id_pekerjaan DESC")->result_array();
 
 
@@ -44,7 +43,7 @@ class M_admin extends CI_Model
         private function m_get_persentase_pekerjaan($id_pekerjaan)
         {
                 $return_arr = array();
-                $result = $this->db->query("SELECT `persentase`, `minggu`, `tanggal`, `bukti` FROM `persentase_progress`")
+                $result = $this->db->query("SELECT `persentase`, `minggu`, `tanggal`, `bukti` FROM `persentase_progress` WHERE id_pekerjaan = $id_pekerjaan")
                         ->result_array();
                 foreach ($result as $key => $value) {
                         $tanggal = substr($value['tanggal'], 0, 10);
@@ -85,7 +84,7 @@ class M_admin extends CI_Model
 
                 foreach ($data_pekerjaan as $key => $value) {
                         $dokumentasi = $this->db
-                                ->select("ptsi,pa,apd,doc,material")
+                                ->select("rta,material,k3sp,komis")
                                 ->from("dokumentasi")
                                 ->where('id_pekerjaan', $value['id_pekerjaan'])
                                 ->get()
@@ -142,12 +141,22 @@ class M_admin extends CI_Model
                 return json_encode($data);
         }
 
+        public function m_ajax_get_history($id_pekerjaan)
+        {
+                $this->db->query('SET lc_time_names = "id_ID"');
+                $data = $this->db->query("SELECT history.id_progress,nama_progress,DATE_FORMAT(STR_TO_DATE(tanggal, '%Y-%m-%d %H:%i:%s'), '%d %M %Y pukul %H:%i:%s WIB') as tanggal,keterangan
+                        FROM `history` JOIN progress ON history.id_progress = progress.id_progress WHERE id_pekerjaan = $id_pekerjaan ORDER BY tanggal ASC")->result_array();
+                return json_encode($data);
+        }
+
         public function m_update_progress($data)
         {
+                $data_hs = array('id_pekerjaan' => $data['id_pekerjaan'], 'id_progress' => $data['id_progress'], 'keterangan' => $this->filter_input_def($this->input->post('keterangan')));
                 $this->db->where('id_pekerjaan', $data['id_pekerjaan']);
                 if ($data['action'] == 'edit') {
                         unset($data['action']);
-                        return $this->db->update('uraian_pekerjaan', $data);
+                        $this->db->update('uraian_pekerjaan', $data);
+                        return $this->db->insert('history', $data_hs);
                 } else {
                         $id_pekerjaan = array($data['id_pekerjaan']);
                         return $this->m_hapus_pekerjaan($id_pekerjaan);

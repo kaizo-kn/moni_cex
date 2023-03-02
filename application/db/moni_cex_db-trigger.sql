@@ -11,6 +11,17 @@ END$$
 DELIMITER ;
 
 
+DELIMITER $$
+CREATE TRIGGER insert_up_history
+   AFTER INSERT
+    ON uraian_pekerjaan
+    FOR EACH ROW 
+BEGIN
+    INSERT INTO `history`(`id_pekerjaan`,`id_progress`) VALUES (NEW.id_pekerjaan,1);
+END$$
+DELIMITER ;
+
+
 
 DELIMITER $$
 CREATE TRIGGER insert_up_persentase
@@ -43,6 +54,16 @@ CREATE TRIGGER delete_up_dokumen
     FOR EACH ROW 
 BEGIN
 DELETE FROM  `dokumen` WHERE `id_pekerjaan` = OLD.id_pekerjaan;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER delete_up_history
+   AFTER DELETE
+    ON uraian_pekerjaan
+    FOR EACH ROW 
+BEGIN
+DELETE FROM  `history` WHERE `id_pekerjaan` = OLD.id_pekerjaan;
 END$$
 DELIMITER ;
 

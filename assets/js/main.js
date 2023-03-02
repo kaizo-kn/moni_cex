@@ -211,9 +211,10 @@ function setRangeSliderValue(rangeval) {
 
 //Order Modal
 function buildModal(content,callback) {
+    $('html').css('overflow','hidden')
     let modal = `<!-- Modal -->
         <div onclick='checkModal(this)'  class="modal fade " id="staticBackdrop"  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div style="max-width: 95vw;" class="modal-dialog modal-dialog-centered ">
+            <div style="max-width: 95vw;" class="modal-dialog modal-dialog-centered d-flex justify-content-center">
                 <div class="modal-content">
                     ${content}
                 </div>

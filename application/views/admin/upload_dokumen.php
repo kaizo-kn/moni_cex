@@ -4,7 +4,8 @@
         <div class="section-title">
             <h2> Upload Dokumen</h2>
         </div>
-        <form action="<?= base_url('index.php/') ?>admin/upload_dokumen_pekerjaan" method="post" enctype="multipart/form-data">
+        <form action="<?= base_url('index.php/') ?>admin/upload_dokumen_pekerjaan" method="post"
+            enctype="multipart/form-data">
             <table class="table table-bordered table-hover rounded">
                 <tbody>
                     <tr>
@@ -27,7 +28,8 @@
                             Pilih Uraian Pekerjaan
                         </td>
                         <td class="control-group">
-                            <select  onchange="$(`#list_pekerjaan-selectized`).prop('required',false);" name="id_pekerjaan" id="list_pekerjaan" class="" required>
+                            <select onchange="$(`#list_pekerjaan-selectized`).prop('required',false);"
+                                name="id_pekerjaan" id="list_pekerjaan" class="" required>
                                 <option disabled selected value="">Pilih Uraian Pekerjaan</option>
                                 <?php for ($i = 0; $i < count($data_pekerjaan); $i++) {
                                     echo ' <option class="curpo" value=' . $data_pekerjaan[$i]['id_pekerjaan'] . '>' . $data_pekerjaan[$i]['pekerjaan'] . '</option>';
@@ -42,7 +44,7 @@
                             RAB<span class="text-danger">*</span>
                         </td>
                         <td>
-                            <input class="form-control" type="file" name="rab" id="" accept=".pdf" required>
+                            <input class="form-control" type="file" name="rab" id="" accept=".pdf">
                             <?php echo form_error('rab', '<p class="text-danger">', '</p>'); ?>
                         </td>
                     </tr>
@@ -51,7 +53,7 @@
                             Spesifikasi Teknis/RKST/KAK<span class="text-danger">*</span>
                         </td>
                         <td>
-                            <input class="form-control" type="file" name="st_rkst_kak" id="" accept=".pdf" required>
+                            <input class="form-control" type="file" name="st_rkst_kak" id="" accept=".pdf">
                             <?php echo form_error('st_rkst_kak', '<p class="text-danger">', '</p>'); ?>
                         </td>
                     </tr>
@@ -60,14 +62,24 @@
                             Kontrak<span class="text-danger">*</span>
                         </td>
                         <td>
-                            <input class="form-control" type="file" name="kontrak" id="" accept=".pdf" required>
+                            <input class="form-control" type="file" name="kontrak" id="" accept=".pdf">
                             <?php echo form_error('kontrak', '<p class="text-danger">', '</p>'); ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:30%">
+                            SPPBJ<span class="text-danger">*</span>
+                        </td>
+                        <td>
+                            <input class="form-control" type="file" name="sppbj" id="" accept=".pdf">
+                            <?php echo form_error('sppbj', '<p class="text-danger">', '</p>'); ?>
                         </td>
                     </tr>
                 </tbody>
 
             </table>
-            <p class="mt-2"><span class="text-danger">*</span>Hanya menerima dokumen dengan format .pdf dan ukuran maks. 5MB</p>
+            <p class="mt-2"><span class="text-danger">*</span>Hanya menerima dokumen dengan format .pdf dan ukuran maks.
+                5MB</p>
             <div class="row justify-content-end">
                 <div class="col-3 col-lg-1 ">
                     <button class="btn mainbgc text-light fw-bold" type="submit">Kirim</button>
@@ -78,54 +90,54 @@
     </div>
 </section>
 <script>
-    $('#list_pks').selectize();
-    $('#list_pekerjaan').selectize();
+$('#list_pks').selectize();
+$('#list_pekerjaan').selectize();
 
-    function getListPekerjaan(id_pks) {
-        let wait = true
-        setTimeout(() => {
-            if (wait) {
-                $('#loader>div').addClass('lds-ellipsis')
-                $('#loader').css('display', 'block');
-                $('html').css('overflow', 'hidden');
-            }
-        }, 100);
-        let basepath = $('#basepath').val()
-        $.ajax({
-            url: basepath + "index.php/admin/ajax_get_list_doc_pekerjaan",
-            type: "POST",
-            dataType: 'json',
-            data: {
-                id_pks: id_pks,
-            },
-            success: function(data) {
-                console.log(data)
-                wait = false
-                $('#list_pekerjaan').selectize()[0].selectize.destroy();
-                let my_options = []
-                for (let index = 0; index < data.length; index++) {
-                    const element = data[index];
-                    my_options[index] = {
-                        'id': element['id_pekerjaan'] + "," + element['id_progress'],
-                        'uraian_pekerjaan': element['uraian_pekerjaan']
-                    }
+function getListPekerjaan(id_pks) {
+    let wait = true
+    setTimeout(() => {
+        if (wait) {
+            $('#loader>div').addClass('lds-ellipsis')
+            $('#loader').css('display', 'block');
+            $('html').css('overflow', 'hidden');
+        }
+    }, 100);
+    let basepath = $('#basepath').val()
+    $.ajax({
+        url: basepath + "index.php/admin/ajax_get_list_doc_pekerjaan",
+        type: "POST",
+        dataType: 'json',
+        data: {
+            id_pks: id_pks,
+        },
+        success: function(data) {
+            console.log(data)
+            wait = false
+            $('#list_pekerjaan').selectize()[0].selectize.destroy();
+            let my_options = []
+            for (let index = 0; index < data.length; index++) {
+                const element = data[index];
+                my_options[index] = {
+                    'id': element['id_pekerjaan'] + "," + element['id_progress'],
+                    'uraian_pekerjaan': element['uraian_pekerjaan']
                 }
-                $('#list_pekerjaan').selectize({
-                    maxItems: 1,
-                    valueField: 'id',
-                    labelField: 'uraian_pekerjaan',
-                    searchField: 'uraian_pekerjaan',
-                    options: my_options,
-                    create: false
-                });
-                $(`#list_pekerjaan-selectized`).prop('required', true)
-                $('html').css('overflow', 'overlay');
-                $('#loader').css('display', 'none');
-                $('#loader>div').removeClass('lds-ellipsis')
-            },
-            error: function(arguments, status) {
-                alert('Error, cek koneksi')
             }
-        });
-    }
+            $('#list_pekerjaan').selectize({
+                maxItems: 1,
+                valueField: 'id',
+                labelField: 'uraian_pekerjaan',
+                searchField: 'uraian_pekerjaan',
+                options: my_options,
+                create: false
+            });
+            $(`#list_pekerjaan-selectized`).prop('required', true)
+            $('html').css('overflow', 'overlay');
+            $('#loader').css('display', 'none');
+            $('#loader>div').removeClass('lds-ellipsis')
+        },
+        error: function(arguments, status) {
+            alert('Error, cek koneksi')
+        }
+    });
+}
 </script>

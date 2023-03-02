@@ -116,7 +116,7 @@ class Admin extends CI_Controller
       if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
          $data = array('data_pekerjaan' => $this->db->query('SELECT up.id_progress, up.id_pekerjaan,up.uraian_pekerjaan,nama_progress,nama_pks, max(persentase) AS persentase FROM `uraian_pekerjaan` AS up JOIN daftar_nama_pks AS dp ON up.id_pks = dp.id_pks JOIN progress ON up.id_progress = progress.id_progress JOIN persentase_progress ON up.id_pekerjaan = persentase_progress.id_pekerjaan GROUP BY id_pekerjaan;')->result_array());
          $this->load->view('__partials/header.php', array('page_title' => 'Hapus Pekerjaan'));
-         $this->load->view('__partials/menu.php', array('m1' => 'nav-menu-active'));
+         $this->load->view('__partials/menu.php');
          $this->load->view('admin/hapus_pekerjaan.php', $data);
          $this->load->view('__partials/footer.php');
       } else {
@@ -154,7 +154,7 @@ class Admin extends CI_Controller
       if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
          $data = $this->db->query('SELECT id_pks,nama_pks from daftar_nama_pks where id_pks > 0 order by nama_pks asc')->result_array();
          $this->load->view('__partials/header.php', array('page_title' => 'Progress Lap. Investasi'));
-         $this->load->view('__partials/menu.php', array('m2' => 'nav-menu-active'));
+         $this->load->view('__partials/menu.php');
          $this->load->view('admin/input_uraian_pekerjaan.php', array('data_pks' => $data));
          $this->load->view('__partials/footer.php');
       } else {
@@ -167,7 +167,7 @@ class Admin extends CI_Controller
       if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
          $data = $this->m_admin->m_progress_update();
          $this->load->view('__partials/header.php', array('page_title' => 'Progress Lap. Investasi'));
-         $this->load->view('__partials/menu.php', array('m2' => 'nav-menu-active'));
+         $this->load->view('__partials/menu.php');
          $this->load->view('admin/update_progress.php', $data);
          $this->load->view('__partials/footer.php');
       } else {
@@ -181,7 +181,7 @@ class Admin extends CI_Controller
          $data_user = array('data_user' => $this->m_admin->m_list_user());
          $title['page_title'] = "Reset Password User";
          $this->load->view('__partials/header.php', array('page_title' => 'Progress Lap. Investasi'));
-         $this->load->view('__partials/menu.php', array('m2' => 'nav-menu-active'));
+         $this->load->view('__partials/menu.php');
          $this->load->view('admin/reset_user.php', $data_user);
          $this->load->view('__partials/footer.php');
       } else {
@@ -227,7 +227,7 @@ class Admin extends CI_Controller
          $id_pks = $this->input->post('id_pks');
          $singkatan = $this->m_admin->get_singkatan_pks($id_pks);
          $folder = date('d-m-Y_H-i-s');
-         $path = FCPATH . "media/upload/dokumen/$singkatan/$id_pekerjaan/$folder/";
+         $path = FCPATH . "media/upload/dokumen/$singkatan/$id_pekerjaan/";
          $config['upload_path'] = "$path";
          $config['allowed_types'] = 'pdf';
          $config['max_size'] = 5000;
@@ -267,6 +267,16 @@ class Admin extends CI_Controller
                $message .= "Kontrak: " . $this->upload->display_errors() . "<br>";
             }
          }
+         if (isset($_FILES["sppbj"]["name"])) {
+            $config['file_name'] = "sppbj_$singkatan-$folder.pdf";
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+            if ($this->upload->do_upload('sppbj')) {
+               $message .= "SPPBJ Ok <br>";
+            } else {
+               $message .= "SPPBJ: " . $this->upload->display_errors() . "<br>";
+            }
+         }
          $data = compact('id_pekerjaan', 'folder');
          if ($this->m_admin->m_upload_dokumen_pekerjaan($data) == 1) {
             $message .= "Data Ok";
@@ -284,7 +294,7 @@ class Admin extends CI_Controller
       if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
          $data = $this->db->query('SELECT id_pks,nama_pks from daftar_nama_pks where id_pks > 0 order by nama_pks asc')->result_array();
          $this->load->view('__partials/header.php', array('page_title' => 'Progress Lap. Investasi'));
-         $this->load->view('__partials/menu.php', array('m2' => 'nav-menu-active'));
+         $this->load->view('__partials/menu.php');
          $this->load->view('admin/upload_dokumen.php', array('data_pks' => $data, 'data_pekerjaan' => $data));
          $this->load->view('__partials/footer.php');
       } else {
@@ -313,7 +323,7 @@ class Admin extends CI_Controller
          $title['page_title'] = "Profil";
 
          $this->load->view('__partials/header.php', array('page_title' => 'Progress Lap. Investasi'));
-         $this->load->view('__partials/menu.php', array('m3' => 'nav-menu-active'));
+         $this->load->view('__partials/menu.php');
          $this->load->view('admin/ubah_profil.php', $userdata);
          $this->load->view('__partials/footer.php');
       } else {
@@ -441,6 +451,16 @@ class Admin extends CI_Controller
    {
       if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
          $data = $this->m_admin->m_ajax_get_list_pekerjaan($this->input->post('id_pks'));
+         echo $data;
+      } else {
+         echo json_encode(array('message' => 'forbidden'));
+      }
+   }
+   //ajax get history
+   public function ajax_get_history()
+   {
+      if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
+         $data = $this->m_admin->m_ajax_get_history($this->input->post('id_pekerjaan'));
          echo $data;
       } else {
          echo json_encode(array('message' => 'forbidden'));
