@@ -3,13 +3,13 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 06 Mar 2023 pada 04.16
--- Versi server: 10.4.19-MariaDB
--- Versi PHP: 7.4.20
+-- Generation Time: Mar 06, 2023 at 04:43 AM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 7.4.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
-SET time_zone = "+00:00";
+SET time_zone = "+07:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -26,7 +26,9 @@ USE `moni_cex_db`;
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `daftar_nama_pks`
+-- Table structure for table `daftar_nama_pks`
+--
+-- Creation: Feb 23, 2023 at 02:03 AM
 --
 
 DROP TABLE IF EXISTS `daftar_nama_pks`;
@@ -38,7 +40,11 @@ CREATE TABLE `daftar_nama_pks` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `daftar_nama_pks`
+-- RELATIONSHIPS FOR TABLE `daftar_nama_pks`:
+--
+
+--
+-- Dumping data for table `daftar_nama_pks`
 --
 
 INSERT INTO `daftar_nama_pks` (`id_pks`, `nama_pks`, `singkatan`, `distrik`) VALUES
@@ -63,7 +69,10 @@ INSERT INTO `daftar_nama_pks` (`id_pks`, `nama_pks`, `singkatan`, `distrik`) VAL
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `dokumen`
+-- Table structure for table `dokumen`
+--
+-- Creation: Feb 23, 2023 at 02:03 AM
+-- Last update: Mar 06, 2023 at 03:41 AM
 --
 
 DROP TABLE IF EXISTS `dokumen`;
@@ -73,16 +82,16 @@ CREATE TABLE `dokumen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `dokumen`
+-- RELATIONSHIPS FOR TABLE `dokumen`:
 --
-
-INSERT INTO `dokumen` (`id_pekerjaan`, `folder`) VALUES
-(10, '05-03-2023_08-05-30');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `dokumentasi`
+-- Table structure for table `dokumentasi`
+--
+-- Creation: Mar 02, 2023 at 07:05 AM
+-- Last update: Mar 06, 2023 at 03:41 AM
 --
 
 DROP TABLE IF EXISTS `dokumentasi`;
@@ -95,16 +104,16 @@ CREATE TABLE `dokumentasi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `dokumentasi`
+-- RELATIONSHIPS FOR TABLE `dokumentasi`:
 --
-
-INSERT INTO `dokumentasi` (`id_pekerjaan`, `rta`, `k3sp`, `komis`, `material`) VALUES
-(10, NULL, 'k3sp_ado_10.jpg', NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `history`
+-- Table structure for table `history`
+--
+-- Creation: Mar 01, 2023 at 08:49 AM
+-- Last update: Mar 06, 2023 at 03:41 AM
 --
 
 DROP TABLE IF EXISTS `history`;
@@ -117,17 +126,16 @@ CREATE TABLE `history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `history`
+-- RELATIONSHIPS FOR TABLE `history`:
 --
-
-INSERT INTO `history` (`id_history`, `id_pekerjaan`, `id_progress`, `tanggal`, `keterangan`) VALUES
-(27, 10, 1, '2023-03-05 06:59:03', 'Uraian Pekerjaan Dibuat'),
-(28, 10, 2, '2023-03-05 07:15:07', 'pks ke tekpol');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `persentase_progress`
+-- Table structure for table `persentase_progress`
+--
+-- Creation: Apr 12, 2023 at 03:40 PM
+-- Last update: Mar 06, 2023 at 03:41 AM
 --
 
 DROP TABLE IF EXISTS `persentase_progress`;
@@ -141,16 +149,15 @@ CREATE TABLE `persentase_progress` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `persentase_progress`
+-- RELATIONSHIPS FOR TABLE `persentase_progress`:
 --
-
-INSERT INTO `persentase_progress` (`id_persentase`, `id_pekerjaan`, `tanggal`, `minggu`, `persentase`, `bukti`) VALUES
-(10, 10, '2023-03-05 06:59:03', 2, 20, 'bukti_ado-W2-Mar-10.jpg');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `progress`
+-- Table structure for table `progress`
+--
+-- Creation: Feb 23, 2023 at 02:03 AM
 --
 
 DROP TABLE IF EXISTS `progress`;
@@ -160,7 +167,11 @@ CREATE TABLE `progress` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `progress`
+-- RELATIONSHIPS FOR TABLE `progress`:
+--
+
+--
+-- Dumping data for table `progress`
 --
 
 INSERT INTO `progress` (`id_progress`, `nama_progress`) VALUES
@@ -173,7 +184,10 @@ INSERT INTO `progress` (`id_progress`, `nama_progress`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `uraian_pekerjaan`
+-- Table structure for table `uraian_pekerjaan`
+--
+-- Creation: Apr 12, 2023 at 03:39 PM
+-- Last update: Mar 06, 2023 at 03:41 AM
 --
 
 DROP TABLE IF EXISTS `uraian_pekerjaan`;
@@ -188,14 +202,11 @@ CREATE TABLE `uraian_pekerjaan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `uraian_pekerjaan`
+-- RELATIONSHIPS FOR TABLE `uraian_pekerjaan`:
 --
 
-INSERT INTO `uraian_pekerjaan` (`id_pekerjaan`, `id_pks`, `id_progress`, `id_dokumen`, `uraian_pekerjaan`, `tanggal`, `max_persentase`) VALUES
-(10, 1, 2, NULL, 'test1', '2023-03-05 06:59:03', 20);
-
 --
--- Trigger `uraian_pekerjaan`
+-- Triggers `uraian_pekerjaan`
 --
 DROP TRIGGER IF EXISTS `delete_up_dokumen`;
 DELIMITER $$
@@ -257,7 +268,10 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user`
+-- Table structure for table `user`
+--
+-- Creation: Feb 23, 2023 at 02:03 AM
+-- Last update: Mar 06, 2023 at 03:43 AM
 --
 
 DROP TABLE IF EXISTS `user`;
@@ -273,11 +287,15 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `user`
+-- RELATIONSHIPS FOR TABLE `user`:
+--
+
+--
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id_user`, `id_pks`, `username`, `nama`, `password`, `foto_profil`, `date_created`, `last_active`) VALUES
-(0, '0', 'admin_cex', 'Admin', '$2y$05$TPX./TKJQbCW1LiJDPN0EuzoIjoQJ7EfkI7qbIRE0RWm.R4bx0a7O', 'admin.png', '2023-03-06 03:16:23', 1678072583),
+(0, '0', 'admin_cex', 'Admin', '$2y$05$TPX./TKJQbCW1LiJDPN0EuzoIjoQJ7EfkI7qbIRE0RWm.R4bx0a7O', 'admin.png', '2023-03-06 03:43:12', 1678074192),
 (1, '1', 'pks_ado', 'PKS Adolina', '$2y$05$OrKBL6uohN9IPdAbhfLT8eoHS/4yjQ47Vc6sCQUBEz8tJ6BpJouMm', 'ado.jpeg', '2023-03-06 02:38:37', 1678070302),
 (2, '2', 'pks_baj', 'PKS Bah Jambi', '$2y$05$OrKBL6uohN9IPdAbhfLT8eoHS/4yjQ47Vc6sCQUBEz8tJ6BpJouMm', 'default.png', '2023-03-05 05:00:42', 1677992427),
 (3, '3', 'pks_doi', 'PKS Dolok Ilir', '$2y$05$fCcvSizE5k/L9RtM1yzGieAZoSitbSj3VCYURayRLimj3FCblxlfe', 'default.png', '0000-00-00 00:00:00', 0),
@@ -300,86 +318,128 @@ INSERT INTO `user` (`id_user`, `id_pks`, `username`, `nama`, `password`, `foto_p
 --
 
 --
--- Indeks untuk tabel `daftar_nama_pks`
+-- Indexes for table `daftar_nama_pks`
 --
 ALTER TABLE `daftar_nama_pks`
   ADD PRIMARY KEY (`id_pks`);
 
 --
--- Indeks untuk tabel `dokumen`
+-- Indexes for table `dokumen`
 --
 ALTER TABLE `dokumen`
   ADD PRIMARY KEY (`id_pekerjaan`);
 
 --
--- Indeks untuk tabel `dokumentasi`
+-- Indexes for table `dokumentasi`
 --
 ALTER TABLE `dokumentasi`
   ADD PRIMARY KEY (`id_pekerjaan`);
 
 --
--- Indeks untuk tabel `history`
+-- Indexes for table `history`
 --
 ALTER TABLE `history`
   ADD PRIMARY KEY (`id_history`);
 
 --
--- Indeks untuk tabel `persentase_progress`
+-- Indexes for table `persentase_progress`
 --
 ALTER TABLE `persentase_progress`
   ADD PRIMARY KEY (`id_persentase`);
 
 --
--- Indeks untuk tabel `progress`
+-- Indexes for table `progress`
 --
 ALTER TABLE `progress`
   ADD PRIMARY KEY (`id_progress`);
 
 --
--- Indeks untuk tabel `uraian_pekerjaan`
+-- Indexes for table `uraian_pekerjaan`
 --
 ALTER TABLE `uraian_pekerjaan`
   ADD PRIMARY KEY (`id_pekerjaan`);
 
 --
--- Indeks untuk tabel `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `dokumen`
+-- AUTO_INCREMENT for table `dokumen`
 --
 ALTER TABLE `dokumen`
   MODIFY `id_pekerjaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
--- AUTO_INCREMENT untuk tabel `history`
+-- AUTO_INCREMENT for table `history`
 --
 ALTER TABLE `history`
   MODIFY `id_history` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
--- AUTO_INCREMENT untuk tabel `persentase_progress`
+-- AUTO_INCREMENT for table `persentase_progress`
 --
 ALTER TABLE `persentase_progress`
   MODIFY `id_persentase` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT untuk tabel `uraian_pekerjaan`
+-- AUTO_INCREMENT for table `uraian_pekerjaan`
 --
 ALTER TABLE `uraian_pekerjaan`
   MODIFY `id_pekerjaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT untuk tabel `user`
+-- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `id_user` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+
+--
+-- Metadata
+--
+USE `phpmyadmin`;
+
+--
+-- Metadata for table daftar_nama_pks
+--
+
+--
+-- Metadata for table dokumen
+--
+
+--
+-- Metadata for table dokumentasi
+--
+
+--
+-- Metadata for table history
+--
+
+--
+-- Metadata for table persentase_progress
+--
+
+--
+-- Metadata for table progress
+--
+
+--
+-- Metadata for table uraian_pekerjaan
+--
+
+--
+-- Metadata for table user
+--
+
+--
+-- Metadata for database moni_cex_db
+--
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
