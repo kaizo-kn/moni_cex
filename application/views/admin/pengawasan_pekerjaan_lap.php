@@ -9,7 +9,7 @@
 
 
                     <?php $tw = "50em";
-                    $url = base_url('media/upload/surat/SE-Penetapan-6-Standarisasi-PMT_page-0002.jpg');
+
                     ?>
 
                 </div>
