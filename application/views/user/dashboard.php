@@ -539,12 +539,16 @@
                 $('#loader>div').removeClass('lds-ellipsis')
                 buildModal(html, callback);
             },
-            error: function(arguments, status) {
+            error: function(arguments, status, error) {
                 wait = false;
                 $('html').css('overflow', 'overlay');
                 $('#loader').css('display', 'none');
                 $('#loader>div').removeClass('lds-ellipsis')
-                alert('Error, cek koneksi');
+                Swal.fire({
+                    icon: "warning",
+                    title: "Error",
+                    text: error
+                })
             }
         });
 
@@ -639,13 +643,12 @@
                 buildModal(html, callback);
             },
             error: function(arguments, status, error) {
-                alert('Error, cek koneksi')
+                Swal.fire({
+                    icon: "warning",
+                    title: "Error",
+                    text: error
+                })
             }
         });
-
-        // //
-        // UPDATE `persentase_progress` SET `persentase` = '10' WHERE id_pekerjaan = 15;
-        //             SELECT persentase_progress.id_pekerjaan,persentase,id_pks FROM `persentase_progress` JOIN uraian_pekerjaan ON persentase_progress.id_pekerjaan = uraian_pekerjaan.id_pekerjaan WHERE id_pks = 1;
-
     }
 </script>

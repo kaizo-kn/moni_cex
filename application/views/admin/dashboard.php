@@ -412,12 +412,16 @@
                 $('#loader>div').removeClass('lds-ellipsis')
                 buildModal(html, callback);
             },
-            error: function(arguments, status) {
+            error: function(arguments, status, error) {
                 wait = false;
                 $('html').css('overflow', 'overlay');
                 $('#loader').css('display', 'none');
                 $('#loader>div').removeClass('lds-ellipsis')
-                alert('Error, cek koneksi');
+                Swal.fire({
+                    icon: "warning",
+                    title: "Error",
+                    text: error
+                })
             }
         });
 
@@ -508,8 +512,12 @@
                 $('#loader>div').removeClass('lds-ellipsis')
                 buildModal(html, callback);
             },
-            error: function(arguments, status) {
-                alert('Error, cek koneksi')
+            error: function(arguments, status, error) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Error",
+                    text: error
+                })
             }
         });
 

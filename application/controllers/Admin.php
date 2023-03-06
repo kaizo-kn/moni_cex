@@ -221,12 +221,13 @@ class Admin extends CI_Controller
    public function upload_dokumen_pekerjaan()
    {
       if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
+         $file_exist = false;
          $id_pekerjaan = $this->input->post('id_pekerjaan');
          $id_pekerjaan = explode(",", $id_pekerjaan);
          $id_pekerjaan = $id_pekerjaan[0];
          $id_pks = $this->input->post('id_pks');
          $singkatan = $this->m_admin->get_singkatan_pks($id_pks);
-         $folder = date('d-m-Y_H-i-s');
+         $folder = $singkatan . "-" . $id_pekerjaan;
          $path = FCPATH . "media/upload/dokumen/$singkatan/$id_pekerjaan/";
          $config['upload_path'] = "$path";
          $config['allowed_types'] = 'pdf';
@@ -238,52 +239,61 @@ class Admin extends CI_Controller
             mkdir($path, 0755, TRUE);
          }
          if (isset($_FILES["rab"]["name"])) {
-            $config['file_name'] = "rab_$singkatan-$folder.pdf";
+            $config['file_name'] = "rab_$folder.pdf";
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
             if ($this->upload->do_upload('rab')) {
                $message = "RAB Ok" . "<br>";
+               $file_exist = true;
             } else {
                $message = "RAB: " . $this->upload->display_errors() . "<br>";
             }
          }
          if (isset($_FILES["st_rkst_kak"]["name"])) {
-            $config['file_name'] = "st_rkst_kak_$singkatan-$folder.pdf";
+            $config['file_name'] = "st_rkst_kak_$folder.pdf";
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
             if ($this->upload->do_upload('st_rkst_kak')) {
                $message .= "ST/RKST/KAK Ok" . "<br>";
+               $file_exist = true;
             } else {
                $message .= "ST/RKST/KAK: " . $this->upload->display_errors() . "<br>";
             }
          }
          if (isset($_FILES["kontrak"]["name"])) {
-            $config['file_name'] = "kontrak_$singkatan-$folder.pdf";
+            $config['file_name'] = "kontrak_$folder.pdf";
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
             if ($this->upload->do_upload('kontrak')) {
                $message .= "Kontrak Ok <br>";
+               $file_exist = true;
             } else {
                $message .= "Kontrak: " . $this->upload->display_errors() . "<br>";
             }
          }
          if (isset($_FILES["sppbj"]["name"])) {
-            $config['file_name'] = "sppbj_$singkatan-$folder.pdf";
+            $config['file_name'] = "sppbj_$folder.pdf";
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
             if ($this->upload->do_upload('sppbj')) {
                $message .= "SPPBJ Ok <br>";
+               $file_exist = true;
             } else {
                $message .= "SPPBJ: " . $this->upload->display_errors() . "<br>";
             }
          }
-         $data = compact('id_pekerjaan', 'folder');
-         if ($this->m_admin->m_upload_dokumen_pekerjaan($data) == 1) {
-            $message .= "Data Ok";
+         if ($file_exist) {
+            $data = compact('id_pekerjaan', 'folder');
+            if ($this->m_admin->m_upload_dokumen_pekerjaan($data) == 1) {
+               $message .= "Data Ok";
+            } else {
+               $message .= "Data Error";
+            }
+            $this->session->set_flashdata('message', $this->flash_info($message));
          } else {
-            $message .= "Data Error";
+            $message = 'Pilih Setidaknya 1 File!';
+            $this->session->set_flashdata('message', $this->flash_error($message));
          }
-         $this->session->set_flashdata('message', $this->flash_info($message));
          redirect('admin/upload_dokumen', 'refresh');
       } else {
          redirect('login', 'refresh');
