@@ -84,7 +84,7 @@
                                         foreach ($weeklist as $key => $value) {
                                             $weeknum = $value['weeknum'];
                                             $weekname = $value['weekname'];
-                                            echo "<td style='white-space:nowrap ;' class='$weeknum'><div  onclick='alert($(`#scr`).scrollLeft())' style='width:60px; margin-left:2px'>$weekname</div></td>";
+                                            echo "<td style='white-space:nowrap ;' class='$weeknum'><div  style='width:60px; margin-left:2px'>$weekname</div></td>";
                                         } ?>
                                     </tr>
                                 </tbody>
@@ -139,27 +139,27 @@
                         <div class='row justify-content-evenly '>";
 
 
-                        if (file_exists("{$fcpath}media/upload/dokumen/$singkatan/$id_pekerjaan/rab_$singkatan-$folder.pdf")) {
+                        if (file_exists("{$fcpath}media/upload/dokumen/$singkatan/$id_pekerjaan/rab_$folder.pdf")) {
                             echo "
-                                <button onclick='displayDoc(`{$basepath}media/upload/dokumen/$singkatan/$id_pekerjaan/rab_$singkatan-$folder.pdf`)' class='border-0 col-2 btn mainbgc text-light p-1 m-1 text-light'>RAB</button>";
+                                <button onclick='displayDoc(`{$basepath}media/upload/dokumen/$singkatan/$id_pekerjaan/rab_$folder.pdf`)' class='border-0 col-2 btn mainbgc text-light p-1 m-1 text-light'>RAB</button>";
                         } else {
                             echo "<button style='pointer-events: none;' class='col-2 btn btn-secondary text-light p-1 m-1'>RAB</button>";
                         }
-                        if (file_exists("{$fcpath}media/upload/dokumen/$singkatan/$id_pekerjaan/st_rkst_kak_$singkatan-$folder.pdf")) {
+                        if (file_exists("{$fcpath}media/upload/dokumen/$singkatan/$id_pekerjaan/st_rkst_kak_$folder.pdf")) {
                             echo "
-                                <button onclick='displayDoc(`{$basepath}media/upload/dokumen/$singkatan/$id_pekerjaan/st_rkst_kak_$singkatan-$folder.pdf`)' class='border-0 col-2 btn mainbgc text-light p-1 m-1 text-light'>RKST</button>";
+                                <button onclick='displayDoc(`{$basepath}media/upload/dokumen/$singkatan/$id_pekerjaan/st_rkst_kak_$folder.pdf`)' class='border-0 col-2 btn mainbgc text-light p-1 m-1 text-light'>RKST</button>";
                         } else {
                             echo "<button style='pointer-events: none;' class='col-2 btn btn-secondary text-light p-1 m-1'>RKST</button>";
                         }
-                        if (file_exists("{$fcpath}media/upload/dokumen/$singkatan/$id_pekerjaan/kontrak_$singkatan-$folder.pdf")) {
+                        if (file_exists("{$fcpath}media/upload/dokumen/$singkatan/$id_pekerjaan/kontrak_$folder.pdf")) {
                             echo "
-                                <button onclick='displayDoc(`{$basepath}media/upload/dokumen/$singkatan/$id_pekerjaan/kontrak_$singkatan-$folder.pdf`)' class='border-0 col-2 btn mainbgc text-light p-1 m-1 text-light'>RAB</button>";
+                                <button onclick='displayDoc(`{$basepath}media/upload/dokumen/$singkatan/$id_pekerjaan/kontrak_$folder.pdf`)' class='border-0 col-2 btn mainbgc text-light p-1 m-1 text-light'>RAB</button>";
                         } else {
                             echo "<button style='pointer-events: none;' class='col-2 btn btn-secondary text-light p-1 m-1'><small>Kontrak</small></button>";
                         }
-                        if (file_exists("{$fcpath}media/upload/dokumen/$singkatan/$id_pekerjaan/sppbj_$singkatan-$folder.pdf")) {
+                        if (file_exists("{$fcpath}media/upload/dokumen/$singkatan/$id_pekerjaan/sppbj_$folder.pdf")) {
                             echo "
-                                <button onclick='displayDoc(`{$basepath}media/upload/dokumen/$singkatan/$id_pekerjaan/sppbj_$singkatan-$folder.pdf`)' class='border-0 col-2 btn mainbgc text-light p-1 m-1 text-light'><small>SPPBJ</small></button>";
+                                <button onclick='displayDoc(`{$basepath}media/upload/dokumen/$singkatan/$id_pekerjaan/sppbj_$folder.pdf`)' class='border-0 col-2 btn mainbgc text-light p-1 m-1 text-light'><small>SPPBJ</small></button>";
                         } else {
                             echo "<button style='pointer-events: none;' class='col-2 btn btn-secondary text-light p-1 m-1'><small>SPPBJ</small> </button>";
                         }
