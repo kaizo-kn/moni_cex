@@ -1,3 +1,8 @@
+mysql settings:
+strict mode: off (important)
+timezone: UTC +07:00 (important)
+
+
 ###################
 What is CodeIgniter
 ###################
