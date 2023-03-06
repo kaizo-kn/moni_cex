@@ -1,9 +1,5 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-
-/**
- * @property Messages_model $messagesModel
- */
 class Login extends CI_Controller
 {
 
@@ -27,27 +23,10 @@ class Login extends CI_Controller
                 redirect('user', 'refresh');
             }
         } else {
-            $data['page_title'] = "Masuk";
-            $this->load->view('__partials/header.php', $data);
-            $this->load->view('__partials/form_login.php');
-            $this->load->view('__partials/footer.php');
+            $data['page_title'] = "Log In";
+            $this->load->view('__partials/form_login.php', $data);
         }
     }
-
-    // public function testdata()
-    // {
-    //     $r = $this->db->query("select * from daftar_nama_pks ")->result_array();
-    //     for ($i = 0; $i < count($r); $i++) {
-    //         $id_pks = $r[$i]['id_pks'];
-    //         $nama = $r[$i]['nama_pks'];
-    //         $username = $r[$i]['singkatan'];
-    //         $pass = '$2y$05$fCcvSizE5k/L9RtM1yzGieAZoSitbSj3VCYURayRLimj3FCblxlfe';
-    //         echo "INSERT INTO `user`(`id_user`, `id_pks`, `username`, `nama`, `password`, `email`, `foto_profil`, `date_created`, `last_active`) VALUES ($i,$id_pks,'pks_$username','PKS $nama','$pass','','','',0);";
-
-    //         //$this->db->insert('user')->get_compiled();
-    //     }
-    // }
-
 
     public function login_process()
     {

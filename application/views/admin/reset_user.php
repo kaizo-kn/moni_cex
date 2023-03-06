@@ -14,17 +14,17 @@
             </thead>
             <tbody>
                 <?php
-                for ($i = 0; $i <count($data_user); $i++) {
+                for ($i = 0; $i < count($data_user); $i++) {
                     $no = $i + 1;
                     $id_user = $data_user[$i]['id_user'];
                     $nama = $data_user[$i]['nama'];
                     $nama_pks = $data_user[$i]['nama_pks'];
                     $distrik = $data_user[$i]['distrik'];
                     $last_active = $data_user[$i]['last_active'];
-                    if((time()-intval($last_active) )<=15){
-                        $last_active ="<span class='text-success'>User Sedang Aktif</span>";
-                    }else{
-                        $last_active = 'Terakhir Online: '.date('d-M-Y H:i',$data_user[$i]['last_active']);
+                    if ((time() - intval($last_active)) <= 15) {
+                        $last_active = "<span class='text-success'>User Sedang Aktif</span>";
+                    } else {
+                        $last_active = 'Terakhir Online: ' . date('d-M-Y H:i', $data_user[$i]['last_active']);
                     }
                     echo "<tr><td>$no</td>
                 <td>$nama</td>
@@ -41,13 +41,16 @@
     </div>
 </section>
 <script>
-
-    $(function(){
+    $(function() {
         $('#tabel_user').DataTable({
+            "language": {
+                "url": "<?= base_url() ?>assets/vendor/datatables/js/indonesian.json"
+            },
             columnDefs: [{
                 targets: [5],
                 orderable: false
-            }],pageLength:25
+            }],
+            pageLength: 25
         });
     })
 </script>

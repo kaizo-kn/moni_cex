@@ -1,4 +1,4 @@
-<body>
+<body style="position: relative;">
     <div style="display: flex;
     justify-content: center;
     align-items: center;
@@ -8,8 +8,9 @@
     left: 0px;
     right: 0px;
     bottom: 0px;
+    width:100%;height:100%;
     backdrop-filter: blur(10px);" id="preloader">
-        <div style="background-color:darkgray;border-radius:10px" class="lds-ellipsis">
+        <div style="background-color:var(--main-bg-color);border-radius:10px" class="lds-ellipsis">
             <div></div>
             <div></div>
             <div></div>
@@ -17,10 +18,19 @@
         </div>
     </div>
 
-    <div style="overflow:hidden;display:none;position:absolute;z-index:99;top:0;left:0;right:0;bottom:0;backdrop-filter:blur(10px)"
-        id="loader">
-        <div style="top:50%;left:50%;transform:translate(-50%,-50%);background-color:darkgray;border-radius:10px"
-            class="">
+    <div style="display: none;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 9999;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    width:100%;height:100%;
+    backdrop-filter: blur(10px);" id="loader">
+        <div style="top:50%;left:50%;transform:translate(-50%,-50%);background-color:var(--main-bg-color);border-radius:10px"
+            class=" d-flex">
             <div></div>
             <div></div>
             <div></div>
@@ -87,13 +97,9 @@
                     class="me-2"><a class="text-center mt-2 logo-title align-items-center me-5 btm-border fromCenter"
                     href="<?= base_url('index.php/') ?>">MONI-CEX </a></h1>
 
-
-            <div class="text-center text-light d-inline d-xl-none d-md-inline d-lg-none d-sm-inline ms-xl-5 ms-lg-3">
-                <span data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop"
-                    aria-controls="offcanvasWithBackdrop" class="fs-3 text-dark"><i style="font-weight: bold;"
-                        class="bi bi-list text-light pt-3 pb-5"></i></span>
-                <span class="ms-1 ps-4 pe-2 fs-2 fw-bold text-center">MONI-CEX </span>
-            </div>
+            <span data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop"
+                aria-controls="offcanvasWithBackdrop" class="fs-3 text-dark"><i style="font-weight: bold;"
+                    class="bi bi-list text-light pt-5 curpo pb-5"></i></span>
             <nav id="navbar" class="navbar">
                 <?php
                 $type = "";
@@ -125,7 +131,7 @@
             <!-- .navbar -->
             <div class="">
                 <?php if ($this->session->userdata('is_login') == TRUE) {
-                    $this->load->view('profile.php');
+                    $this->load->view('__partials/profile.php');
                 } ?>
             </div>
         </div>

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" style="width: 100%;overflow:overlay;">
+<html lang="en" style="width: 100%;overflow:hidden">
 
 <head>
-    <meta charset="utf-8">
+    <meta charset=" utf-8">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
 
     <title><?= $page_title ?> - Moni Cex</title>

@@ -93,6 +93,9 @@
     }
 
     let tabel_pekerjaan = $('#tabel_pekerjaan').DataTable({
+        "language": {
+            "url": "<?= base_url() ?>assets/vendor/datatables/js/indonesian.json"
+        },
         columnDefs: [{
             targets: [5],
             orderable: false

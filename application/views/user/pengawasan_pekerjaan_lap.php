@@ -17,17 +17,14 @@
                 <thead class="mainbgc text-light mt-2">
                     <th style="width:1em;vertical-align:middle;text-align:left">No.</th>
                     <th style="min-width:30rem;vertical-align:middle;text-align:center">Uraian Pekerjaan</th>
-                    <th style="width:1em;vertical-align:middle;text-align:center">PKS</th>
+                    <th style="width:2em;vertical-align:middle;text-align:center">PKS</th>
                     <th style="display:none;">Progress</th>
-                    <th style="width:8%;vertical-align:text-top;text-align:center">Presentasi Timeline dan Safety
-                        Induction</th>
-                    <th style="width:8%;vertical-align:text-top;text-align:center">Pengecekan Administrasi (Sertifikat,
-                        dll)</th>
-                    <th style="width:8%;vertical-align:text-top;text-align:center">Memastikan Pemakaian APD</th>
-                    <th style="width:8%;vertical-align:text-top;text-align:center">Pengecekan Dokumen RKST, RAB, dan
-                        Kontrak</th>
+                    <th style="width:8%;vertical-align:text-top;text-align:center">Rapat Teknis Awal</th>
+                    <th style="width:8%;vertical-align:text-top;text-align:center">Pengecekan Material Masuk dan
+                        Spesifikasi Sesuai Kontrak</th>
+                    <th style="width:8%;vertical-align:text-top;text-align:center">K3 Saat Pengerjaan</th>
+                    <th style="width:8%;vertical-align:text-top;text-align:center">Komisioning</th>
                 </thead>
-
                 <tbody>
                     <?php
                     $basepath = base_url();
@@ -89,6 +86,9 @@
 
 <script>
 let tabel_lap_invest = $('#tabel_lap_invest').DataTable({
+    "language": {
+        "url": "<?= base_url() ?>assets/vendor/datatables/js/indonesian.json"
+    },
     columnDefs: [{
         targets: [3, 4, 5, 6, 7],
         orderable: false
