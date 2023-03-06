@@ -1,57 +1,56 @@
-
 <div class="table-responsive">
-                <table id="tabel_review" class="table table-bordered">
-                    <thead class="mainbgc text-light">
-                        <th>No.</th>
-                        <th>Nama Reviewer</th>
-                        <th>Judul Review</th>
-                        <th>Tanggal Review</th>
-                        <th>Isi Review</th>
-                        <th>Foto</th>
-                        <th>Opsi</th>
-                    </thead>
+    <table id="tabel_review" class="table table-bordered">
+        <thead class="mainbgc text-light">
+            <th>No.</th>
+            <th>Nama Reviewer</th>
+            <th>Judul Review</th>
+            <th>Tanggal Review</th>
+            <th>Isi Review</th>
+            <th>Foto</th>
+            <th>Opsi</th>
+        </thead>
 
-                    <tbody>
-                        <?php
-                        if (count($data_review) > 0) {
-                            for ($i = 0; $i < count($data_review); $i++) {
-                                $r_gambar_review = "";
-                                $num = $i + 1;
-                                extract($data_review[$i]);
-                                $gambar_review = array();
-                                if (isset($gambar) || !empty($gambar)) {
-                                    $path = FCPATH . "media/upload/review/$gambar/";
-                                    $foldername_array = directory_map($path);
-                                    if (!empty($foldername_array)) {
-                                        for ($xi = 0; $xi < count($foldername_array); $xi++) {
-                                            $gambar_review[$xi] = $foldername_array[$xi];
-                                        }
-                                    }
-                                }
-                                if (count($gambar_review) > 0) {
-                                    for ($xi = 0; $xi < count($gambar_review); $xi++) {
-                                        $n = $xi + 1;
-                                        $rgr = $gambar_review[$xi];
-                                        $r_gambar_review .= "<a href='" . base_url('media/upload/review/') . "$gambar/$rgr' data-gallery='portfolioGallery' class='portfolio-lightbox preview-link text-start ps-s me-1' title='Review $nama'>Foto $n</a>";
-                                    }
-                                }
-                                if ($is_hidden == '0') {
-                                    $opt1 = "<button class='btn btn-warning' type='button' >Sembuyikan</button>";
-                                    $statusclass = 'text-info';
-                                } else if ($is_hidden == '1') {
-                                    $opt1 = "<button class='btn btn-secondary' type='button' >Tampilkan</button>";
-                                    $statusclass = 'text-secondary';
-                                }
+        <tbody>
+            <?php
+            if (count($data_review) > 0) {
+                for ($i = 0; $i < count($data_review); $i++) {
+                    $r_gambar_review = "";
+                    $num = $i + 1;
+                    extract($data_review[$i]);
+                    $gambar_review = array();
+                    if (isset($gambar) || !empty($gambar)) {
+                        $path = FCPATH . "media/upload/review/$gambar/";
+                        $foldername_array = directory_map($path);
+                        if (!empty($foldername_array)) {
+                            for ($xi = 0; $xi < count($foldername_array); $xi++) {
+                                $gambar_review[$xi] = $foldername_array[$xi];
+                            }
+                        }
+                    }
+                    if (count($gambar_review) > 0) {
+                        for ($xi = 0; $xi < count($gambar_review); $xi++) {
+                            $n = $xi + 1;
+                            $rgr = $gambar_review[$xi];
+                            $r_gambar_review .= "<a href='" . base_url('media/upload/review/') . "$gambar/$rgr' data-gallery='portfolioGallery' class='portfolio-lightbox preview-link text-start ps-s me-1' title='Review $nama'>Foto $n</a>";
+                        }
+                    }
+                    if ($is_hidden == '0') {
+                        $opt1 = "<button class='btn btn-warning' type='button' >Sembuyikan</button>";
+                        $statusclass = 'text-info';
+                    } else if ($is_hidden == '1') {
+                        $opt1 = "<button class='btn btn-secondary' type='button' >Tampilkan</button>";
+                        $statusclass = 'text-secondary';
+                    }
 
-                                if ($id_balasan == null) {
-                                    $opt2 = "<button class='btn btn-primary' type='button' >Tulis Balasan</button>";
-                                } else {
-                                    $opt2 = "<button onclick='editRev(`$id_balasan`)' class='btn btn-primary' type='button' >Lihat Balasan</button>";
-                                }
+                    if ($id_balasan == null) {
+                        $opt2 = "<button class='btn btn-primary' type='button' >Tulis Balasan</button>";
+                    } else {
+                        $opt2 = "<button onclick='editRev(`$id_balasan`)' class='btn btn-primary' type='button' >Lihat Balasan</button>";
+                    }
 
-                                $opt3 = "<button class='btn btn-danger' type='button' >Hapus Review</button>";
+                    $opt3 = "<button class='btn btn-danger' type='button' >Hapus Review</button>";
 
-                                echo "
+                    echo "
                                 <tr class='$statusclass'>
                                 <td>$num</td>
                             <td>$nama</td>
@@ -74,15 +73,15 @@
                                
                                
                                ";
-                            }
-                        }
-                        
+                }
+            }
 
-                        ?>
-                    </tbody>
-                </table>
-            </div>
-            
+
+            ?>
+        </tbody>
+    </table>
+</div>
+
 
 
 <section id="modalContent">
@@ -131,8 +130,8 @@
                         `
                         buildOrderModal(html);
 
-                        
-                        
+
+
                         //     preConfirm: () => {
 
 
@@ -170,3 +169,25 @@
         // })
     }
 </script>
+
+
+<?php
+if ($this->session->userdata('is_login') == true && $this->session->userdata('id_pks') == '0') {
+    $role = 'admin';
+} else {
+    $role = 'user';
+}
+if ($this->session->userdata('is_login') == true && $this->session->userdata('id_pks') == '0') {
+    echo '<li><a href="' . site_url("admin/lap_invest") . '">Progress Lap. Investasi</a></li>
+            <li><a href="' . site_url("admin/pengawasan_pekerjaan_lap") . '">Pengawasan Pekerjaan Lap.</a></li>
+            <li><a href="' . site_url("admin/input_pekerjaan") . '">Input Uraian Pekerjaan</a></li>
+            <li><a href="' . site_url("admin/update_progress") . '">Update Progress</a></li>
+            <li><a href="' . site_url("admin/upload_dokumen") . '">Upload Dokumen</a></li>
+            <li><a href="' . site_url("admin/hapus_pekerjaan") . '">Hapus Uraian Pekerjaan</a></li>
+            <li><a href="' . site_url("admin/reset_user") . '">Reset Password User</a></li>';
+} else {
+    echo '<li><a href="' . site_url("user/input_progress_lap") . '">Input Progress Lap. Invest.</a></li>
+            <li><a href="' . site_url("user/input_pengawasan_lap") . '"><small>Upload Dokumen Pengawasan Pekerjaan Lap.</small></a></li>
+            ';
+}
+?>

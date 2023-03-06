@@ -1,4 +1,11 @@
-<?php $this->session->set_userdata('sitenow', $this->uri->segment(1)); ?>
+<?php $this->session->set_userdata('sitenow', $this->uri->segment(1));
+if ($this->session->userdata('is_login') == true && $this->session->userdata('id_pks') == '0') {
+    $role = 'admin';
+} else {
+    $role = 'user';
+}
+
+?>
 <input type="hidden" id="basepath" value="<?= base_url() ?>">
 <div id="profile" class="pe-4 d-block mt-2">
     <span class="dropdown">
@@ -9,26 +16,6 @@
     </span>
     <ul style="position:absolute;right:0px;margin-top:5px" class="ms-2">
         <li><a href="<?php echo site_url('admin/') ?>">Dashboard</a></li>
-        <?php
-        if ($this->session->userdata('is_login') == true && $this->session->userdata('id_pks') == '0') {
-            $role = 'admin';
-        } else {
-            $role = 'user';
-        }
-        if ($this->session->userdata('is_login') == true && $this->session->userdata('id_pks') == '0') {
-            echo '<li><a href="' . site_url("admin/lap_invest") . '">Progress Lap. Investasi</a></li>
-            <li><a href="' . site_url("admin/pengawasan_pekerjaan_lap") . '">Pengawasan Pekerjaan Lap.</a></li>
-            <li><a href="' . site_url("admin/input_pekerjaan") . '">Input Uraian Pekerjaan</a></li>
-            <li><a href="' . site_url("admin/update_progress") . '">Update Progress</a></li>
-            <li><a href="' . site_url("admin/upload_dokumen") . '">Upload Dokumen</a></li>
-            <li><a href="' . site_url("admin/hapus_pekerjaan") . '">Hapus Uraian Pekerjaan</a></li>
-            <li><a href="' . site_url("admin/reset_user") . '">Reset Password User</a></li>';
-        } else {
-            echo '<li><a href="' . site_url("user/input_progress_lap") . '">Input Progress Lap. Invest.</a></li>
-            <li><a href="' . site_url("user/input_pengawasan_lap") . '"><small>Upload Dokumen Pengawasan Pekerjaan Lap.</small></a></li>
-            ';
-        }
-        ?>
         <li><a href="<?php echo site_url("$role/profile") ?>">Ubah Profil</a></li>
         <li><a href="<?php echo site_url('login/logout') ?>">Keluar</a></li>
     </ul>

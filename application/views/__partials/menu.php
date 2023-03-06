@@ -29,8 +29,7 @@
     bottom: 0px;
     width:100%;height:100%;
     backdrop-filter: blur(10px);" id="loader">
-        <div style="top:50%;left:50%;transform:translate(-50%,-50%);background-color:var(--main-bg-color);border-radius:10px"
-            class=" d-flex">
+        <div style="top:50%;left:50%;transform:translate(-50%,-50%);background-color:var(--main-bg-color);border-radius:10px" class=" d-flex">
             <div></div>
             <div></div>
             <div></div>
@@ -46,14 +45,12 @@
     }
     ?>
     <!-- Offcanvas -->
-    <div class="offcanvas offcanvas-start rounded" tabindex="-1" id="offcanvasWithBackdrop"
-        aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas offcanvas-start rounded" tabindex="-1" id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">
         <div class="offcanvas-header">
             <h1 class="logo me-auto">
                 <p class="text-main">Menu: </p>
             </h1>
-            <button style="border: solid 1px white;border-radius: 5px;" type="button" class=" btn text-dark"
-                data-bs-dismiss="offcanvas" aria-label="Close"><i class="bi bi-chevron-left text-dark"></i></button>
+            <button style="border: solid 1px white;border-radius: 5px;" type="button" class=" btn text-dark" data-bs-dismiss="offcanvas" aria-label="Close"><i class="bi bi-chevron-left text-dark"></i></button>
         </div>
 
         <div class="offcanvas-body text-dark">
@@ -63,8 +60,7 @@
                                                                         }  ?>">
                     <div id="menu-home" class="d-flex align-items-center p-1">
                         <div style="vertical-align: middle;" class="d-table-cell">
-                            <span class="bi bi-speedometer fw-bold fs-2"></span><span
-                                class="ps-3 fw-bold mb-3">Dashboard</span>
+                            <span class="bi bi-speedometer fw-bold fs-2"></span><span class="ps-3 fw-bold mb-3">Dashboard</span>
                         </div>
                     </div>
                 </a>
@@ -73,8 +69,7 @@
                                                                                 }  ?>">
                     <div id="menu-info-produk" class="d-flex align-items-center p-1">
                         <div style="vertical-align: middle;" class="d-table-cell">
-                            <span class="bi bi-cone-striped fw-bold fs-2"></span><span
-                                class="ps-3 fw-bold mb-3">Progress
+                            <span class="bi bi-cone-striped fw-bold fs-2"></span><span class="ps-3 fw-bold mb-3">Progress
                                 Lap. Investasi</span>
                         </div>
                     </div>
@@ -84,28 +79,53 @@
                                                                                                 }  ?>">
                     <div id="menu-info-harga" class="d-flex align-items-center p-1">
                         <div style="vertical-align: middle;" class="d-table-cell">
-                            <span class="bi bi-binoculars-fill fw-bold fs-2"></span><span
-                                class="ps-3 fw-bold mb-3">Pengawasan Pekerjaan Lap.</span>
+                            <span class="bi bi-binoculars-fill fw-bold fs-2"></span><span class="ps-3 fw-bold mb-3">Pengawasan Pekerjaan Lap.</span>
                         </div>
                     </div>
                 </a>
             </div>
             <div class="mt-2">
-                <?php
-                if ($role == 'admin') {
-                    echo '
-            <a class="mb-3 main-text-color" href="' . site_url("admin/input_pekerjaan") . '">Input Uraian Pekerjaan</a><br>
-            <a class="mb-3 main-text-color" href="' . site_url("admin/update_progress") . '">Update Progress</a><br>
-            <a class="mb-3 main-text-color" href="' . site_url("admin/upload_dokumen") . '">Upload Dokumen</a><br>
-            <a class="mb-3 main-text-color" href="' . site_url("admin/hapus_pekerjaan") . '">Hapus Uraian Pekerjaan</a><br>
-            <a class="mb-3 main-text-color" href="' . site_url("admin/reset_user") . '">Reset Password User</a><br>';
-                } else {
-                    echo '<a class="mb-3 main-text-color" href="' . site_url("user/input_progress_lap") . '">Input Progress Lap. Invest.</a><br>
-            <a class="mb-3 main-text-color" href="' . site_url("user/input_pengawasan_lap") . '"><small>Upload Dokumen Pengawasan Pekerjaan Lap.</small></a><br>
-            ';
-                } ?>
-                <a class="mb-3 main-text-color" href="<?php echo site_url("$role/profile") ?>">Ubah Profil</a><br>
-                <a class="mb-3 main-text-color" href="<?php echo site_url('login/logout') ?>">Keluar</a><br>
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+
+                    <?php
+
+
+                    if ($role == 'admin') {
+                        $menu_arr = array('Dashboard', 'Progress Lap. Investasi', 'Pengawasan Pekerjaan Lapangan', 'Input Uraian Pekerjaan', 'Update Progress', 'Upload Dokumen', 'Hapus Uraian Pekerjaan', 'Reset Password User');
+                        $link_arr = array('', 'lap_invest', 'pengawasan_pekerjaan_lap', 'input_pekerjaan', 'update_progress', 'upload_dokumen', 'hapus_pekerjaan', 'reset_user');
+                        $bsp = base_url('index.php/admin');
+                    } else {
+                        $menu_arr = array('Dashboard', 'Progress Lap. Investasi', 'Pengawasan Pekerjaan Lapangan', 'Input Progress Lap. Invest', 'Upload Dokumen Pengawasan');
+                        $link_arr = array('', 'lap_invest', 'pengawasan_pekerjaan_lap', 'input_progress_lap', 'input_pengawasan_lap');
+                        $bsp = base_url('index.php/user');
+                    }
+                    $expanded = $this->uri->segment(2);
+                    $collapsed = 'collapsed';
+                    for ($ie = 0; $ie < count($menu_arr); $ie++) {
+                        if ($expanded == $link_arr[$ie]) {
+                            $collapsed = '';
+                        } else {
+                            $collapsed = 'collapsed';
+                        }
+                        echo "
+    <div class='accordion-item'>
+    <a href='$bsp/$link_arr[$ie]'>
+    <p class='accordion-header' id='flush-heading$ie'>
+        <button class='accordion-button $collapsed' type='button' data-bs-toggle='collapse'
+            data-bs-target='#flush-collapse$ie' aria-expanded='false'
+            aria-controls='flush-collapse$ie'>
+            {$menu_arr[$ie]}
+        </button>
+    </p>
+    </a>
+    <div id='flush-collapse$ie' class='accordion-collapse collapse'
+        aria-labelledby='flush-heading$ie' data-bs-parent='#accordionFlushExample'>
+    </div>
+</div>
+    ";
+                    }
+                    ?>
+                </div>
             </div>
 
         </div>
@@ -117,12 +137,7 @@
 
         <div style="min-height:3rem;" class="container-fluid pe-2 d-inline-flex justify-content-between">
             <div class="d-inline">
-                <span class="logo d-none d-lg-block d-xl-block d-md-none align-items-center mt-2"><img
-                        src="<?= base_url() ?>assets/img/icons/Logo_PTPN4.png" alt="" sizes="160x160" srcset=""
-                        class="me-2"><strong class="text-light fs-5 mt-5 pt-2 me-3">MONI-CEX</strong><span
-                        data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop"
-                        aria-controls="offcanvasWithBackdrop" class="fs-3 mt-3"><i style="font-weight: bold;"
-                            class="bi bi-list text-light mt-5 pt-5 curpo pb-5"></i></span>
+                <span class="logo d-none d-lg-block d-xl-block d-md-none align-items-center mt-2"><img src="<?= base_url() ?>assets/img/icons/Logo_PTPN4.png" alt="" sizes="160x160" srcset="" class="me-2"><strong class="text-light fs-5 mt-5 pt-2 me-3">MONI-CEX</strong><span data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop" class="fs-3 mt-3"><i style="font-weight: bold;" class="bi bi-list text-light mt-5 pt-5 curpo pb-5"></i></span>
                 </span>
 
             </div>
@@ -143,12 +158,10 @@
                                                                                                         echo $m1;
                                                                                                     } ?>">DASHBOARD</a>
                     </li>
-                    <li><a href="<?= base_url("index.php/$type/lap_invest") ?>" id="nav-info-produk"
-                            class="nav-link <?php if (isset($m2)) {
+                    <li><a href="<?= base_url("index.php/$type/lap_invest") ?>" id="nav-info-produk" class="nav-link <?php if (isset($m2)) {
                                                                                                                             echo $m2;
                                                                                                                         } ?>">PROGRESS LAP. INVESTASI</a></li>
-                    <li><a href="<?= base_url("index.php/$type/pengawasan_pekerjaan_lap") ?>" id="nav-info-harga"
-                            class="nav-link <?php if (isset($m3)) {
+                    <li><a href="<?= base_url("index.php/$type/pengawasan_pekerjaan_lap") ?>" id="nav-info-harga" class="nav-link <?php if (isset($m3)) {
                                                                                                                                         echo $m3;
                                                                                                                                     } ?>">PENGAWASAN PEKERJAAN LAPANGAN</a></li>
 
