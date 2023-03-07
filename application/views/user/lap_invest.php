@@ -129,7 +129,7 @@
              
                 <ul style='position:absolute;right:0px;top:-5px' class='ms-2'>
                 <li><a onclick='fireHist(`$id_pekerjaan`)'>History</a></li>
-                    <li><a href='{$basepath}index.php/user/input_progress_lap?selected=$id_pekerjaan'>Ubah</a></li>
+                    <li><a href='{$basepath}index.php/user/input_progress_lap?selected=$id_pekerjaan'>Update Progress</a></li>
                     </ul>
 </div>
                     </td>

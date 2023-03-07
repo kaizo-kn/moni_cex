@@ -101,77 +101,77 @@
         try {
             let basepath = $('#basepath').val()
             $.ajax({
-                    url: basepath + "index.php/user/ajax_get_balasan",
-                    type: "POST",
-                    dataType: 'json',
-                    data: {
-                        id_balasan: id_balasan,
-                    },
-                    success: function(response) {
-                        console.log(response)
-                        try {
-                            let balasan = response['balasan']
-                            let gambar_balasan = response['items_gambar_balasan']
-                            let folder_gambar_balasan = response['gambar_balasan']
-                            let gambar_balasan_html = ``;
-                            if (gambar_balasan != null) {
-                                for (let index = 0; index < gambar_balasan.length; index++) {
-                                    const element = gambar_balasan[index];
-                                    gambar_balasan_html += `<div class='d-block mb-2'>
+                url: basepath + "index.php/user/ajax_get_balasan",
+                type: "POST",
+                dataType: 'json',
+                data: {
+                    id_balasan: id_balasan,
+                },
+                success: function(response) {
+                    console.log(response)
+                    try {
+                        let balasan = response['balasan']
+                        let gambar_balasan = response['items_gambar_balasan']
+                        let folder_gambar_balasan = response['gambar_balasan']
+                        let gambar_balasan_html = ``;
+                        if (gambar_balasan != null) {
+                            for (let index = 0; index < gambar_balasan.length; index++) {
+                                const element = gambar_balasan[index];
+                                gambar_balasan_html += `<div class='d-block mb-2'>
                                 <button class='btn mainbgc text-light rounded-pill' onclick='Swal.fire({
                             showConfirmButton: true,
                             title: "Gambar ${index+1}",
                             
                             imageUrl:"${basepath}/media/upload/answer/${folder_gambar_balasan}/${element}"
                         })'>Gambar ${index+1}</button></div>`
-                                }
                             }
-                            let html = `<textarea rows="10" class="w-100 form-control " style='white-space:pre-line'> ${balasan}</textarea>${gambar_balasan_html}
-                        `
-                            buildOrderModal(html);
-
-
-
-                            //     preConfirm: () => {
-
-
-                            //     }
-                            // })
-                        } catch (error) {
-
                         }
+                        let html = `<textarea rows="10" class="w-100 form-control " style='white-space:pre-line'> ${balasan}</textarea>${gambar_balasan_html}
+                        `
+                        buildOrderModal(html);
 
-                    },
-                    error: function(arguments, status) {
-                        console.log(arguments)
-                        Swal.fire({
-                            icon: "warning",
-                            title: "Error",
-                            text: error
-                        })
-                        'set komentar gagal, cek koneksi')
+
+
+                        //     preConfirm: () => {
+
+
+                        //     }
+                        // })
+                    } catch (error) {
+
+                    }
+
+                },
+                error: function(arguments, status) {
+                    console.log(arguments)
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Error",
+                        text: error
+                    })
+
                 }
             });
-    } catch (error) {
-        console.log(error)
-    }
+        } catch (error) {
+            console.log(error)
+        }
 
 
-    //let komentar = $(`textarea#${id_pesanan}`).text();
+        //let komentar = $(`textarea#${id_pesanan}`).text();
 
-    // Swal.fire({
-    //     title: "Komentar",
-    //     html: `<input type='hidden' value='${id_pesanan}' id='id_${id_pesanan}'> <textarea onchange="$('#chb_${id_pesanan}').prop('checked', true),$('textarea#${id_pesanan}').prop('disabled',false);"  rows="15" class="w-100 form-control " style='white-space:pre-line' id='c_${id_pesanan}'>${komentar}</textarea>`,
-    //     preConfirm: () => {
-    //         const comment = Swal.getPopup().querySelector(`#c_${id_pesanan}`).value
-    //         return {
-    //             komentar: comment,
-    //             r_id_pesanan: id_pesanan
-    //         }
-    //     }
-    // }).then((result) => {
+        // Swal.fire({
+        //     title: "Komentar",
+        //     html: `<input type='hidden' value='${id_pesanan}' id='id_${id_pesanan}'> <textarea onchange="$('#chb_${id_pesanan}').prop('checked', true),$('textarea#${id_pesanan}').prop('disabled',false);"  rows="15" class="w-100 form-control " style='white-space:pre-line' id='c_${id_pesanan}'>${komentar}</textarea>`,
+        //     preConfirm: () => {
+        //         const comment = Swal.getPopup().querySelector(`#c_${id_pesanan}`).value
+        //         return {
+        //             komentar: comment,
+        //             r_id_pesanan: id_pesanan
+        //         }
+        //     }
+        // }).then((result) => {
 
-    // })
+        // })
     }
 </script>
 

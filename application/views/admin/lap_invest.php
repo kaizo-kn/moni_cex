@@ -119,7 +119,21 @@
                         }
                         echo "<tr>
                     <td>$num</td>
-                    <td onclick='fireHist(`$id_pekerjaan`)' class='$type_color curpo'>$uraian_pekerjaan</td>
+                    <td class='$type_color curpo dropdown'>
+                   
+                    <div class='dropdown'>
+                        <p>
+                        $uraian_pekerjaan</p>
+             
+                <ul style='position:absolute;right:0px;top:-5px' class='ms-2'>
+                <li><a onclick='fireHist(`$id_pekerjaan`)'>History</a></li>
+                    <li><a href='{$basepath}index.php/admin/update_progress?s_id_pks=$id_pks&s_id_pekerjaan=$id_pekerjaan'>Update Progress</a></li>
+                    </ul>
+                    <li><a href='{$basepath}index.php/admin/upload_dokumen?s_id_pks=$id_pks&s_id_pekerjaan$id_pekerjaan'>Upload Dokumen</a></li>
+                    </ul>
+</div>
+                    </td>
+                    
                     <td class='$type_color'>$singkatan</td>
                     <td class='d-none'>$nama_progress</td>
                     <td >

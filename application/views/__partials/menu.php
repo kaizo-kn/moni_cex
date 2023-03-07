@@ -1,3 +1,19 @@
+<style>
+    .accordion-button::after {
+        margin-left: 0;
+        margin-right: 0.5em;
+        background-image: none;
+        background-color: transparent;
+    }
+
+    .accordion-button:not(.collapsed):after {
+        margin-left: 0;
+        margin-right: 0.5em;
+        background-image: none;
+        background-color: transparent;
+    }
+</style>
+
 <body style="position: relative;">
     <div style="display: flex;
     justify-content: center;
@@ -54,60 +70,26 @@
         </div>
 
         <div class="offcanvas-body text-dark">
-            <div class="d-none d-sm-block d-md-block d-lg-none d-xl-none">
-                <a href="<?= base_url("index.php/{$role}/"); ?>" class="<?php if (isset($m1)) {
-                                                                            echo $m1;
-                                                                        }  ?>">
-                    <div id="menu-home" class="d-flex align-items-center p-1">
-                        <div style="vertical-align: middle;" class="d-table-cell">
-                            <span class="bi bi-speedometer fw-bold fs-2"></span><span class="ps-3 fw-bold mb-3">Dashboard</span>
-                        </div>
-                    </div>
-                </a>
-                <a href="<?= base_url("index.php/$role/lap_invest") ?>" class="<?php if (isset($m2)) {
-                                                                                    echo $m2;
-                                                                                }  ?>">
-                    <div id="menu-info-produk" class="d-flex align-items-center p-1">
-                        <div style="vertical-align: middle;" class="d-table-cell">
-                            <span class="bi bi-cone-striped fw-bold fs-2"></span><span class="ps-3 fw-bold mb-3">Progress
-                                Lap. Investasi</span>
-                        </div>
-                    </div>
-                </a>
-                <a href="<?= base_url("index.php/$role/pengawasan_pekerjaan_lap") ?>" class="<?php if (isset($m3)) {
-                                                                                                    echo $m3;
-                                                                                                }  ?>">
-                    <div id="menu-info-harga" class="d-flex align-items-center p-1">
-                        <div style="vertical-align: middle;" class="d-table-cell">
-                            <span class="bi bi-binoculars-fill fw-bold fs-2"></span><span class="ps-3 fw-bold mb-3">Pengawasan Pekerjaan Lap.</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="mt-2">
-                <div class="accordion accordion-flush" id="accordionFlushExample">
-
-                    <?php
-
-
-                    if ($role == 'admin') {
-                        $menu_arr = array('Dashboard', 'Progress Lap. Investasi', 'Pengawasan Pekerjaan Lapangan', 'Input Uraian Pekerjaan', 'Update Progress', 'Upload Dokumen', 'Hapus Uraian Pekerjaan', 'Reset Password User');
-                        $link_arr = array('', 'lap_invest', 'pengawasan_pekerjaan_lap', 'input_pekerjaan', 'update_progress', 'upload_dokumen', 'hapus_pekerjaan', 'reset_user');
-                        $bsp = base_url('index.php/admin');
+            <div class="accordion" id="accordionFlushExample">
+                <?php
+                if ($role == 'admin') {
+                    $menu_arr = array('Dashboard', 'Progress Lap. Investasi', 'Pengawasan Pekerjaan Lapangan', 'Input Uraian Pekerjaan', 'Update Progress', 'Upload Dokumen', 'Hapus Uraian Pekerjaan', 'Reset Password User');
+                    $link_arr = array('', 'lap_invest', 'pengawasan_pekerjaan_lap', 'input_pekerjaan', 'update_progress', 'upload_dokumen', 'hapus_pekerjaan', 'reset_user');
+                    $bsp = base_url('index.php/admin');
+                } else {
+                    $menu_arr = array('Dashboard', 'Progress Lap. Investasi', 'Pengawasan Pekerjaan Lapangan', 'Input Progress Lap. Invest', 'Upload Dokumen Pengawasan');
+                    $link_arr = array('', 'lap_invest', 'pengawasan_pekerjaan_lap', 'input_progress_lap', 'input_pengawasan_lap');
+                    $bsp = base_url('index.php/user');
+                }
+                $expanded = $this->uri->segment(2);
+                $collapsed = 'collapsed';
+                for ($ie = 0; $ie < count($menu_arr); $ie++) {
+                    if ($expanded == $link_arr[$ie]) {
+                        $collapsed = '';
                     } else {
-                        $menu_arr = array('Dashboard', 'Progress Lap. Investasi', 'Pengawasan Pekerjaan Lapangan', 'Input Progress Lap. Invest', 'Upload Dokumen Pengawasan');
-                        $link_arr = array('', 'lap_invest', 'pengawasan_pekerjaan_lap', 'input_progress_lap', 'input_pengawasan_lap');
-                        $bsp = base_url('index.php/user');
+                        $collapsed = 'collapsed';
                     }
-                    $expanded = $this->uri->segment(2);
-                    $collapsed = 'collapsed';
-                    for ($ie = 0; $ie < count($menu_arr); $ie++) {
-                        if ($expanded == $link_arr[$ie]) {
-                            $collapsed = '';
-                        } else {
-                            $collapsed = 'collapsed';
-                        }
-                        echo "
+                    echo "
     <div class='accordion-item'>
     <a href='$bsp/$link_arr[$ie]'>
     <p class='accordion-header' id='flush-heading$ie'>
@@ -123,11 +105,9 @@
     </div>
 </div>
     ";
-                    }
-                    ?>
-                </div>
+                }
+                ?>
             </div>
-
         </div>
     </div>
     <!-- End Offcanvas -->

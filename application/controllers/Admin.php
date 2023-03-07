@@ -127,11 +127,16 @@ class Admin extends CI_Controller
    {
       if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
          $id_pekerjaan = $this->input->post('id_pekerjaan[]');
-         if ($this->m_admin->m_hapus_pekerjaan($id_pekerjaan)) {
-            $this->session->set_flashdata('message', $this->flash_success('Data Berhasil Dihapus'));
+         if (!empty($id_pekerjaan)) {
+            if ($this->m_admin->m_hapus_pekerjaan($id_pekerjaan)) {
+               $this->session->set_flashdata('message', $this->flash_success('Data Berhasil Dihapus'));
+            } else {
+               $this->session->set_flashdata('message', $this->flash_error('Terjadi Kesalahan'));
+            }
          } else {
-            $this->session->set_flashdata('message', $this->flash_error('Terjadi Kesalahan'));
+            $this->session->set_flashdata('message', $this->flash_info('Tidak ada data dipilih'));
          }
+
          redirect('admin/hapus_pekerjaan', 'refresh');
       } else {
          redirect('login', 'refresh');
