@@ -4,7 +4,8 @@
         <div class="section-title">
             <h2> Upload Dokumen</h2>
         </div>
-        <form action="<?= base_url('index.php/') ?>admin/upload_dokumen_pekerjaan" method="post" enctype="multipart/form-data">
+        <form action="<?= base_url('index.php/') ?>admin/upload_dokumen_pekerjaan" method="post"
+            enctype="multipart/form-data">
             <table class="table table-bordered table-hover rounded">
                 <tbody>
                     <tr>
@@ -13,9 +14,19 @@
                         </td>
                         <td class="control-group">
                             <select onchange="getListPekerjaan($(this).val())" name="id_pks" id="list_pks" required>
-                                <option disabled selected value="">Pilih PKS</option>
-                                <?php for ($i = 0; $i < count($data_pks); $i++) {
-                                    echo ' <option class="curpo" value=' . $data_pks[$i]['id_pks'] . '>' . $data_pks[$i]['nama_pks'] . '</option>';
+                                <?php
+
+                                if (empty($s_id_pks) || empty($s_id_pekerjaan)) {
+                                    echo ' <option disabled selected value="">Pilih PKS</option>';
+                                } else {
+                                    echo ' <option disabled value="">Pilih PKS</option>';
+                                }
+                                for ($i = 0; $i < count($data_pks); $i++) {
+                                    if ($data_pks[$i]['id_pks'] == $s_id_pks) {
+                                        echo ' <option class="curpo" value=' . $data_pks[$i]['id_pks'] . ' selected>' . $data_pks[$i]['nama_pks'] . '</option>';
+                                    } else {
+                                        echo ' <option class="curpo" value=' . $data_pks[$i]['id_pks'] . '>' . $data_pks[$i]['nama_pks'] . '</option>';
+                                    }
                                 }
                                 ?>
 
@@ -27,13 +38,10 @@
                             Pilih Uraian Pekerjaan
                         </td>
                         <td class="control-group">
-                            <select onchange="$(`#list_pekerjaan-selectized`).prop('required',false);" name="id_pekerjaan" id="list_pekerjaan" class="" required>
+                            <select
+                                onchange="$(`#list_pekerjaan-selectized`).prop('required',false);console.log($(this).val())"
+                                name="id_pekerjaan" id="list_pekerjaan" class="" required>
                                 <option disabled selected value="">Pilih Uraian Pekerjaan</option>
-                                <?php for ($i = 0; $i < count($data_pekerjaan); $i++) {
-                                    echo ' <option class="curpo" value=' . $data_pekerjaan[$i]['id_pekerjaan'] . '>' . $data_pekerjaan[$i]['pekerjaan'] . '</option>';
-                                }
-                                ?>
-
                             </select>
                         </td>
                     </tr>
@@ -87,59 +95,72 @@
         </form>
     </div>
 </section>
+<input type="hidden" id="s_id_pks" value="<?= $s_id_pks ?>">
+<input type="hidden" id="s_id_pekerjaan" value="<?= $s_id_pekerjaan ?>">
 <script>
-    $('#list_pks').selectize();
-    $('#list_pekerjaan').selectize();
+$(function() {
+    getListPekerjaan($('#s_id_pks').val())
+});
 
-    function getListPekerjaan(id_pks) {
-        let wait = true
-        setTimeout(() => {
-            if (wait) {
-                $('#loader>div').addClass('lds-ellipsis')
-                $('#loader').css('display', 'block');
-                $('html').css('overflow', 'hidden');
-            }
-        }, 100);
-        let basepath = $('#basepath').val()
-        $.ajax({
-            url: basepath + "index.php/admin/ajax_get_list_doc_pekerjaan",
-            type: "POST",
-            dataType: 'json',
-            data: {
-                id_pks: id_pks,
-            },
-            success: function(data) {
-                console.log(data)
-                wait = false
-                $('#list_pekerjaan').selectize()[0].selectize.destroy();
-                let my_options = []
-                for (let index = 0; index < data.length; index++) {
-                    const element = data[index];
-                    my_options[index] = {
-                        'id': element['id_pekerjaan'] + "," + element['id_progress'],
-                        'uraian_pekerjaan': element['uraian_pekerjaan']
-                    }
-                }
-                $('#list_pekerjaan').selectize({
-                    maxItems: 1,
-                    valueField: 'id',
-                    labelField: 'uraian_pekerjaan',
-                    searchField: 'uraian_pekerjaan',
-                    options: my_options,
-                    create: false
-                });
-                $(`#list_pekerjaan-selectized`).prop('required', true)
-                $('html').css('overflow', 'overlay');
-                $('#loader').css('display', 'none');
-                $('#loader>div').removeClass('lds-ellipsis')
-            },
-            error: function(arguments, status, error) {
-                Swal.fire({
-                    icon: "warning",
-                    title: "Error",
-                    text: error
-                })
-            }
-        });
+$('#list_pks').selectize();
+$('#list_pekerjaan').selectize();
+
+function getListPekerjaan(id_pks) {
+    if (id_pks == '') {
+        return 0
     }
+    let wait = true
+    setTimeout(() => {
+        if (wait) {
+            $('#loader>div').addClass('lds-ellipsis')
+            $('#loader').css('display', 'block');
+            $('html').css('overflow', 'hidden');
+        }
+    }, 100);
+    let basepath = $('#basepath').val()
+    $.ajax({
+        url: basepath + "index.php/admin/ajax_get_list_doc_pekerjaan",
+        type: "POST",
+        dataType: 'json',
+        data: {
+            id_pks: id_pks,
+        },
+        success: function(data) {
+            let pekerjaan_selected = $("#s_id_pekerjaan").val();
+            wait = false
+            $('#list_pekerjaan').selectize()[0].selectize.destroy();
+            let my_options = []
+            for (let index = 0; index < data.length; index++) {
+                const element = data[index];
+                my_options[index] = {
+                    'id': element['id_pekerjaan'],
+                    'uraian_pekerjaan': element['uraian_pekerjaan']
+                }
+            }
+            $('#list_pekerjaan').selectize({
+                maxItems: 1,
+                valueField: 'id',
+                labelField: 'uraian_pekerjaan',
+                searchField: 'uraian_pekerjaan',
+                options: my_options,
+                create: false
+            });
+            $(`#list_pekerjaan-selectized`).prop('required', true)
+            $('#list_pekerjaan').selectize()[0].selectize.setValue(`${pekerjaan_selected}`)
+            $('html').css('overflow', 'overlay');
+            $('#loader').css('display', 'none');
+            $('#loader>div').removeClass('lds-ellipsis')
+        },
+        error: function(arguments, status, error) {
+            $('html').css('overflow', 'overlay');
+            $('#loader').css('display', 'none');
+            $('#loader>div').removeClass('lds-ellipsis')
+            Swal.fire({
+                icon: "warning",
+                title: "Error",
+                text: error
+            })
+        }
+    });
+}
 </script>

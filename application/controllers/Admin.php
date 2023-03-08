@@ -171,9 +171,10 @@ class Admin extends CI_Controller
    {
       if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
          $data = $this->m_admin->m_progress_update();
+         $select = array('s_id_pks' => $this->input->get('s_id_pks'), 's_id_pekerjaan' => $this->input->get('s_id_pekerjaan'), 's_id_progress' => $this->input->get('s_id_progress'));
          $this->load->view('__partials/header.php', array('page_title' => 'Progress Lap. Investasi'));
          $this->load->view('__partials/menu.php');
-         $this->load->view('admin/update_progress.php', $data);
+         $this->load->view('admin/update_progress.php', $data + $select);
          $this->load->view('__partials/footer.php');
       } else {
          redirect('login', 'refresh');
@@ -308,9 +309,11 @@ class Admin extends CI_Controller
    {
       if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
          $data = $this->db->query('SELECT id_pks,nama_pks from daftar_nama_pks where id_pks > 0 order by nama_pks asc')->result_array();
+         $s_id_pekerjaan = $this->input->get('s_id_pekerjaan');
+         $select = array('s_id_pks' => $this->input->get('s_id_pks'), 's_id_pekerjaan' => $s_id_pekerjaan, 's_id_progress' => $this->input->get('s_id_progress'));
          $this->load->view('__partials/header.php', array('page_title' => 'Progress Lap. Investasi'));
          $this->load->view('__partials/menu.php');
-         $this->load->view('admin/upload_dokumen.php', array('data_pks' => $data, 'data_pekerjaan' => $data));
+         $this->load->view('admin/upload_dokumen.php', array('data_pks' => $data) + $select);
          $this->load->view('__partials/footer.php');
       } else {
          redirect('login', 'refresh');

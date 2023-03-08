@@ -1,17 +1,17 @@
 <style>
-    .accordion-button::after {
-        margin-left: 0;
-        margin-right: 0.5em;
-        background-image: none;
-        background-color: transparent;
-    }
+.accordion-button::after {
+    margin-left: 0;
+    margin-right: 0.5em;
+    background-image: none;
+    background-color: transparent;
+}
 
-    .accordion-button:not(.collapsed):after {
-        margin-left: 0;
-        margin-right: 0.5em;
-        background-image: none;
-        background-color: transparent;
-    }
+.accordion-button:not(.collapsed):after {
+    margin-left: 0;
+    margin-right: 0.5em;
+    background-image: none;
+    background-color: transparent;
+}
 </style>
 
 <body style="position: relative;">
@@ -45,7 +45,8 @@
     bottom: 0px;
     width:100%;height:100%;
     backdrop-filter: blur(10px);" id="loader">
-        <div style="top:50%;left:50%;transform:translate(-50%,-50%);background-color:var(--main-bg-color);border-radius:10px" class=" d-flex">
+        <div style="top:50%;left:50%;transform:translate(-50%,-50%);background-color:var(--main-bg-color);border-radius:10px"
+            class=" d-flex">
             <div></div>
             <div></div>
             <div></div>
@@ -61,12 +62,14 @@
     }
     ?>
     <!-- Offcanvas -->
-    <div class="offcanvas offcanvas-start rounded" tabindex="-1" id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas offcanvas-start rounded" tabindex="-1" id="offcanvasWithBackdrop"
+        aria-labelledby="offcanvasWithBackdropLabel">
         <div class="offcanvas-header">
             <h1 class="logo me-auto">
                 <p class="text-main">Menu: </p>
             </h1>
-            <button style="border: solid 1px white;border-radius: 5px;" type="button" class=" btn text-dark" data-bs-dismiss="offcanvas" aria-label="Close"><i class="bi bi-chevron-left text-dark"></i></button>
+            <button style="border: solid 1px white;border-radius: 5px;" type="button" class=" btn text-dark"
+                data-bs-dismiss="offcanvas" aria-label="Close"><i class="bi bi-chevron-left text-dark"></i></button>
         </div>
 
         <div class="offcanvas-body text-dark">
@@ -117,7 +120,12 @@
 
         <div style="min-height:3rem;" class="container-fluid pe-2 d-inline-flex justify-content-between">
             <div class="d-inline">
-                <span class="logo d-none d-lg-block d-xl-block d-md-none align-items-center mt-2"><img src="<?= base_url() ?>assets/img/icons/Logo_PTPN4.png" alt="" sizes="160x160" srcset="" class="me-2"><strong class="text-light fs-5 mt-5 pt-2 me-3">MONI-CEX</strong><span data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop" class="fs-3 mt-3"><i style="font-weight: bold;" class="bi bi-list text-light mt-5 pt-5 curpo pb-5"></i></span>
+                <span class="logo d-lg-block d-xl-block align-items-center mt-2"><img
+                        src="<?= base_url() ?>assets/img/icons/Logo_PTPN4.png" alt="" sizes="160x160" srcset=""
+                        class="me-2"><strong class="text-light fs-5 mt-5 pt-2 me-3">MONI-CEX</strong><span
+                        data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop"
+                        aria-controls="offcanvasWithBackdrop" class="fs-3 mt-3"><i style="font-weight: bold;"
+                            class="bi bi-list text-light mt-5 pt-5 curpo pb-5"></i></span>
                 </span>
 
             </div>
@@ -138,10 +146,12 @@
                                                                                                         echo $m1;
                                                                                                     } ?>">DASHBOARD</a>
                     </li>
-                    <li><a href="<?= base_url("index.php/$type/lap_invest") ?>" id="nav-info-produk" class="nav-link <?php if (isset($m2)) {
+                    <li><a href="<?= base_url("index.php/$type/lap_invest") ?>" id="nav-info-produk"
+                            class="nav-link <?php if (isset($m2)) {
                                                                                                                             echo $m2;
                                                                                                                         } ?>">PROGRESS LAP. INVESTASI</a></li>
-                    <li><a href="<?= base_url("index.php/$type/pengawasan_pekerjaan_lap") ?>" id="nav-info-harga" class="nav-link <?php if (isset($m3)) {
+                    <li><a href="<?= base_url("index.php/$type/pengawasan_pekerjaan_lap") ?>" id="nav-info-harga"
+                            class="nav-link <?php if (isset($m3)) {
                                                                                                                                         echo $m3;
                                                                                                                                     } ?>">PENGAWASAN PEKERJAAN LAPANGAN</a></li>
 

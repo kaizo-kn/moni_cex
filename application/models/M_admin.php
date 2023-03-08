@@ -30,7 +30,7 @@ class M_admin extends CI_Model
         }
         public function m_progress_lap_invest()
         {
-                $data_pekerjaan = $this->db->query("SELECT uraian_pekerjaan.id_pekerjaan,nama_progress,progress.id_progress,uraian_pekerjaan,nama_progress,folder,singkatan FROM uraian_pekerjaan JOIN daftar_nama_pks ON uraian_pekerjaan.id_pks = daftar_nama_pks.id_pks LEFT JOIN dokumen ON uraian_pekerjaan.id_pekerjaan = dokumen.id_pekerjaan LEFT JOIN progress ON progress.id_progress = uraian_pekerjaan.id_progress ORDER BY  uraian_pekerjaan.id_pekerjaan DESC")->result_array();
+                $data_pekerjaan = $this->db->query("SELECT uraian_pekerjaan.id_pekerjaan,uraian_pekerjaan.id_pks,nama_progress,progress.id_progress,uraian_pekerjaan,nama_progress,folder,singkatan FROM uraian_pekerjaan JOIN daftar_nama_pks ON uraian_pekerjaan.id_pks = daftar_nama_pks.id_pks LEFT JOIN dokumen ON uraian_pekerjaan.id_pekerjaan = dokumen.id_pekerjaan LEFT JOIN progress ON progress.id_progress = uraian_pekerjaan.id_progress ORDER BY  uraian_pekerjaan.id_pekerjaan DESC")->result_array();
 
 
                 foreach ($data_pekerjaan as $key => $value) {
