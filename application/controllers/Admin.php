@@ -34,32 +34,6 @@ class Admin extends CI_Controller
       }
       return $weeklist;
    }
-   public function testmode()
-   {
-      $weeklist = array();
-      $query = "";
-      $month_array = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
-      foreach ($month_array as $key => $value) {
-         $month = $value;
-         $year = date('Y');
-         $tdays = cal_days_in_month(CAL_GREGORIAN, $value, $year);
-         $query .= "(SELECT WEEK(LAST_DAY('$year-$month-$tdays') + INTERVAL 1 DAY, 1) - WEEK('$year-$month-02', 1) + 1)  AS '$month',";
-      }
-      $query = substr($query, 0, -1);
-      $result = $this->db->query("SELECT $query")
-         ->result_array()[0];
-      var_dump($result);
-      foreach ($result as $keys => $values) {
-         $timestamp = mktime(0, 0, 0, $keys, 1);
-         $monthname = date('M', $timestamp);
-         for ($i = 0; $i < intval($values); $i++) {
-            $m = ($i + 1);
-            $week_name['weekname'] = "W" . $m . " $monthname";
-            $week_name['weeknum'] =  "w$m-m$key";
-            array_push($weeklist, $week_name);
-         }
-      }
-   }
 
    private function weekOfMonth($date)
    {
@@ -73,7 +47,7 @@ class Admin extends CI_Controller
    {
       $weekOfYear = intval(date("W", $date));
       if (date('n', $date) == "1" && $weekOfYear > 51) {
-         // It's the last week of the previos year.
+         // It's the last week of the previous year.
          return 0;
       } else if (date('n', $date) == "12" && $weekOfYear == 1) {
          // It's the first week of the next year.
@@ -96,7 +70,7 @@ class Admin extends CI_Controller
    public function index()
    {
       if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
-         $jumlah_per_progress = $this->db->query("SELECT nama_progress, COUNT(uraian_pekerjaan.id_progress) AS jumlah FROM uraian_pekerjaan RIGHT JOIN progress ON uraian_pekerjaan.id_progress = progress.id_progress GROUP BY uraian_pekerjaan.id_progress;")->result_array();
+         $jumlah_per_progress = $this->m_admin->m_dashboard();
          $new = array();
          foreach ($jumlah_per_progress as $key => $value) {
             $new["progress_" . strtolower($value['nama_progress'])] = $value['jumlah'];
@@ -114,7 +88,7 @@ class Admin extends CI_Controller
    public function hapus_pekerjaan()
    {
       if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
-         $data = array('data_pekerjaan' => $this->db->query('SELECT up.id_progress, up.id_pekerjaan,up.uraian_pekerjaan,nama_progress,nama_pks, max(persentase) AS persentase FROM `uraian_pekerjaan` AS up JOIN daftar_nama_pks AS dp ON up.id_pks = dp.id_pks JOIN progress ON up.id_progress = progress.id_progress JOIN persentase_progress ON up.id_pekerjaan = persentase_progress.id_pekerjaan GROUP BY id_pekerjaan;')->result_array());
+         $data = array('data_pekerjaan' => $this->m_admin->m_display_hapus_pekerjaan());
          $this->load->view('__partials/header.php', array('page_title' => 'Hapus Pekerjaan'));
          $this->load->view('__partials/menu.php');
          $this->load->view('admin/hapus_pekerjaan.php', $data);
@@ -157,7 +131,7 @@ class Admin extends CI_Controller
    public function input_pekerjaan()
    {
       if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') == '0') {
-         $data = $this->db->query('SELECT id_pks,nama_pks from daftar_nama_pks where id_pks > 0 order by nama_pks asc')->result_array();
+         $data = $this->m_admin->m_display_input_pekerjaan();
          $this->load->view('__partials/header.php', array('page_title' => 'Progress Lap. Investasi'));
          $this->load->view('__partials/menu.php');
          $this->load->view('admin/input_uraian_pekerjaan.php', array('data_pks' => $data));

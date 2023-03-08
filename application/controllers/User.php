@@ -10,20 +10,6 @@ class User extends CI_Controller
     $this->load->helper(array('form', 'url', 'file'));
   }
 
-  // public function testdata()
-  // {
-  //   $r = $this->db->query("select * from daftar_nama_pks where id_pks > 0")->result_array();
-  //   for ($i = 0; $i < count($r); $i++) {
-  //     $ii=$i+1;
-  //     $id_pks = $r[$i]['id_pks'];
-  //     $nama = $r[$i]['nama_pks'];
-  //     $username = $r[$i]['singkatan'];
-  //     $pass = '$2y$05$fCcvSizE5k/L9RtM1yzGieAZoSitbSj3VCYURayRLimj3FCblxlfe';
-  //     echo "INSERT INTO `user`(`id_user`, `id_pks`, `username`, `nama`, `password`, `foto_profil`, `date_created`, `last_active`) VALUES ($ii,$id_pks,'pks_$username','PKS $nama','$pass','default.png','','');";
-
-  //     //$this->db->insert('user')->get_compiled();
-  //   }
-  // }
   public function list_week_in_year()
   {
     $weeklist = array();
@@ -58,7 +44,7 @@ class User extends CI_Controller
   {
 
 
-    if ($this->session->userdata('is_login') == TRUE) {
+    if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') != '0') {
       $id_pks = $this->session->userdata('id_pks');
       $total = $this->db->query("SELECT COUNT(id_pekerjaan) AS jumlah_pekerjaan from `uraian_pekerjaan` WHERE `id_pks` = $id_pks")->result_array()[0]['jumlah_pekerjaan'];
       $jumlah_per_progress = $this->db->query("SELECT nama_progress, COUNT(uraian_pekerjaan.id_progress) AS jumlah FROM uraian_pekerjaan RIGHT JOIN progress ON uraian_pekerjaan.id_progress = progress.id_progress WHERE id_pks = $id_pks GROUP BY uraian_pekerjaan.id_progress;")->result_array();
@@ -81,7 +67,7 @@ class User extends CI_Controller
   //ajax dashboard persentase
   public function ajax_dash_persentase()
   {
-    if ($this->session->userdata('is_login') == TRUE) {
+    if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') != '0') {
       echo json_encode($this->m_user->m_dash_persentase($this->input->post('val1'), $this->input->post('val2'), $this->input->post('id_pks')));
     } else {
       echo json_encode(array('message' => 'forbidden'));
@@ -105,7 +91,7 @@ class User extends CI_Controller
 
   public function lap_invest()
   {
-    if ($this->session->userdata('is_login') == TRUE) {
+    if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') != '0') {
       $data_pekerjaan = array('data_pekerjaan' => $this->m_user->m_progress_lap_invest());
       $this->load->view('__partials/header.php', array('page_title' => 'Progress Lap. Investasi'));
       $this->load->view('__partials/menu.php', array('m2' => 'nav-menu-active'));
@@ -118,7 +104,7 @@ class User extends CI_Controller
 
   public function pengawasan_pekerjaan_lap()
   {
-    if ($this->session->userdata('is_login') == TRUE) {
+    if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') != '0') {
       $data = array('data_pekerjaan' => $this->m_user->m_get_data_pengawasan());
       $this->load->view('__partials/header.php', array('page_title' => 'Progress Lap. Investasi'));
       $this->load->view('__partials/menu.php', array('m3' => 'nav-menu-active'));
@@ -131,7 +117,7 @@ class User extends CI_Controller
 
   public function input_progress_lap()
   {
-    if ($this->session->userdata('is_login') == TRUE) {
+    if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') != '0') {
       $id_pks = $this->session->userdata('id_pks');
       $selected = "";
       $selected = $this->input->get('selected');
@@ -148,7 +134,7 @@ class User extends CI_Controller
 
   public function input_pengawasan_lap()
   {
-    if ($this->session->userdata('is_login') == TRUE) {
+    if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') != '0') {
       $id_pks = $this->session->userdata('id_pks');
       $s_id_pekerjaan = $this->input->get('s_id_pekerjaan');
       $list_pekerjaan = $this->db->query("SELECT id_pekerjaan,uraian_pekerjaan FROM uraian_pekerjaan WHERE id_pks = $id_pks ORDER BY id_pekerjaan DESC")->result_array();
@@ -164,7 +150,7 @@ class User extends CI_Controller
 
   public function input_progress()
   {
-    if ($this->session->userdata('is_login') == TRUE) {
+    if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') != '0') {
       $id_pekerjaan = $this->input->post('id_pekerjaan');
       $persentase_progress = $this->input->post('persentase_progress');
       $res = $this->m_user->m_input_persentase($id_pekerjaan, $persentase_progress);
@@ -181,7 +167,7 @@ class User extends CI_Controller
 
   public function input_pengawasan()
   {
-    if ($this->session->userdata('is_login') == TRUE) {
+    if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') != '0') {
       $id_pekerjaan = $this->input->post('id_pekerjaan');
       $dokumentasi = $this->input->post('id_dokumentasi');
       $res = $this->m_user->m_input_pengawasan($id_pekerjaan, $dokumentasi);
@@ -206,7 +192,7 @@ class User extends CI_Controller
   //ajax get list pekerjaan
   public function ajax_get_list_pekerjaan()
   {
-    if ($this->session->userdata('is_login') == TRUE) {
+    if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') != '0') {
       echo json_encode($this->m_user->m_ajax_get_list_pekerjaan($this->input->post('id_pks')));
     } else {
       echo json_encode(array('message' => 'forbidden'));
@@ -215,7 +201,7 @@ class User extends CI_Controller
   //ajax get list pekerjaan
   public function ajax_get_list_dokumentasi()
   {
-    if ($this->session->userdata('is_login') == TRUE) {
+    if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') != '0') {
       echo json_encode($this->m_user->m_ajax_get_list_dokumentasi($this->input->post('id_pekerjaan')));
     } else {
       echo json_encode(array('message' => 'forbidden'));
@@ -225,7 +211,7 @@ class User extends CI_Controller
   //ajax get history
   public function ajax_get_history()
   {
-    if ($this->session->userdata('is_login') == TRUE) {
+    if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') != '0') {
       $data = $this->m_user->m_ajax_get_history($this->input->post('id_pekerjaan'));
       echo $data;
     } else {
@@ -237,7 +223,7 @@ class User extends CI_Controller
   //Edit Profil User
   public function edit_profil()
   {
-    if ($this->session->userdata('is_login') == true) {
+    if ($this->session->userdata('is_login') == TRUE && $this->session->userdata('id_pks') != '0') {
       $username = $this->input->post('username');
       $nama = $this->input->post('nama');
       $password = $this->input->post('password');
