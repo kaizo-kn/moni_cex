@@ -30,3 +30,8 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 *.sublime-project
 /tests/tests/
 /tests/results/
+media/upload/bukti/baj/16/bukti_baj-W2-Mar-16/bukti_baj-W2-Mar-16.jpg
+.gitignore
+media/upload/dokumen/baj/16/rab_baj-16.pdf
+media/upload/dokumentasi/baj/16/k3sp_baj_16.jpg
+media/upload/dokumentasi/baj/16/material_baj_16.jpg

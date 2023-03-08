@@ -3,7 +3,7 @@
         <div class="section-title mt-5 ">
             <h2>pengawasan pekerjaan lapangan</h2>
         </div>
-        <div style="width: 100%;">
+        <div class="table-responsive-md table-responsive-sm table-responsive-lg" style="width: 100%;">
             <table style="table-layout: fixed;width:100%" id="tabel_lap_invest" class="table table-hover table-bordered w-100">
                 <div class="row justify-content-end">
 

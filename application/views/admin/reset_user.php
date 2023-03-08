@@ -14,6 +14,7 @@
             </thead>
             <tbody>
                 <?php
+                $dt = new DateTime("now", new DateTimeZone('Asia/Jakarta'));
                 for ($i = 0; $i < count($data_user); $i++) {
                     $no = $i + 1;
                     $id_user = $data_user[$i]['id_user'];
@@ -24,7 +25,8 @@
                     if ((time() - intval($last_active)) <= 15) {
                         $last_active = "<span class='text-success'>User Sedang Aktif</span>";
                     } else {
-                        $last_active = 'Terakhir Online: ' . date('d-M-Y H:i', $data_user[$i]['last_active']);
+                        $dt->setTimestamp($data_user[$i]['last_active']);
+                        $last_active = 'Terakhir Online: ' . $dt->format('d-M-Y H:i');
                     }
                     echo "<tr><td>$no</td>
                 <td>$nama</td>

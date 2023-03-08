@@ -6,11 +6,13 @@
                 <h2>Dashboard</h2>
             </div>
             <div class="row justify-content-center">
-                <div onclick="showModal('null','')" class="col-xl-4 col-lg-4 col-md-4 col-10 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+                <div onclick="showModal('null','')"
+                    class="col-xl-4 col-lg-4 col-md-4 col-10 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                     <div class="member bg-light nb-shadow">
                         <div class="row justify-content-start mb-2">
                             <div class="col-4">
-                                <img style="width:100%" height="auto" src="<?= base_url('assets/img/icons/') ?>progress.png" alt="" srcset="">
+                                <img style="width:100%" height="auto"
+                                    src="<?= base_url('assets/img/icons/') ?>progress.png" alt="" srcset="">
                             </div>
                             <div class="col-8">
                                 <h2 class="text-main fw-bolder text-start ms-lg-3 mt-2">
@@ -38,11 +40,13 @@
             <div class="col-12">
                 <h1 class="fw-bold text-main text-center">PROGRESS PENGADAAN PEKERJAAN INVESTASI</h1>
             </div>
-            <div onclick="showModal('pks',$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="showModal('pks',$(this).find('p.text-main').text())"
+                class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
-                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?= base_url('assets/img/icons/') ?>pks.png" alt="" srcset="">
+                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto"
+                                src="<?= base_url('assets/img/icons/') ?>pks.png" alt="" srcset="">
                         </div>
                         <div class="col-8">
                             <p class="text-main fw-bolder text-start">
@@ -64,11 +68,13 @@
                     </strong>
                 </div>
             </div>
-            <div onclick="showModal('tekpol',$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="showModal('tekpol',$(this).find('p.text-main').text())"
+                class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
-                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?= base_url('assets/img/icons/') ?>tekpol.png" alt="" srcset="">
+                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto"
+                                src="<?= base_url('assets/img/icons/') ?>tekpol.png" alt="" srcset="">
 
                         </div>
                         <div class="col-8">
@@ -91,11 +97,13 @@
                     </strong>
                 </div>
             </div>
-            <div onclick="showModal('hps',$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="showModal('hps',$(this).find('p.text-main').text())"
+                class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
-                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?= base_url('assets/img/icons/') ?>hps.png" alt="" srcset="">
+                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto"
+                                src="<?= base_url('assets/img/icons/') ?>hps.png" alt="" srcset="">
 
                         </div>
                         <div class="col-8">
@@ -118,11 +126,13 @@
                     </strong>
                 </div>
             </div>
-            <div onclick="showModal('pengadaan',$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="showModal('pengadaan',$(this).find('p.text-main').text())"
+                class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
-                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?= base_url('assets/img/icons/') ?>pengadaan.png" alt="" srcset="">
+                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto"
+                                src="<?= base_url('assets/img/icons/') ?>pengadaan.png" alt="" srcset="">
 
                         </div>
                         <div class="col-8">
@@ -145,11 +155,13 @@
                     </strong>
                 </div>
             </div>
-            <div onclick="showModal('sppbj',$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="showModal('sppbj',$(this).find('p.text-main').text())"
+                class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
-                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?= base_url('assets/img/icons/') ?>sppbj.png" alt="" srcset="">
+                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto"
+                                src="<?= base_url('assets/img/icons/') ?>sppbj.png" alt="" srcset="">
 
                         </div>
                         <div class="col-8">
@@ -177,11 +189,13 @@
             <div class="col-12">
                 <h1 class="fw-bold text-main text-center">PROGRESS PENGADAAN PEKERJAAN INVESTASI</h1>
             </div>
-            <div onclick="getPercentage(0,0,$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="getPercentage(0,0,$(this).find('p.text-main').text())"
+                class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
-                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?= base_url('assets/img/icons/') ?>progress.png" alt="" srcset="">
+                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto"
+                                src="<?= base_url('assets/img/icons/') ?>progress.png" alt="" srcset="">
 
                         </div>
                         <div class="col-8">
@@ -204,11 +218,13 @@
                     </strong>
                 </div>
             </div>
-            <div onclick="getPercentage(1,40,$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="getPercentage(1,40,$(this).find('p.text-main').text())"
+                class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
-                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?= base_url('assets/img/icons/') ?>progress.png" alt="" srcset="">
+                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto"
+                                src="<?= base_url('assets/img/icons/') ?>progress.png" alt="" srcset="">
 
                         </div>
                         <div class="col-8">
@@ -231,11 +247,13 @@
                     </strong>
                 </div>
             </div>
-            <div onclick="getPercentage(41,60,$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="getPercentage(41,60,$(this).find('p.text-main').text())"
+                class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
-                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?= base_url('assets/img/icons/') ?>progress.png" alt="" srcset="">
+                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto"
+                                src="<?= base_url('assets/img/icons/') ?>progress.png" alt="" srcset="">
                         </div>
                         <div class="col-8">
                             <p class="text-main fw-bolder text-start">
@@ -257,11 +275,13 @@
                     </strong>
                 </div>
             </div>
-            <div onclick="getPercentage(61,99,$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="getPercentage(61,99,$(this).find('p.text-main').text())"
+                class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
-                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?= base_url('assets/img/icons/') ?>progress.png" alt="" srcset="">
+                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto"
+                                src="<?= base_url('assets/img/icons/') ?>progress.png" alt="" srcset="">
                         </div>
                         <div class="col-8">
                             <p class="text-main fw-bolder text-start">
@@ -283,11 +303,13 @@
                     </strong>
                 </div>
             </div>
-            <div onclick="getPercentage(100,100,$(this).find('p.text-main').text())" class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
+            <div onclick="getPercentage(100,100,$(this).find('p.text-main').text())"
+                class="col-xl-2 col-lg-3 col-md-4 col-9 mt-4 zoom-hover rounded bg-light p-3 curpo me-3 me-sm-4 mb-2 ms-3">
                 <div class="member bg-light nb-shadow">
                     <div class="row justify-content-start mb-2">
                         <div class="col-4">
-                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto" src="<?= base_url('assets/img/icons/') ?>done.png" alt="" srcset="">
+                            <img style="transform: translate(-45%,-35%);" width="85px" height="auto"
+                                src="<?= base_url('assets/img/icons/') ?>done.png" alt="" srcset="">
                         </div>
                         <div class="col-8">
                             <p class="text-main fw-bolder text-start">
@@ -318,82 +340,82 @@
 
 
 <script>
-    let basepath = $('#basepath').val()
+let basepath = $('#basepath').val()
 
-    function showModal(id_pks, title) {
-        let type_color = ""
-        const callback = () => ($(`#${id_pks}`).DataTable({
-            "language": {
-                "url": "<?= base_url() ?>assets/vendor/datatables/js/indonesian.json"
-            }
-        }), $(`#${id_pks}_filter`).addClass('mb-2 me-1'))
-        let persentase = 0;
-        let wait = true
-        setTimeout(() => {
-            if (wait) {
-                $('#loader>div').addClass('lds-ellipsis')
-                $('#loader').css('display', 'block');
-                $('html').css('overflow', 'hidden');
-            }
-        }, 30);
-        let content = ""
-        let num = 1;
-        $.ajax({
-            url: basepath + "index.php/admin/ajax_get_list_pekerjaan",
-            type: "POST",
-            dataType: 'json',
-            data: {
-                id_pks: id_pks,
-            },
-            success: function(object) {
-                wait = false
-                for (const key in object) {
-                    if (Object.hasOwnProperty.call(object, key)) {
-                        const element = object[key];
-                        if (element.persentase != null) {
-                            persentase = element.persentase
-                        } else {
-                            persentase = 0;
-                        }
+function showModal(id_pks, title) {
+    let type_color = ""
+    const callback = () => ($(`#${id_pks}`).DataTable({
+        "language": {
+            "url": "<?= base_url() ?>assets/vendor/datatables/js/indonesian.json"
+        }
+    }), $(`#${id_pks}_filter`).addClass('mb-2 me-1'))
+    let persentase = 0;
+    let wait = true
+    setTimeout(() => {
+        if (wait) {
+            $('#loader>div').addClass('lds-ellipsis')
+            $('#loader').css('display', 'block');
+            $('html').css('overflow', 'hidden');
+        }
+    }, 30);
+    let content = ""
+    let num = 1;
+    $.ajax({
+        url: basepath + "index.php/admin/ajax_get_list_pekerjaan",
+        type: "POST",
+        dataType: 'json',
+        data: {
+            id_pks: id_pks,
+        },
+        success: function(object) {
+            wait = false
+            for (const key in object) {
+                if (Object.hasOwnProperty.call(object, key)) {
+                    const element = object[key];
+                    if (element.persentase != null) {
+                        persentase = element.persentase
+                    } else {
+                        persentase = 0;
+                    }
 
-                        switch (element.id_progress) {
-                            case '1':
-                                type_color = "text-dark";
-                                break;
-                            case '2':
-                                type_color = "text-danger";
-                                break;
-                            case '3':
-                                type_color = "text-orange";
-                                break;
-                            case '4':
-                                type_color = "text-warning";
-                                break;
-                            case '5':
-                                type_color = "text-main";
-                                break;
-                        }
+                    switch (element.id_progress) {
+                        case '1':
+                            type_color = "text-dark";
+                            break;
+                        case '2':
+                            type_color = "text-danger";
+                            break;
+                        case '3':
+                            type_color = "text-orange";
+                            break;
+                        case '4':
+                            type_color = "text-warning";
+                            break;
+                        case '5':
+                            type_color = "text-main";
+                            break;
+                    }
 
-                        content += `<tr >
+                    content += `<tr >
         <td >${num}</td>
         <td class="${type_color}">${element.uraian_pekerjaan}</td>
         <td class="${type_color}">${element.singkatan}</td>
         <td  class="${type_color}">${element.nama_progress}</td>
         <td  class="${type_color}">${persentase}%</td>
     </tr>`
-                        num++
+                    num++
 
 
-                    }
                 }
-                if (id_pks == 'null') {
-                    title = 'Jumlah Paket Pekerjaan'
-                }
-                let html = `
+            }
+            if (id_pks == 'null') {
+                title = 'Jumlah Paket Pekerjaan'
+            }
+            let html = `
                 <div style='transform:translateY(20px)' class='section-title mb-0 pb-0 mt-2'>
                 <h2 class='fs-3 mb-0'>${title}</h2>
                 </div>
-                <div class='p-3'>
+                <div class='table-responsive-sm table-responsive-md table-responsive-lg p-3'>
 <table  id="${id_pks}" class="table table-bordered mb-0">
 <thead class="mainbgc text-light fw-bold">
     <th>No. </th>
@@ -407,97 +429,97 @@
 </tbody>
 </table>
 </div>`
-                $('html').css('overflow', 'hidden');
-                $('#loader').css('display', 'none');
-                $('#loader>div').removeClass('lds-ellipsis')
-                buildModal(html, callback);
-            },
-            error: function(arguments, status, error) {
-                wait = false;
-                $('html').css('overflow', 'overlay');
-                $('#loader').css('display', 'none');
-                $('#loader>div').removeClass('lds-ellipsis')
-                Swal.fire({
-                    icon: "warning",
-                    title: "Error",
-                    text: error
-                })
-            }
-        });
+            $('html').css('overflow', 'hidden');
+            $('#loader').css('display', 'none');
+            $('#loader>div').removeClass('lds-ellipsis')
+            buildModal(html, callback);
+        },
+        error: function(arguments, status, error) {
+            wait = false;
+            $('html').css('overflow', 'overlay');
+            $('#loader').css('display', 'none');
+            $('#loader>div').removeClass('lds-ellipsis')
+            Swal.fire({
+                icon: "warning",
+                title: "Error",
+                text: error
+            })
+        }
+    });
 
-    }
+}
 
-    function getPercentage(val1, val2, title) {
+function getPercentage(val1, val2, title) {
 
-        let type_color = ""
-        const callback = () => ($(`#progress${val1}`).DataTable({
-            "language": {
-                "url": "<?= base_url() ?>assets/vendor/datatables/js/indonesian.json"
-            }
-        }), $(`#progress${val1}_filter`).addClass('mb-2 me-1'))
-        let persentase = 0;
-        let wait = true
-        setTimeout(() => {
-            if (wait) {
-                $('#loader>div').addClass('lds-ellipsis')
-                $('#loader').css('display', 'block');
-                $('html').css('overflow', 'hidden');
-            }
-        }, 30);
-        let content = ""
-        let num = 1;
-        $.ajax({
-            url: basepath + "index.php/admin/ajax_dash_persentase",
-            type: "POST",
-            dataType: 'json',
-            data: {
-                val1: val1,
-                val2: val2
-            },
-            success: function(object) {
-                wait = false
-                for (const key in object) {
-                    if (Object.hasOwnProperty.call(object, key)) {
-                        const element = object[key];
-                        if (element.persentase != null) {
-                            persentase = element.persentase
-                        } else {
-                            persentase = 0;
-                        }
+    let type_color = ""
+    const callback = () => ($(`#progress${val1}`).DataTable({
+        "language": {
+            "url": "<?= base_url() ?>assets/vendor/datatables/js/indonesian.json"
+        }
+    }), $(`#progress${val1}_filter`).addClass('mb-2 me-1'))
+    let persentase = 0;
+    let wait = true
+    setTimeout(() => {
+        if (wait) {
+            $('#loader>div').addClass('lds-ellipsis')
+            $('#loader').css('display', 'block');
+            $('html').css('overflow', 'hidden');
+        }
+    }, 30);
+    let content = ""
+    let num = 1;
+    $.ajax({
+        url: basepath + "index.php/admin/ajax_dash_persentase",
+        type: "POST",
+        dataType: 'json',
+        data: {
+            val1: val1,
+            val2: val2
+        },
+        success: function(object) {
+            wait = false
+            for (const key in object) {
+                if (Object.hasOwnProperty.call(object, key)) {
+                    const element = object[key];
+                    if (element.persentase != null) {
+                        persentase = element.persentase
+                    } else {
+                        persentase = 0;
+                    }
 
-                        switch (element.id_progress) {
-                            case '1':
-                                type_color = "text-dark";
-                                break;
-                            case '2':
-                                type_color = "text-danger";
-                                break;
-                            case '3':
-                                type_color = "text-orange";
-                                break;
-                            case '4':
-                                type_color = "text-warning";
-                                break;
-                            case '5':
-                                type_color = "text-main";
-                                break;
-                        }
+                    switch (element.id_progress) {
+                        case '1':
+                            type_color = "text-dark";
+                            break;
+                        case '2':
+                            type_color = "text-danger";
+                            break;
+                        case '3':
+                            type_color = "text-orange";
+                            break;
+                        case '4':
+                            type_color = "text-warning";
+                            break;
+                        case '5':
+                            type_color = "text-main";
+                            break;
+                    }
 
-                        content += `<tr >
+                    content += `<tr >
         <td >${num}</td>
         <td class="${type_color}">${element.uraian_pekerjaan}</td>
         <td class="${type_color}">${element.singkatan}</td>
         <td  class="${type_color}">${element.nama_progress}</td>
         <td  class="${type_color}">${persentase}%</td>
     </tr>`
-                        num++
-                    }
+                    num++
                 }
-                let html = `
+            }
+            let html = `
                 <div style='transform:translateY(20px)' class='section-title mb-0 pb-0 mt-2'>
                 <h2 class='fs-3 mb-0'>${title}</h2>
                 </div>
-                <div class='p-3'>
+                <div class='table-responsive-sm table-responsive-md table-responsive-lg p-3'>
 <table  id="progress${val1}" class="table table-bordered mb-0">
 <thead class="mainbgc text-light fw-bold">
     <th>No. </th>
@@ -511,21 +533,21 @@
 </tbody>
 </table>
 </div>`
-                $('html').css('overflow', 'hidden');
-                $('#loader').css('display', 'none');
-                $('#loader>div').removeClass('lds-ellipsis')
-                buildModal(html, callback);
-            },
-            error: function(arguments, status, error) {
-                Swal.fire({
-                    icon: "warning",
-                    title: "Error",
-                    text: error
-                })
-            }
-        });
+            $('html').css('overflow', 'hidden');
+            $('#loader').css('display', 'none');
+            $('#loader>div').removeClass('lds-ellipsis')
+            buildModal(html, callback);
+        },
+        error: function(arguments, status, error) {
+            Swal.fire({
+                icon: "warning",
+                title: "Error",
+                text: error
+            })
+        }
+    });
 
 
 
-    }
+}
 </script>

@@ -1,54 +1,54 @@
 <style>
-    .sonar-wrapper {
-        position: absolute;
-        z-index: 99;
-        padding: 8rem 0;
-        overflow: none;
-    }
+.sonar-wrapper {
+    position: absolute;
+    z-index: 99;
+    padding: 8rem 0;
+    overflow: none;
+}
 
-    /* The circle */
-    .sonar-emitter {
-        position: relative;
-        margin: 0 auto;
-        width: 14px;
-        height: 14px;
-        border-radius: 9999px;
-    }
+/* The circle */
+.sonar-emitter {
+    position: relative;
+    margin: 0 auto;
+    width: 14px;
+    height: 14px;
+    border-radius: 9999px;
+}
 
-    /* the 'wave', same shape and size as its parent */
-    .sonar-wave {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border-radius: 9999px;
-        background-color: inherit;
-        opacity: 0;
-        z-index: -1;
-        pointer-events: none;
-    }
+/* the 'wave', same shape and size as its parent */
+.sonar-wave {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 9999px;
+    background-color: inherit;
+    opacity: 0;
+    z-index: -1;
+    pointer-events: none;
+}
 
-    /*
+/*
   Animate!
   NOTE: add browser prefixes where needed.
 */
-    .sonar-wave {
-        animation: sonarWave 2s ease-in-out infinite;
+.sonar-wave {
+    animation: sonarWave 2s ease-in-out infinite;
+}
+
+@keyframes sonarWave {
+    from {
+        opacity: 0.7;
     }
 
-    @keyframes sonarWave {
-        from {
-            opacity: 0.7;
-        }
-
-        to {
-            transform: scale(3);
-            opacity: 0;
-        }
-
-
+    to {
+        transform: scale(3);
+        opacity: 0;
     }
+
+
+}
 </style>
 <section id="lap_invest" class="pt-4 section-bg">
     <div class="container-fluid me-5">
@@ -57,8 +57,9 @@
         </div>
 
         <input type="hidden" id="weeks" value="<?= date('W') ?>">
-        <div style="width: 100%;">
-            <table style="table-layout: fixed;width:100%" id="tabel_lap_invest" class="table table-hover table-bordered w-100 me-4">
+        <div class="table-responsive-md table-responsive-sm table-responsive-lg" style="width: 100%;">
+            <table style="table-layout: fixed;width:100%" id="tabel_lap_invest"
+                class="table table-hover table-bordered w-100 me-4">
                 <div class="row justify-content-end">
 
 
@@ -76,7 +77,8 @@
                     <th style="width:1em;display:none;">Progress</th>
                     <th style='width:20em'>Dokumen</th>
                     <th style="max-width:30em;margin-right:1rem">
-                        <div id='scr' onscroll="$('.tbs').scrollLeft($(this).scrollLeft())" class="table-responsive b-scroll" style="width:100%">
+                        <div id='scr' onscroll="$('.tbs').scrollLeft($(this).scrollLeft())"
+                            class="table-responsive b-scroll" style="width:100%">
                             <table class="text-light tbw">
                                 <tbody>
                                     <tr>
@@ -229,31 +231,31 @@
 
 
 <script>
-    function displayDoc(val) {
-        $('#modalContent').removeClass('d-none')
-        let callback = () => console.log()
-        let content = `
+function displayDoc(val) {
+    $('#modalContent').removeClass('d-none')
+    let callback = () => console.log()
+    let content = `
         <div class="modal-header"><div class="modal-title">Dokumen</div>
         <button onclick="$('#staticBackdrop').modal('toggle')" type="button" class="border-0 text-secondary fw-bold fs-4 bi bi-x float-end">
         </button>
       </div>
         <iframe src="${val}" style="width: auto;height: 95vh;border: none;"></iframe>
     `
-        buildModal(content, callback)
-    }
+    buildModal(content, callback)
+}
 
-    let tabel_lap_invest = $('#tabel_lap_invest').DataTable({
-        "language": {
-            "url": "<?= base_url() ?>assets/vendor/datatables/js/indonesian.json"
-        },
-        columnDefs: [{
-            targets: [4, 5],
-            orderable: false
-        }],
-        pageLength: 25
-    });
+let tabel_lap_invest = $('#tabel_lap_invest').DataTable({
+    "language": {
+        "url": "<?= base_url() ?>assets/vendor/datatables/js/indonesian.json"
+    },
+    columnDefs: [{
+        targets: [4, 5],
+        orderable: false
+    }],
+    pageLength: 25
+});
 
-    let filtertype = `<div id="filter_type" class="form-inline float-start me-4 pe-3 d-none d-lg-block d-xl-block">
+let filtertype = `<div id="filter_type" class="form-inline float-start me-4 pe-3 d-none d-lg-block d-xl-block">
             <span class="ms-2 text-dark"><label for="pks" ><input onchange="filterType()" style="transform:translateY(25%);" type="checkbox" checked name="" value="pks" id="pks" class="form-check curpo d-inline"><small class="me-1 ms-1">PKS</small></label></span>
             <span class="ms-2 text-danger"><label for="tekpol" ><input onchange="filterType()" style="transform:translateY(25%);" type="checkbox" checked name="" value="tekpol" id="tekpol" class="form-check curpo d-inline"><small class="me-1 ms-1">TEKPOL</small></label></span>
             <span class="ms-2 text-orange"><label for="hps" ><input onchange="filterType()" style="transform:translateY(25%);" type="checkbox" checked name="" value="hps" id="hps" class="form-check curpo d-inline"><small class="me-1 ms-1">HPS</small></label></span>
@@ -263,7 +265,7 @@
         </div> `
 
 
-    let filtertime = `<div class="d-inline">
+let filtertime = `<div class="d-inline">
                 <span class="ms-2">From:</span>
                 <label class="mb-3" for="flt_weekfrom">
                     <select value="1" onchange='filterTime()' class="form-select" name="" id="flt_weekfrom">
@@ -321,146 +323,146 @@
                 </label>
             </div>`
 
-    function scrl(params) {
-        if (params > 3) {
-            $('#scr').scrollLeft(params * 85);
+function scrl(params) {
+    if (params > 3) {
+        $('#scr').scrollLeft(params * 85);
+    }
+}
+
+$(document).ready(function() {
+    scrl($('#weeks').val())
+    setTimeout(() => {
+        $('#tabel_lap_invest_filter').addClass("me-3");
+        $('#tabel_lap_invest_filter').append(filtertype);
+        $('#tabel_lap_invest_filter').append(filtertime);
+    }, 100);
+});
+
+
+function filterType() {
+    let filter_value = $('#filter_type input:checked').map(function() {
+        return $(this).val();
+    }).get()
+    let res = ""
+    for (let index = 0; index < filter_value.length; index++) {
+        if (filter_value.length == (index + 1)) {
+            res += filter_value[index];
+        } else {
+            res += filter_value[index] + "|";
+        }
+    }
+    tabel_lap_invest.columns(3).search(`${res}`, true, false).draw();
+}
+
+function filterTime() {
+    let weekfrom = parseInt($('#flt_weekfrom').val())
+    let weekto = parseInt($('#flt_weekto').val())
+    let monthfrom = parseInt($('#flt_monthfrom').val())
+    let monthto = parseInt($('#flt_monthto').val())
+
+
+    if (monthfrom > monthto) {
+        let tmp = monthfrom
+        monthfrom = monthto
+        monthto = tmp
+    } else if (monthfrom == monthto) {
+        if (weekfrom > weekto) {
+            let tmp = weekfrom
+            weekfrom = weekto
+            weekto = tmp
         }
     }
 
-    $(document).ready(function() {
-        scrl($('#weeks').val())
-        setTimeout(() => {
-            $('#tabel_lap_invest_filter').addClass("me-3");
-            $('#tabel_lap_invest_filter').append(filtertype);
-            $('#tabel_lap_invest_filter').append(filtertime);
-        }, 100);
-    });
-
-
-    function filterType() {
-        let filter_value = $('#filter_type input:checked').map(function() {
-            return $(this).val();
-        }).get()
-        let res = ""
-        for (let index = 0; index < filter_value.length; index++) {
-            if (filter_value.length == (index + 1)) {
-                res += filter_value[index];
-            } else {
-                res += filter_value[index] + "|";
+    let x = weekfrom
+    $(`.tbw td`).hide()
+    for (monthfrom; monthfrom <= monthto; monthfrom++) {
+        if (monthfrom < monthto) {
+            for (x; x <= 6; x++) {
+                let mw = ("w" + x + "-m" + monthfrom)
+                $(`.tbw td.${mw}`).show();
             }
-        }
-        tabel_lap_invest.columns(3).search(`${res}`, true, false).draw();
-    }
-
-    function filterTime() {
-        let weekfrom = parseInt($('#flt_weekfrom').val())
-        let weekto = parseInt($('#flt_weekto').val())
-        let monthfrom = parseInt($('#flt_monthfrom').val())
-        let monthto = parseInt($('#flt_monthto').val())
-
-
-        if (monthfrom > monthto) {
-            let tmp = monthfrom
-            monthfrom = monthto
-            monthto = tmp
+            x = 1;
         } else if (monthfrom == monthto) {
-            if (weekfrom > weekto) {
-                let tmp = weekfrom
-                weekfrom = weekto
-                weekto = tmp
-            }
-        }
-
-        let x = weekfrom
-        $(`.tbw td`).hide()
-        for (monthfrom; monthfrom <= monthto; monthfrom++) {
-            if (monthfrom < monthto) {
-                for (x; x <= 6; x++) {
-                    let mw = ("w" + x + "-m" + monthfrom)
-                    $(`.tbw td.${mw}`).show();
-                }
+            if (weekfrom != weekto) {
                 x = 1;
-            } else if (monthfrom == monthto) {
-                if (weekfrom != weekto) {
-                    x = 1;
-                } else {
-                    x = weekfrom;
-                }
-                for (x; x <= weekto; x++) {
-                    let mw = ("w" + x + "-m" + monthfrom)
-                    $(`.tbw td.${mw}`).show();
-                }
+            } else {
+                x = weekfrom;
+            }
+            for (x; x <= weekto; x++) {
+                let mw = ("w" + x + "-m" + monthfrom)
+                $(`.tbw td.${mw}`).show();
             }
         }
     }
+}
 
-    function setDownloadImage(url) {
-        let elem = `<a href="${url}" class="bi bi-download fw-bold ms-3" download></a>`
-        setTimeout(() => {
-            $('.gslide-title').append(elem)
-        }, 100);
-    }
+function setDownloadImage(url) {
+    let elem = `<a href="${url}" class="bi bi-download fw-bold ms-3" download></a>`
+    setTimeout(() => {
+        $('.gslide-title').append(elem)
+    }, 100);
+}
 
 
-    function fireHist(id_pekerjaan) {
-        let bsp = $('#basepath').val();
-        let wait = true
-        let type_color = ''
-        let text_color = ''
-        let timeline_item = ``
-        let content = ``
-        let icontype = "bi-chevron-down"
-        let ket = ""
-        setTimeout(() => {
-            if (wait) {
-                $('#loader>div').addClass('lds-ellipsis')
-                $('#loader').css('display', 'block');
-                $('html').css('overflow', 'hidden');
-            }
-        }, 30);
-        $.ajax({
-            url: bsp + "index.php/user/ajax_get_history",
-            type: "POST",
-            dataType: 'json',
-            data: {
-                id_pekerjaan: id_pekerjaan
-            },
-            success: function(object) {
-                wait = false
-                for (let index = 0; index < object.length; index++) {
-                    if (Object.hasOwnProperty.call(object, index)) {
-                        const element = object[index];
-                        switch (element.id_progress) {
-                            case '1':
-                                type_color = "bg-dark";
-                                text_color = "text-dark";
-                                break;
-                            case '2':
-                                type_color = "bg-danger";
-                                text_color = "text-danger";
-                                break;
-                            case '3':
-                                type_color = "bg-orange";
-                                text_color = "text-orange";
-                                break;
-                            case '4':
-                                type_color = "bg-warning";
-                                text_color = "text-warning";
-                                break;
-                            case '5':
-                                type_color = "mainbgc";
-                                text_color = "text-main";
-                                break;
-                        }
-                        if (element.keterangan != " " || element.keterangan != "") {
-                            ket = `<p style='white-space:pre-line;transform:translateY(-35px)' class="text-muted m-0">
+function fireHist(id_pekerjaan) {
+    let bsp = $('#basepath').val();
+    let wait = true
+    let type_color = ''
+    let text_color = ''
+    let timeline_item = ``
+    let content = ``
+    let icontype = "bi-chevron-down"
+    let ket = ""
+    setTimeout(() => {
+        if (wait) {
+            $('#loader>div').addClass('lds-ellipsis')
+            $('#loader').css('display', 'block');
+            $('html').css('overflow', 'hidden');
+        }
+    }, 30);
+    $.ajax({
+        url: bsp + "index.php/user/ajax_get_history",
+        type: "POST",
+        dataType: 'json',
+        data: {
+            id_pekerjaan: id_pekerjaan
+        },
+        success: function(object) {
+            wait = false
+            for (let index = 0; index < object.length; index++) {
+                if (Object.hasOwnProperty.call(object, index)) {
+                    const element = object[index];
+                    switch (element.id_progress) {
+                        case '1':
+                            type_color = "bg-dark";
+                            text_color = "text-dark";
+                            break;
+                        case '2':
+                            type_color = "bg-danger";
+                            text_color = "text-danger";
+                            break;
+                        case '3':
+                            type_color = "bg-orange";
+                            text_color = "text-orange";
+                            break;
+                        case '4':
+                            type_color = "bg-warning";
+                            text_color = "text-warning";
+                            break;
+                        case '5':
+                            type_color = "mainbgc";
+                            text_color = "text-main";
+                            break;
+                    }
+                    if (element.keterangan != " " || element.keterangan != "") {
+                        ket = `<p style='white-space:pre-line;transform:translateY(-35px)' class="text-muted m-0">
         ${element.keterangan}
       </p>`
-                        } else {
-                            ket = ''
-                        }
-                        if (index == 0) {
-                            timeline_item += `<li class="timeline-item mb-0">
+                    } else {
+                        ket = ''
+                    }
+                    if (index == 0) {
+                        timeline_item += `<li class="timeline-item mb-0">
     <span class="timeline-icon">
     <i class='bi bi-chevron-down fw-bold text-dark'></i>      
       </span>
@@ -468,8 +470,8 @@
       <p class='${text_color} progress-bg'>${element.nama_progress}</p>
       ${ket}
     </li>`
-                        } else if ((index + 1) == object.length) {
-                            timeline_item += `<li class="timeline-item mb-0">
+                    } else if ((index + 1) == object.length) {
+                        timeline_item += `<li class="timeline-item mb-0">
     <span class="timeline-icon">
     <div class="sonar-wrapper">
             <div class="sonar-emitter ${type_color}">
@@ -493,8 +495,8 @@
     transform: translateX(-3rem);"></li>
     
     `
-                        } else {
-                            timeline_item += `<li class="timeline-item mb-0">
+                    } else {
+                        timeline_item += `<li class="timeline-item mb-0">
     <span class="timeline-icon">
     <div class="sonar-wrapper">
             <div class="sonar-emitter ${type_color}">
@@ -508,13 +510,13 @@
     </li>
     
     `
-                        }
-
-
-                        icontype = `bi-circle-fill`
                     }
+
+
+                    icontype = `bi-circle-fill`
                 }
-                content = `
+            }
+            content = `
 
 <!-- Section: Timeline -->
 <div class="modal-header">
@@ -531,25 +533,25 @@ ${timeline_item}
 </section>
 <!-- Section: Timeline -->
 `
-                $('html').css('overflow', 'hidden');
-                $('#loader').css('display', 'none');
-                $('#loader>div').removeClass('lds-ellipsis')
+            $('html').css('overflow', 'hidden');
+            $('#loader').css('display', 'none');
+            $('#loader>div').removeClass('lds-ellipsis')
 
-                buildModal(content, function() {
-                    $('.modal-dialog').addClass('w-75')
-                })
-            },
-            error: function(arguments, status, error) {
-                wait = false;
-                $('html').css('overflow', 'overlay');
-                $('#loader').css('display', 'none');
-                $('#loader>div').removeClass('lds-ellipsis')
-                Swal.fire({
-                    icon: "warning",
-                    title: "Error",
-                    text: error
-                })
-            }
-        });
-    }
+            buildModal(content, function() {
+                $('.modal-dialog').addClass('w-75')
+            })
+        },
+        error: function(arguments, status, error) {
+            wait = false;
+            $('html').css('overflow', 'overlay');
+            $('#loader').css('display', 'none');
+            $('#loader>div').removeClass('lds-ellipsis')
+            Swal.fire({
+                icon: "warning",
+                title: "Error",
+                text: error
+            })
+        }
+    });
+}
 </script>
