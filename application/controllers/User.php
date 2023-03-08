@@ -150,12 +150,11 @@ class User extends CI_Controller
   {
     if ($this->session->userdata('is_login') == TRUE) {
       $id_pks = $this->session->userdata('id_pks');
-      $selected = "";
-      $selected = $this->input->get('selected');
+      $s_id_pekerjaan = $this->input->get('s_id_pekerjaan');
       $list_pekerjaan = $this->db->query("SELECT id_pekerjaan,uraian_pekerjaan FROM uraian_pekerjaan WHERE id_pks = $id_pks ORDER BY id_pekerjaan DESC")->result_array();
       $this->load->view('__partials/header.php', array('page_title' => 'Input Progress Lap. Investasi'));
       $this->load->view('__partials/menu.php');
-      $this->load->view('user/input_pengawasan_lap.php', array('list_pekerjaan' => $list_pekerjaan, 'selected' => $selected));
+      $this->load->view('user/input_pengawasan_lap.php', array('list_pekerjaan' => $list_pekerjaan, 's_id_pekerjaan' => $s_id_pekerjaan, 's_item' => $s_id_pekerjaan = $this->input->get('s_item')));
       $this->load->view('__partials/footer.php');
     } else {
       redirect('login', 'refresh');

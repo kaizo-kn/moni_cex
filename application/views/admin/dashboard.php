@@ -430,7 +430,11 @@
     function getPercentage(val1, val2, title) {
 
         let type_color = ""
-        const callback = () => ($(`#progress${val1}`).DataTable(), $(`#progress${val1}_filter`).addClass('mb-2 me-1'))
+        const callback = () => ($(`#progress${val1}`).DataTable({
+            "language": {
+                "url": "<?= base_url() ?>assets/vendor/datatables/js/indonesian.json"
+            }
+        }), $(`#progress${val1}_filter`).addClass('mb-2 me-1'))
         let persentase = 0;
         let wait = true
         setTimeout(() => {
