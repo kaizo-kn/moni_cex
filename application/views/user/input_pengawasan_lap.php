@@ -142,7 +142,7 @@
                 }, 300);
                 toastMixin.fire({
                     icon: 'error',
-                    animation: true,
+                    
                     title: error
                 });
             }

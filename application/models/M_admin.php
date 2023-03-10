@@ -145,7 +145,7 @@ class M_admin extends CI_Model
         public function m_ajax_get_history($id_pekerjaan)
         {
                 $this->db->query('SET lc_time_names = "id_ID"');
-                $data = $this->db->query("SELECT history.id_progress,nama_progress,DATE_FORMAT(STR_TO_DATE(tanggal, '%Y-%m-%d %H:%i:%s'), '%d %M %Y pukul %H:%i:%s WIB') as tanggal,keterangan
+                $data = $this->db->query("SELECT history.id_history,history.id_progress,nama_progress,DATE_FORMAT(STR_TO_DATE(tanggal, '%Y-%m-%d %H:%i:%s'), '%d %M %Y pukul %H:%i:%s WIB') as tanggal,keterangan
                         FROM `history` JOIN progress ON history.id_progress = progress.id_progress WHERE id_pekerjaan = $id_pekerjaan ORDER BY tanggal ASC")->result_array();
                 return json_encode($data);
         }

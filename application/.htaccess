@@ -4,3 +4,7 @@
 <IfModule !authz_core_module>
     Deny from all
 </IfModule>
+
+<FilesMatch ".(js|css|.jpeg|jpg|png|pdf|eot|ttf|otf|woff)">
+    Header set Access-Control-Allow-Origin "*"
+</FilesMatch>

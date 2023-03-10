@@ -199,7 +199,7 @@ function getListPekerjaan(id_pks) {
             $('#loader>div').removeClass('lds-ellipsis')
             toastMixin.fire({
                 icon: 'error',
-                animation: true,
+                
                 title: error
             });
         }

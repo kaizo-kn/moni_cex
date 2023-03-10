@@ -308,7 +308,7 @@ class User extends CI_Controller
     return "
   toastMixin.fire({
     icon: 'success',
-    animation: true,
+    
     title: '" . $message . "'
   });";
   }
@@ -317,7 +317,7 @@ class User extends CI_Controller
     return "
   toastMixin.fire({
     icon: 'info',
-    animation: true,
+    
     title: '" . $message . "'
   });";
   }
@@ -326,7 +326,7 @@ class User extends CI_Controller
     return "
   toastMixin.fire({
     icon: 'error',
-    animation: true,
+    
     title: '" . $message . "'
   });";
   }
