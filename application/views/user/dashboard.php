@@ -626,7 +626,6 @@ function getPercentage(val1, val2, id_pks, title) {
             id_pks: id_pks
         },
         success: function(object) {
-            console.log(object)
             wait = false
             for (const key in object) {
                 if (Object.hasOwnProperty.call(object, key)) {
