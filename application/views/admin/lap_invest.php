@@ -223,7 +223,7 @@
 <script>
 function displayDoc(val) {
     $('#modalContent').removeClass('d-none')
-    let callback = () => console.log()
+    let callback = () => tanggal)
     let content = `
         <div class="modal-header"><div class="modal-title">Dokumen</div>
         <button onclick="$('#staticBackdrop').modal('toggle')" type="button" class="border-0 text-secondary fw-bold fs-4 bi bi-x float-end">

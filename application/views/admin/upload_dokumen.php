@@ -39,7 +39,7 @@
                         </td>
                         <td class="control-group">
                             <select
-                                onchange="$(`#list_pekerjaan-selectized`).prop('required',false);console.log($(this).val())"
+                                onchange="$(`#list_pekerjaan-selectized`).prop('required',false)"
                                 name="id_pekerjaan" id="list_pekerjaan" class="" required>
                                 <option disabled selected value="">Pilih Uraian Pekerjaan</option>
                             </select>

@@ -5,7 +5,8 @@ class M_admin extends CI_Model
 {
         public function m_dashboard()
         {
-                return  $this->db->query("SELECT nama_progress, COUNT(uraian_pekerjaan.id_progress) AS jumlah FROM uraian_pekerjaan RIGHT JOIN progress ON uraian_pekerjaan.id_progress = progress.id_progress GROUP BY uraian_pekerjaan.id_progress;")->result_array();
+                $this->db->query("SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));");
+                return  $this->db->query("SELECT nama_progress, COUNT(uraian_pekerjaan.id_progress) AS jumlah FROM uraian_pekerjaan RIGHT JOIN progress ON uraian_pekerjaan.id_progres = progress.id_progress GROUP BY uraian_pekerjaan.id_progress;")->result_array();
         }
 
 
@@ -273,29 +274,29 @@ class M_admin extends CI_Model
         {
                 $search = array(
                         '@<script[^>]*?>.*?</script>@si',
-// Menghapus script tag
-'@<[ /!]*?[^<>]*?>@si',
-    // Menghapus tag HTML
-    '@<style[^>]*?>.*?</style>@siU',
-        // Menghapus style tag
-        '/`/',
-        "/'/",
-        '/"/'
-        );
-        $output = preg_replace($search, '', $input);
-        $output = htmlspecialchars($output, ENT_QUOTES, 'UTF-8');
-        return $output;
+                        // Menghapus script tag
+                        '@<[ /!]*?[^<>]*?>@si',
+                        // Menghapus tag HTML
+                        '@<style[^>]*?>.*?</style>@siU',
+                        // Menghapus style tag
+                        '/`/',
+                        "/'/",
+                        '/"/'
+                );
+                $output = preg_replace($search, '', $input);
+                $output = htmlspecialchars($output, ENT_QUOTES, 'UTF-8');
+                return $output;
         }
 
 
         public function m_display_input_pekerjaan()
         {
-        return $this->db->query('SELECT id_pks,nama_pks from daftar_nama_pks where id_pks > 0 order by nama_pks
+                return $this->db->query('SELECT id_pks,nama_pks from daftar_nama_pks where id_pks > 0 order by nama_pks
         asc')->result_array();
         }
         public function m_display_hapus_pekerjaan()
         {
-        return $this->db->query('SELECT up.id_progress, up.id_pekerjaan,up.uraian_pekerjaan,nama_progress,nama_pks,
+                return $this->db->query('SELECT up.id_progress, up.id_pekerjaan,up.uraian_pekerjaan,nama_progress,nama_pks,
         max(persentase) AS persentase FROM `uraian_pekerjaan` AS up JOIN daftar_nama_pks AS dp ON up.id_pks = dp.id_pks
         JOIN progress ON up.id_progress = progress.id_progress JOIN persentase_progress ON up.id_pekerjaan =
         persentase_progress.id_pekerjaan GROUP BY id_pekerjaan;')->result_array();
@@ -303,36 +304,31 @@ class M_admin extends CI_Model
 
         public function m_hapus_pekerjaan($id_pekerjaan)
         {
-        $in = implode(",", $id_pekerjaan);
-        $res = $this->db->query("SELECT id_pekerjaan,singkatan FROM `uraian_pekerjaan` JOIN daftar_nama_pks ON
+                $in = implode(",", $id_pekerjaan);
+                $res = $this->db->query("SELECT id_pekerjaan,singkatan FROM `uraian_pekerjaan` JOIN daftar_nama_pks ON
         uraian_pekerjaan.id_pks = daftar_nama_pks.id_pks WHERE `id_pekerjaan` IN
         ($in)")->result_array();
-        foreach ($res as $key => $value) {
-        if ($value['singkatan'] != "" && $value['id_pekerjaan'] != "") {
-        try {
-        $this->deleteDirectory(FCPATH . "media/upload/dokumen/" . $value['singkatan'] . "/" . $value['id_pekerjaan']);
-        } catch (\Throwable $th) {
-        }
-        try {
-        $this->deleteDirectory(FCPATH . "media/upload/bukti/" . $value['singkatan'] . "/" . $value['id_pekerjaan']);
-        } catch (\Throwable $th) {
-        }
-        try {
-        $this->deleteDirectory(FCPATH . "media/upload/dokumentasi/" . $value['singkatan'] . "/" .
-        $value['id_pekerjaan']);
-        } catch (\Throwable $th) {
-        }
-        }
-        }
-        return $this->db->query("DELETE FROM `uraian_pekerjaan` WHERE id_pekerjaan IN ($in)");
+                foreach ($res as $key => $value) {
+                        if ($value['singkatan'] != "" && $value['id_pekerjaan'] != "") {
+                                try {
+                                        $this->deleteDirectory(FCPATH . "media/upload/dokumen/" . $value['singkatan'] . "/" . $value['id_pekerjaan']);
+                                } catch (\Throwable $th) {
+                                }
+                                try {
+                                        $this->deleteDirectory(FCPATH . "media/upload/bukti/" . $value['singkatan'] . "/" . $value['id_pekerjaan']);
+                                } catch (\Throwable $th) {
+                                }
+                                try {
+                                        $this->deleteDirectory(FCPATH . "media/upload/dokumentasi/" . $value['singkatan'] . "/" .
+                                                $value['id_pekerjaan']);
+                                } catch (\Throwable $th) {
+                                }
+                        }
+                }
+                return $this->db->query("DELETE FROM `uraian_pekerjaan` WHERE id_pekerjaan IN ($in)");
         }
 
-        public function log($arg)
-        {
-        echo "<script>
-        console.log($arg)
-        </script>";
-        }
-        }
+    
+}
         /* End of file M_user.php */
         /* Location: ./application/models/M_user.php */

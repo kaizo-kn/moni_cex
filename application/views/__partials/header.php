@@ -4,6 +4,7 @@
 <head>
     <meta charset=" utf-8">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
 
     <title><?= $page_title ?> - Moni Cex</title>
     <meta content="" name="description">

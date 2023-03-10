@@ -403,7 +403,6 @@ ALTER TABLE `user`
 --
 -- Metadata
 --
-USE `phpmyadmin`;
 
 --
 -- Metadata for table daftar_nama_pks
