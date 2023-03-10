@@ -6,7 +6,7 @@ class M_admin extends CI_Model
         public function m_dashboard()
         {
                 $this->db->query("SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));");
-                return  $this->db->query("SELECT nama_progress, COUNT(uraian_pekerjaan.id_progress) AS jumlah FROM uraian_pekerjaan RIGHT JOIN progress ON uraian_pekerjaan.id_progres = progress.id_progress GROUP BY uraian_pekerjaan.id_progress;")->result_array();
+                return  $this->db->query("SELECT nama_progress, COUNT(uraian_pekerjaan.id_progress) AS jumlah FROM uraian_pekerjaan RIGHT JOIN progress ON uraian_pekerjaan.id_progress = progress.id_progress GROUP BY uraian_pekerjaan.id_progress;")->result_array();
         }
 
 
